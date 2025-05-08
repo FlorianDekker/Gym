@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Workout Selector</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    label, select {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    select {
+      padding: 5px;
+      font-size: 1em;
+    }
+
     .workout-section {
       display: none;
-      margin-top: 20px;
+      margin-top: 25px;
+    }
+
+    .workout-section h3 {
+      margin-bottom: 15px;
+    }
+
+    .exercise {
+      margin-bottom: 15px;
+    }
+
+    .exercise label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      font-size: 1em;
+    }
+
+    @media (max-width: 600px) {
+      input[type="number"] {
+        width: 50px;
+      }
     }
   </style>
 </head>
@@ -26,68 +84,63 @@
     </select>
   </form>
 
-  <!-- Push 1 Section -->
+  <!-- Example Workout Section -->
   <div id="push1" class="workout-section">
-    <h3>Push 1 Workout</h3>
-    Bench Press: <input type="number"><input type="number"><input type="number"><br>
-    Machine Shoulder Press: <input type="number"><input type="number"><input type="number"><br>
-    Dips: <input type="number"><input type="number"><input type="number"><br>
-    Eccentric Skull Crushers: <input type="number"><input type="number"><input type="number"><br>
-    Egyptian Lateral Raise: <input type="number"><input type="number"><input type="number"><br>
-    Cable Tricep Kickback: <input type="number"><input type="number"><input type="number"><br>
+    <h3>Push 1</h3>
+    <div class="exercise"><label>Bench Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Machine Shoulder Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Dips:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Eccentric Skull Crushers:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Egyptian Lateral Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Cable Tricep Kickback:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
   </div>
-  
-  <!-- Pull 1 Section -->
+
   <div id="pull1" class="workout-section">
-    <h3>Pull 1 Workout</h3>
-    Weighted Pull-Up: <input type="number"><input type="number"><input type="number"><br>
-    Seated Cable Row: <input type="number"><input type="number"><input type="number"><br>
-    Cable Pullover: <input type="number"><input type="number"><input type="number"><br>
-    Hammer Curl: <input type="number"><input type="number"><input type="number"><br>
-    Incline Dumbbell Curl: <input type="number"><input type="number"><input type="number"><br>
+    <h3>Pull 1</h3>
+    <div class="exercise"><label>Weighted Pull-Up:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Seated Cable Row:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Cable Pullover:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Hammer Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Incline Dumbbell Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
   </div>
-  
-  <!-- Legs 1 -->
+
   <div id="legs1" class="workout-section">
     <h3>Legs 1</h3>
-    <div class="exercise">Squat: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Romanian Deadlift: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Single Leg Press: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Leg Extension: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Seated Leg Curls: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Standing Calf Raise: <input type="number"><input type="number"><input type="number"></div>
+    <div class="exercise"><label>Squat:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Romanian Deadlift:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Single Leg Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Leg Extension:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Seated Leg Curls:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Standing Calf Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
   </div>
-  
-  <!-- Legs 2 -->
+
   <div id="legs2" class="workout-section">
     <h3>Legs 2</h3>
-    <div class="exercise">Deadlift: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Hack Squat: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Single-Leg Hip Thrust: <input type="number"><input type="number"></div>
-    <div class="exercise">Single-Leg Calf Raise: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Weighted L-Sit Hold: <input type="number"><input type="number"><input type="number"></div>
+    <div class="exercise"><label>Deadlift:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Hack Squat:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Single-Leg Hip Thrust:</label><div class="input-row"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Single-Leg Calf Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Weighted L-Sit Hold:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
   </div>
 
-  <!-- Push 2 -->
   <div id="push2" class="workout-section">
     <h3>Push 2</h3>
-    <div class="exercise">Overhead Press: <input type="number"><input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Close-Grip Bench Press: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Cable Crossover: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Overhead Tricep Ext: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Lateral Raise 21’s: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Neck Flexion/Extension: <input type="number"><input type="number"><input type="number"></div>
+    <div class="exercise"><label>Overhead Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Close-Grip Bench Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Cable Crossover:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Overhead Tricep Ext:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Lateral Raise 21’s:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Neck Flexion/Extension:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
   </div>
 
-  <!-- Pull 2 -->
   <div id="pull2" class="workout-section">
     <h3>Pull 2</h3>
-    <div class="exercise">Omni-Grip Lat Pulldown: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Chest-Supported Row: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Rope Facepull: <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Incline Dumbbell Shrug (Optional): <input type="number"><input type="number"><input type="number"></div>
-    <div class="exercise">Reverse Pec Deck: <input type="number"><input type="number"></div>
-    <div class="exercise">Pronated/Supinated Curl: <input type="number"><input type="number"><input type="number"></div>
+    <div class="exercise"><label>Omni-Grip Lat Pulldown:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Chest-Supported Row:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Rope Facepull:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Incline Dumbbell Shrug (Optional):</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Reverse Pec Deck:</label><div class="input-row"><input type="number"><input type="number"></div></div>
+    <div class="exercise"><label>Pronated/Supinated Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
   </div>
 
   <script>
