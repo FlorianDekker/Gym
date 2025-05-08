@@ -60,6 +60,11 @@
       font-size: 1em;
     }
 
+    #submitButton {
+      margin-top: 20px;
+      display: none;
+    }
+
     @media (max-width: 600px) {
       input[type="number"] {
         width: 50px;
@@ -82,81 +87,87 @@
       <option value="pull2">Pull 2</option>
       <option value="legs2">Legs 2</option>
     </select>
+
+    <!-- Workout Sections -->
+    <div id="push1" class="workout-section">
+      <h3>Push 1</h3>
+      <div class="exercise"><label>Bench Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Machine Shoulder Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Dips:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Eccentric Skull Crushers:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Egyptian Lateral Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Cable Tricep Kickback:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    </div>
+
+    <div id="pull1" class="workout-section">
+      <h3>Pull 1</h3>
+      <div class="exercise"><label>Weighted Pull-Up:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Seated Cable Row:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Cable Pullover:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Hammer Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Incline Dumbbell Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    </div>
+
+    <div id="legs1" class="workout-section">
+      <h3>Legs 1</h3>
+      <div class="exercise"><label>Squat:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Romanian Deadlift:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Single Leg Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Leg Extension:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Seated Leg Curls:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Standing Calf Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    </div>
+
+    <div id="push2" class="workout-section">
+      <h3>Push 2</h3>
+      <div class="exercise"><label>Overhead Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Close-Grip Bench Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Cable Crossover:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Overhead Tricep Ext:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Lateral Raise 21’s:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Neck Flexion/Extension:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    </div>
+
+    <div id="pull2" class="workout-section">
+      <h3>Pull 2</h3>
+      <div class="exercise"><label>Omni-Grip Lat Pulldown:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Chest-Supported Row:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Rope Facepull:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Incline Dumbbell Shrug (Optional):</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Reverse Pec Deck:</label><div class="input-row"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Pronated/Supinated Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    </div>
+
+    <div id="legs2" class="workout-section">
+      <h3>Legs 2</h3>
+      <div class="exercise"><label>Deadlift:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Hack Squat:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Single-Leg Hip Thrust:</label><div class="input-row"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Single-Leg Calf Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+      <div class="exercise"><label>Weighted L-Sit Hold:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
+    </div>
+
+    <!-- Submit Button -->
+    <div id="submitButton">
+      <button type="submit">Submit</button>
+    </div>
   </form>
-
-  <!-- Example Workout Section -->
-  <div id="push1" class="workout-section">
-    <h3>Push 1</h3>
-    <div class="exercise"><label>Bench Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Machine Shoulder Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Dips:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Eccentric Skull Crushers:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Egyptian Lateral Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Cable Tricep Kickback:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-  </div>
-
-  <div id="pull1" class="workout-section">
-    <h3>Pull 1</h3>
-    <div class="exercise"><label>Weighted Pull-Up:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Seated Cable Row:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Cable Pullover:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Hammer Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Incline Dumbbell Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-  </div>
-
-  <div id="legs1" class="workout-section">
-    <h3>Legs 1</h3>
-    <div class="exercise"><label>Squat:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Romanian Deadlift:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Single Leg Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Leg Extension:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Seated Leg Curls:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Standing Calf Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-  </div>
-
-  <div id="legs2" class="workout-section">
-    <h3>Legs 2</h3>
-    <div class="exercise"><label>Deadlift:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Hack Squat:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Single-Leg Hip Thrust:</label><div class="input-row"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Single-Leg Calf Raise:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Weighted L-Sit Hold:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-  </div>
-
-  <div id="push2" class="workout-section">
-    <h3>Push 2</h3>
-    <div class="exercise"><label>Overhead Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Close-Grip Bench Press:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Cable Crossover:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Overhead Tricep Ext:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Lateral Raise 21’s:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Neck Flexion/Extension:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-  </div>
-
-  <div id="pull2" class="workout-section">
-    <h3>Pull 2</h3>
-    <div class="exercise"><label>Omni-Grip Lat Pulldown:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Chest-Supported Row:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Rope Facepull:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Incline Dumbbell Shrug (Optional):</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Reverse Pec Deck:</label><div class="input-row"><input type="number"><input type="number"></div></div>
-    <div class="exercise"><label>Pronated/Supinated Curl:</label><div class="input-row"><input type="number"><input type="number"><input type="number"></div></div>
-  </div>
-
-  <div class="workout-section">
-    <button>Submit</button>
-  </div>
 
   <script>
     const selector = document.getElementById('WorkoutSelection');
     const sections = document.querySelectorAll('.workout-section');
+    const submitButton = document.getElementById('submitButton');
 
     selector.addEventListener('change', function () {
       sections.forEach(section => section.style.display = 'none');
       const selected = this.value;
       const sectionToShow = document.getElementById(selected);
+
       if (sectionToShow) {
         sectionToShow.style.display = 'block';
+        submitButton.style.display = 'block';
+      } else {
+        submitButton.style.display = 'none';
       }
     });
   </script>
