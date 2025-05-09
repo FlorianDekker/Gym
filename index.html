@@ -27,7 +27,7 @@
       <h3>Push 1</h3>
 
       <div class="exercise-card">
-        <div class="exercise-header">Bench Press</div>
+        <div class="exercise-header">Bench Press</div><button class="add-set">+</button>
         <div class="set-row"><div><input type="number" placeholder="reps"></div><div><input type="number" placeholder="kg"></div></div>
         <div class="set-row"><div><input type="number" placeholder="reps"></div><div><input type="number" placeholder="kg"></div></div>
         <div class="set-row"><div><input type="number" placeholder="reps"></div><div><input type="number" placeholder="kg"></div></div>
@@ -295,21 +295,45 @@
   </form>
 
   <script>
-    const selector = document.getElementById('WorkoutSelection');
-    const sections = document.querySelectorAll('.workout-section');
-    const submitButton = document.getElementById('submitButton');
+  // Show/hide sections
+  const selector = document.getElementById('WorkoutSelection');
+  const sections = document.querySelectorAll('.workout-section');
+  const submitButton = document.getElementById('submitButton');
 
-    // Show/hide sections
-    selector.addEventListener('change', () => {
-      sections.forEach(s => s.style.display = 'none');
-      submitButton.style.display = 'none';
-      const sel = document.getElementById(selector.value);
-      if (sel) {
-        sel.style.display = 'block';
-        submitButton.style.display = 'block';
-      }
+  selector.addEventListener('change', () => {
+    sections.forEach(s => s.style.display = 'none');
+    submitButton.style.display = 'none';
+    const sel = document.getElementById(selector.value);
+    if (sel) {
+      sel.style.display = 'block';
+      submitButton.style.display = 'block';
+    }
+  });
+
+  // Helper to make one set-row
+  function makeSetRow() {
+    const row = document.createElement('div');
+    row.classList.add('set-row');
+    ['reps', 'kg'].forEach(ph => {
+      const wrap = document.createElement('div');
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.placeholder = ph;
+      wrap.appendChild(input);
+      row.appendChild(wrap);
     });
-  </script>
+    return row;
+  }
+
+  // Attach '+’ handlers to each exercise-card
+  document.querySelectorAll('.exercise-card').forEach(card => {
+    const btn = card.querySelector('.add-set');
+    btn.addEventListener('click', () => {
+      const newRow = makeSetRow();
+      card.appendChild(newRow);
+    });
+  });
+</script>
 
 </body>
 </html>
