@@ -252,6 +252,14 @@
         card.appendChild(makeSetRow());
       });
     });
+
+    document.querySelectorAll('.exercise-card').forEach(card => {
+      const btn = card.querySelector('.remove-set');
+      btn.addEventListener('click', () => {
+        const row = btn.closest('.set-row');
+        row.remove();
+      });
+    });
   </script>
 
 </body>
