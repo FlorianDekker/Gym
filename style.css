@@ -19,10 +19,30 @@ h2, h3 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.exercise-header-wrapper {
+  position: relative;
+  padding-right: 32px;  /* ensure space for the button */
+}
+
 .exercise-header {
   font-weight: bold;
   font-size: 1.1em;
   margin-bottom: 12px;
+}
+
+.add-set {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #007BFF;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2em;
+  line-height: 28px;
+  cursor: pointer;
 }
 
 .set-row {
