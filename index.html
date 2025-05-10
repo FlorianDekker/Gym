@@ -829,7 +829,8 @@ dataButton.addEventListener('click', () => {
   dataSection.style.display = 'block';
 
   // Fetch exercises (hardcoded for now, API later)
-  fetch('/exercises.json')  // or an endpoint you’ll create
+  fetch('https://gym-backend.onrender.com/exercises.json')
+  // or an endpoint you’ll create
     .then(res => res.json())
     .then(exercises => {
       exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
