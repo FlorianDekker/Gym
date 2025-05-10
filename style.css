@@ -74,12 +74,12 @@ h2, h3 {
 .remove-card {
   position: absolute;
   top: 0;
-  right: 35px;
+  right: 0;
   width: 28px;
   height: 28px;
   border: none;
-  background: #ff0000;
-  color: #fff;
+  background: transparent;
+  color: #939393;
   border-radius: 50%;
   font-size: 1.2em;
   line-height: 28px;
