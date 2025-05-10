@@ -30,11 +30,11 @@
         <div class="exercise-header-wrapper">
           <div class="exercise-header">Bench Press</div>
           <button type="button" class="remove-card">-</button>
-          <button type="button" class="add-set">+</button>
         </div>
         <div class="set-row"><div><input type="number" placeholder="reps"></div><div><input type="number" placeholder="kg"></div><button type="button" class="remove-set">-</button></div>
         <div class="set-row"><div><input type="number" placeholder="reps"></div><div><input type="number" placeholder="kg"></div><button type="button" class="remove-set">-</button></div>
         <div class="set-row"><div><input type="number" placeholder="reps"></div><div><input type="number" placeholder="kg"></div><button type="button" class="remove-set">-</button></div>
+        <button type="button" class="add-set">+</button>
       </div>
 
       <div class="exercise-card">
@@ -706,7 +706,8 @@
       const btn = card.querySelector('.add-set');
       if (!btn) return;
       btn.addEventListener('click', () => {
-        card.appendChild(makeSetRow());
+        const newRow = makeSetRow();
+        btn.before(newRow);
       });
     });
 

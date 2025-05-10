@@ -30,20 +30,34 @@ h2, h3 {
   margin-bottom: 12px;
 }
 
+/* override the old absolute positioning */
 .add-set {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 28px;
-  height: 28px;
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
   border: none;
-  background: #007BFF;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 1.2em;
-  line-height: 28px;
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color .2s;
 }
+.add-set:hover {
+  background-color: #e0e0e0;
+}
+
+/* ensure the last row still aligns everything nicely */
+.set-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
 
 .remove-set {
   width: 28px;
@@ -70,12 +84,6 @@ h2, h3 {
   font-size: 1.2em;
   line-height: 28px;
   cursor: pointer;
-}
-
-.set-row {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 10px;
 }
 
 .set-row input {
