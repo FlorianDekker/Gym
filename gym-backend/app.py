@@ -4,7 +4,7 @@ import psycopg2
 import os
 
 app = Flask(__name__)
-CORS(app)  # allows frontend access
+CORS(app, origins="https://gym-pc00.onrender.com/")  # allows frontend access
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
@@ -29,7 +29,7 @@ def get_exercises():
 @app.route("/submit", methods=["POST"])
 def submit_workout():
     data = request.get_json()
-    print("Received data:", data) 
+    print("Received data:", data, flush=True) 
 
     workout_name = data.get("workout")
     date = data.get("date")
