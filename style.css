@@ -1,87 +1,101 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
-  padding: 20px;
-  max-width: 600px;
-  margin: auto;
-}
-
-h2, h3 {
-  color: #333;
-}
-
+/* Container & card basics */
 .exercise-card {
-  background-color: #fff;
+  background: #fff;
   border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   padding: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.exercise-header-wrapper {
+  margin: 16px 0;
   position: relative;
-  padding-right: 32px;  /* ensure space for the button */
 }
 
-.exercise-header {
-  font-weight: bold;
-  font-size: 1.1em;
+/* Header wrapper: flex for title + buttons */
+.exercise-header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 12px;
 }
 
-.add-set {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 28px;
-  height: 28px;
-  border: none;
-  background: #007BFF;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 1.2em;
-  line-height: 28px;
-  cursor: pointer;
+/* Exercise title */
+.exercise-header {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
 }
 
-.remove-set {
-  width: 28px;
-  height: 28px;
+/* Add/remove buttons in header */
+.exercise-header-wrapper button {
   border: none;
-  background: #ff0000;
+  background: #007aff;
   color: #fff;
+  width: 28px; height: 28px;
   border-radius: 50%;
-  font-size: 1.2em;
-  line-height: 28px;
+  font-size: 1.2rem;
+  line-height: 1;
   cursor: pointer;
+  margin-left: 8px;
+}
+.exercise-header-wrapper .remove-card {
+  background: #ff3b30;
 }
 
-.remove-card {
-  position: absolute;
-  top: 0;
-  right: 35px;
-  width: 28px;
-  height: 28px;
-  border: none;
-  background: #ff0000;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 1.2em;
-  line-height: 28px;
-  cursor: pointer;
-}
-
+/* Set rows container */
 .set-row {
   display: flex;
+  align-items: center;
   gap: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
+/* Inputs in rows */
+.set-row div {
+  flex: 1;
+}
 .set-row input {
-  width: 100px;
+  width: 100%;
   padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* Remove‑set button */
+.set-row .remove-set {
+  border: none;
+  background: #ff3b30;
+  color: #fff;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Placeholder “add-card” area */
+.exercise-card .add-card {
+  display: inline-block;
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  color: #007aff;
+  font-size: 1.5rem;
+  background: #fafafa;
+  cursor: pointer;
+  margin: 16px 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .exercise-header {
+    font-size: 1rem;
+  }
+  .exercise-header-wrapper button {
+    width: 24px; height: 24px;
+    font-size: 1rem;
+  }
+  .set-row {
+    flex-wrap: wrap;
+  }
 }
