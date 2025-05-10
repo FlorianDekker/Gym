@@ -671,7 +671,7 @@
 
         
     <div id="submitButton">
-      <button type="submit">Finish Workout</button>
+      <button id="submitWorkout" type="submit">Finish Workout</button>
     </div>
   </div>
 
@@ -818,7 +818,7 @@
       });
     });
 
-    const dataButton = document.getElementById('dataButton');
+const dataButton = document.getElementById('dataButton');
 const dataSection = document.getElementById('dataSection');
 const dataBack = document.getElementById('dataBack');
 const exerciseDropdown = document.getElementById('exerciseDropdown');
@@ -847,6 +847,67 @@ dataBack.addEventListener('click', () => {
   dataSection.style.display = 'none';
   chooser.style.display = 'block';
 });
+
+document.getElementById('submitWorkout').addEventListener('click', () => {
+  const workoutName = document.getElementById('WorkoutSelection').value;
+  if (!workoutName) {
+    alert("Please select a workout first.");
+    return;
+  }
+
+  const section = document.getElementById(workoutName);
+  const exerciseCards = section.querySelectorAll('.exercise-card');
+
+  const exercises = [];
+
+  exerciseCards.forEach(card => {
+    const name = card.querySelector('.exercise-header');
+    if (!name) return;
+
+    const sets = [];
+    card.querySelectorAll('.set-row').forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      const reps = parseInt(inputs[0].value);
+      const weight = parseFloat(inputs[1].value);
+      if (!isNaN(reps) && !isNaN(weight)) {
+        sets.push({ reps, weight });
+      }
+    });
+
+    exercises.push({
+      name: name.textContent.trim(),
+      sets: sets
+    });
+  });
+
+  const payload = {
+    workout: workoutName,
+    date: new Date().toISOString().slice(0, 10),
+    exercises: exercises
+  };
+
+  fetch('https://gym-backend.onrender.com/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("Workout submitted successfully!");
+      } else {
+        alert("Error: " + data.error);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Submission failed.");
+    });
+});
+
+
 
   </script>
 

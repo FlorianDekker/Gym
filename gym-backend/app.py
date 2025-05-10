@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 import psycopg2
 import os
@@ -26,6 +26,30 @@ def get_exercises():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/submit", methods=["POST"])
+def submit_workout():
+    data = request.get_json()
+
+    workout_name = data.get("workout")
+    date = data.get("date")
+    exercises = data.get("exercises")
+
+    # Just print and return for preview
+    print("Previewing submission:")
+    print("Workout name:", workout_name)
+    print("Date:", date)
+    print("Exercises:", exercises)
+
+    return jsonify({
+        "success": True,
+        "preview": {
+            "workout": workout_name,
+            "date": date,
+            "exercises": exercises
+        }
+    })
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host="0.0.0.0", port=port)
+
