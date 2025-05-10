@@ -9,25 +9,31 @@
 </head>
 <body>
   <div id="chooser">
-  <h2>Select Your Workout</h2>
-  <div class="select-button-wrapper">
-    <!-- The visible “button” -->
-    <button type="button" id="fake-select" class="btn btn-select">
-      <span id="fake-select-text">Choose workout</span>
-      <i class="fas fa-chevron-down"></i>
-    </button>
-    <!-- The real select, visually hidden but still in the DOM -->
-    <select id="WorkoutSelection" aria-hidden="true" tabindex="-1">
-      <option value="">--Select--</option>
-      <option value="push1">Push 1</option>
-      <option value="pull1">Pull 1</option>
-      <option value="legs1">Legs 1</option>
-      <option value="push2">Push 2</option>
-      <option value="pull2">Pull 2</option>
-      <option value="legs2">Legs 2</option>
-    </select>
+    <h2>Select Your Workout</h2>
+    <div class="select-button-wrapper">
+      <!-- The visible “button” -->
+      <button type="button" id="fake-select" class="btn btn-select">
+        <span id="fake-select-text">Choose workout</span>
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      <!-- The real select, visually hidden but still in the DOM -->
+      <select id="WorkoutSelection" aria-hidden="true" tabindex="-1">
+        <option value="">--Select--</option>
+        <option value="push1">Push 1</option>
+        <option value="pull1">Pull 1</option>
+        <option value="legs1">Legs 1</option>
+        <option value="push2">Push 2</option>
+        <option value="pull2">Pull 2</option>
+        <option value="legs2">Legs 2</option>
+      </select>
+    </div>
   </div>
-</div>
+
+  <div id="dataButtonWrapper">
+    <button id="dataButton" class="btn btn-data">
+      <i class="fas fa-database"></i> Data
+    </button>
+  </div>
     
 
   <div id="workouts" style="display:none">
@@ -669,6 +675,15 @@
     </div>
   </div>
 
+  <div id="dataSection" style="display:none">
+    <button id="dataBack" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2>All Exercises</h2>
+    <select id="exerciseDropdown">
+      <option value="">--Select Exercise--</option>
+      <!-- Options will be added dynamically from JS -->
+    </select>
+  </div>
+
 
   <script>
     const chooser = document.getElementById('chooser');
@@ -802,6 +817,36 @@
         card.remove();
       });
     });
+
+    const dataButton = document.getElementById('dataButton');
+const dataSection = document.getElementById('dataSection');
+const dataBack = document.getElementById('dataBack');
+const exerciseDropdown = document.getElementById('exerciseDropdown');
+
+dataButton.addEventListener('click', () => {
+  chooser.style.display = 'none';
+  workoutsContainer.style.display = 'none';
+  dataSection.style.display = 'block';
+
+  // Fetch exercises (hardcoded for now, API later)
+  fetch('/exercises.json')  // or an endpoint you’ll create
+    .then(res => res.json())
+    .then(exercises => {
+      exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
+      exercises.forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e.id;
+        opt.textContent = `${e.name} (${e.muscle_group})`;
+        exerciseDropdown.appendChild(opt);
+      });
+    });
+});
+
+dataBack.addEventListener('click', () => {
+  dataSection.style.display = 'none';
+  chooser.style.display = 'block';
+});
+
   </script>
 
 </body>
