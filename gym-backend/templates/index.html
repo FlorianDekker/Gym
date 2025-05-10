@@ -911,6 +911,23 @@ fetch('https://gym-backend.onrender.com/submit', {
     .then(data => {
       if (data.success) {
         alert("Workout submitted successfully!");
+        // Reset inputs
+        exerciseCards.forEach(card => {
+          // Remove any dynamically added cards
+          if (!card.querySelector('.exercise-header')) {
+            card.remove();
+            return;
+          }
+
+          // Clear inputs in remaining cards
+          card.querySelectorAll('input').forEach(input => input.value = '');
+        });
+
+        // Reset dropdown
+        document.getElementById('WorkoutSelection').value = '';
+        chooser.style.display = 'block';
+        workoutsContainer.style.display = 'none';
+
       } else {
         alert("Error: " + data.error);
       }
