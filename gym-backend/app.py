@@ -4,10 +4,13 @@ import psycopg2
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # allows frontend access
 
-# Use the environment variable provided by Render
-DATABASE_URL = os.environ.get("DATABASE_URL", "your_render_db_url_here")
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 @app.route("/exercises.json")
 def get_exercises():
@@ -24,5 +27,4 @@ def get_exercises():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    # Make sure to listen on all interfaces, not just localhost
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(debug=True)
