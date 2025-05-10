@@ -29,6 +29,7 @@ def get_exercises():
 @app.route("/submit", methods=["POST"])
 def submit_workout():
     data = request.get_json()
+    print("Received data:", data) 
 
     workout_name = data.get("workout")
     date = data.get("date")
