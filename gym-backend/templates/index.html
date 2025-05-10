@@ -848,7 +848,9 @@ dataBack.addEventListener('click', () => {
   chooser.style.display = 'block';
 });
 
+document.addEventListener("DOMContentLoaded", () => {
 document.getElementById('submitWorkout').addEventListener('click', () => {
+  console.log("Submit clicked!");
   const workoutName = document.getElementById('WorkoutSelection').value;
   if (!workoutName) {
     alert("Please select a workout first.");
@@ -906,6 +908,7 @@ document.getElementById('submitWorkout').addEventListener('click', () => {
       alert("Submission failed.");
     });
 });
+}
 
 
 
