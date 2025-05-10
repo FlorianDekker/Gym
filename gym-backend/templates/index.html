@@ -888,13 +888,25 @@ document.getElementById('submitWorkout').addEventListener('click', () => {
     exercises: exercises
   };
 
-  fetch('https://gym-backend.onrender.com/submit', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  })
+  // Preview the data
+const summary = exercises.map(ex => {
+  const sets = ex.sets.map(s => `${s.reps} reps × ${s.weight} kg`).join(', ');
+  return `${ex.name}: ${sets}`;
+}).join('\n');
+
+if (!confirm(`Submit this workout?\n\n${summary}`)) {
+  return; // Cancel submission
+}
+
+// If confirmed, send to backend
+fetch('https://gym-backend.onrender.com/submit', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(payload)
+})
+
     .then(res => res.json())
     .then(data => {
       if (data.success) {
