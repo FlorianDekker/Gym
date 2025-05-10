@@ -7,6 +7,14 @@ body {
   margin: auto;
 }
 
+.visually-hidden {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 h2, h3 {
   color: #333;
 }
