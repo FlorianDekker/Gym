@@ -150,6 +150,33 @@ h2, h3 {
   margin: 16px 0;
 }
 
+#submitButton {
+  margin-top: 24px;
+}
+
+/* full‑width pill button */
+#submitButton button {
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  background: #6a9273;        /* green accent */
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* hover/focus states */
+#submitButton button:hover,
+#submitButton button:focus {
+  background: #218838;
+  outline: none;
+}
+
+
 /* Responsive tweaks */
 @media (max-width: 480px) {
   .exercise-header {
