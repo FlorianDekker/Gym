@@ -1,74 +1,89 @@
-/* Container & card basics */
-.exercise-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 16px;
-  margin: 16px 0;
-  position: relative;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
 }
 
-/* Header wrapper: flex for title + buttons */
-.exercise-header-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-/* Exercise title */
-.exercise-header {
-  font-weight: 600;
-  font-size: 1.1rem;
+h2, h3 {
   color: #333;
 }
 
-/* Add/remove buttons in header */
-.exercise-header-wrapper button {
-  border: none;
-  background: #007aff;
-  color: #fff;
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  line-height: 1;
-  cursor: pointer;
-  margin-left: 8px;
-}
-.exercise-header-wrapper .remove-card {
-  background: #ff3b30;
+.exercise-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Set rows container */
+.exercise-header-wrapper {
+  position: relative;
+  padding-right: 32px;  /* ensure space for the button */
+}
+
+.exercise-header {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 12px;
+}
+
+.add-set {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #007BFF;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2em;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.remove-set {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2em;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.remove-card {
+  position: absolute;
+  top: 0;
+  right: 35px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2em;
+  line-height: 28px;
+  cursor: pointer;
+}
+
 .set-row {
   display: flex;
-  align-items: center;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-/* Inputs in rows */
-.set-row div {
-  flex: 1;
-}
 .set-row input {
-  width: 100%;
+  width: 100px;
   padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 0.95rem;
-}
-
-/* Remove‑set button */
-.set-row .remove-set {
-  border: none;
-  background: #ff3b30;
-  color: #fff;
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  font-size: 1rem;
-  line-height: 1;
-  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
 }
 
 /* Placeholder “add-card” area */
