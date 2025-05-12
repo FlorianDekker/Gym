@@ -842,7 +842,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitWorkoutBtn = document.getElementById('submitWorkout');
   submitWorkoutBtn.type = 'button';
   submitWorkoutBtn.addEventListener('click', () => {
-    const workoutName = selector.value;
+    const selectedOption = selector.options[ selector.selectedIndex ];
+    const workoutName   = selectedOption.textContent.trim();
     if (!workoutName) {
       alert('Please select a workout first.');
       return;
