@@ -8,16 +8,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <label for="WorkoutSelection">Select Your Workout:</label>
-  <select id="WorkoutSelection">
-    <option value="">-- Select Workout --</option>
-    <option value="push1">Push 1</option>
-    <option value="pull1">Pull 1</option>
-    <option value="legs1">Legs 1</option>
-    <option value="push2">Push 2</option>
-    <option value="pull2">Pull 2</option>
-    <option value="legs2">Legs 2</option>
-  </select>
+  <div id="chooser">
+    <h2>Select Your Workout</h2>
+    <label for="WorkoutSelection">Workout:</label>
+    <select id="WorkoutSelection">
+      <option value="">-- Select Workout --</option>
+      <option value="push1">Push 1</option>
+      <option value="pull1">Pull 1</option>
+      <option value="legs1">Legs 1</option>
+      <option value="push2">Push 2</option>
+      <option value="pull2">Pull 2</option>
+      <option value="legs2">Legs 2</option>
+    </select>
+  </div>
 
   <div id="dataButtonWrapper">
     <button id="dataButton" class="btn btn-data">
@@ -676,51 +679,59 @@
 
 
   <script>
-    const chooser = document.getElementById('chooser');
-    const workoutsContainer = document.getElementById('workouts');
-    const selector = document.getElementById('WorkoutSelection');
-    const sections = document.querySelectorAll('.workout-section');
+    const API_BASE = 'https://gym-backend-m64q.onrender.com';
 
-    document.getElementById('WorkoutSelection').addEventListener('change', function() {
-      const val = this.value;
-      if (!val) return; // nothing selected
-      // hide chooser, show workouts container, etc.
-      document.getElementById('chooser').style.display = 'none';
-      document.getElementById('workouts').style.display = 'block';
+    document.addEventListener('DOMContentLoaded', () => {
+      const chooser = document.getElementById('chooser');
+      const select = document.getElementById('WorkoutSelection');
+      const workouts = document.getElementById('workouts');
+      const backBtn = document.getElementById('back');
+      const submitBtnWrapper = document.getElementById('submitButton');
+      const sections = document.querySelectorAll('.workout-section');
 
-      // hide all sections, then show only the chosen one
-      document.querySelectorAll('.workout-section').forEach(s => s.style.display = 'none');
-      document.getElementById(val).style.display = 'block';
+      const dataButton = document.getElementById('dataButton');
+      const dataSection = document.getElementById('dataSection');
+      const dataBack = document.getElementById('dataBack');
+      const exerciseDropdown = document.getElementById('exerciseDropdown');
 
-      // show the Finish button
-      document.getElementById('submitButton').style.display = 'block';
-    });
+      // Show workout section
+      select.addEventListener('change', () => {
+        const val = select.value;
+        if (!val) return;
+        chooser.style.display = 'none';
+        workouts.style.display = 'block';
+        sections.forEach(s => s.style.display = 'none');
+        document.getElementById(val).style.display = 'block';
+        submitBtnWrapper.style.display = 'block';
+      });
 
-    selector.addEventListener('change', () => {
-      chooser.style.display = 'none';
-      workoutsContainer.style.display = 'block';
+      // Back to chooser
+      backBtn.addEventListener('click', () => {
+        workouts.style.display = 'none';
+        chooser.style.display = 'block';
+        select.value = '';
+        submitBtnWrapper.style.display = 'none';
+      });
 
-      // hide all, then show only the chosen section
-      sections.forEach(s => s.style.display = 'none');
-      const chosen = document.getElementById(selector.value);
-      if (chosen) chosen.style.display = 'block';
-    });
-
-    document.getElementById('back').addEventListener('click', () => {
-      workoutsContainer.style.display = 'none';
-      chooser.style.display = 'block';
-      selector.value = '';
-    });
-
-    selector.addEventListener('change', () => {
-      sections.forEach(s => s.style.display = 'none');
-      submitButton.style.display = 'none';
-      const sel = document.getElementById(selector.value);
-      if (sel) {
-        sel.style.display = 'block';
-        submitButton.style.display = 'block';
-      }
-    });
+      // Data view
+      dataButton.addEventListener('click', () => {
+        chooser.style.display = 'none';
+        workouts.style.display = 'none';
+        dataSection.style.display = 'block';
+        fetch(`${API_BASE}/exercises.json`)
+          .then(res => res.json())
+          .then(exs => {
+            exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
+            exs.forEach(e => {
+              const opt = document.createElement('option'); opt.value = e.id;
+              opt.textContent = `${e.name} (${e.muscle_group})`;
+              exerciseDropdown.appendChild(opt);
+            });
+          });
+      });
+      dataBack.addEventListener('click', () => {
+        dataSection.style.display = 'none'; chooser.style.display = 'block';
+      });
 
     // Helper to make one set-row
     function makeSetRow() {
