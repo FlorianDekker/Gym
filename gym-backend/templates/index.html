@@ -679,284 +679,221 @@
 
 
   <script>
-    const API_BASE = 'https://gym-backend-m64q.onrender.com';
+document.addEventListener('DOMContentLoaded', () => {
+  // === element references ===
+  const chooser            = document.getElementById('chooser');
+  const selector           = document.getElementById('WorkoutSelection');
+  const workoutsContainer  = document.getElementById('workouts');
+  const sections           = document.querySelectorAll('.workout-section');
+  const submitBtnWrapper   = document.getElementById('submitButton');
+  const backBtn            = document.getElementById('back');
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const chooser = document.getElementById('chooser');
-      const select = document.getElementById('WorkoutSelection');
-      const workouts = document.getElementById('workouts');
-      const backBtn = document.getElementById('back');
-      const submitBtnWrapper = document.getElementById('submitButton');
-      const sections = document.querySelectorAll('.workout-section');
+  const dataButton         = document.getElementById('dataButton');
+  const dataSection        = document.getElementById('dataSection');
+  const dataBack           = document.getElementById('dataBack');
+  const exerciseDropdown   = document.getElementById('exerciseDropdown');
 
-      const dataButton = document.getElementById('dataButton');
-      const dataSection = document.getElementById('dataSection');
-      const dataBack = document.getElementById('dataBack');
-      const exerciseDropdown = document.getElementById('exerciseDropdown');
+  // === show workout section when user picks from dropdown ===
+  selector.addEventListener('change', () => {
+    const val = selector.value;
+    if (!val) return;
+    // hide chooser & data, show workouts
+    chooser.style.display           = 'none';
+    dataSection.style.display       = 'none';
+    workoutsContainer.style.display = 'block';
+    submitBtnWrapper.style.display  = 'block';
 
-      // Show workout section
-      select.addEventListener('change', () => {
-        const val = select.value;
-        if (!val) return;
-        chooser.style.display = 'none';
-        workouts.style.display = 'block';
-        sections.forEach(s => s.style.display = 'none');
-        document.getElementById(val).style.display = 'block';
-        submitBtnWrapper.style.display = 'block';
-      });
+    // hide all workout sections, then show the chosen one
+    sections.forEach(s => s.style.display = 'none');
+    document.getElementById(val).style.display = 'block';
+  });
 
-      // Back to chooser
-      backBtn.addEventListener('click', () => {
-        workouts.style.display = 'none';
-        chooser.style.display = 'block';
-        select.value = '';
-        submitBtnWrapper.style.display = 'none';
-      });
+  // === back button ===
+  backBtn.addEventListener('click', () => {
+    workoutsContainer.style.display = 'none';
+    submitBtnWrapper.style.display  = 'none';
+    selector.value                  = '';
+    chooser.style.display           = 'block';
+  });
 
-      // Data view
-      dataButton.addEventListener('click', () => {
-        chooser.style.display = 'none';
-        workouts.style.display = 'none';
-        dataSection.style.display = 'block';
-        fetch(`${API_BASE}/exercises.json`)
-          .then(res => res.json())
-          .then(exs => {
-            exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
-            exs.forEach(e => {
-              const opt = document.createElement('option'); opt.value = e.id;
-              opt.textContent = `${e.name} (${e.muscle_group})`;
-              exerciseDropdown.appendChild(opt);
-            });
-          });
-      });
-      dataBack.addEventListener('click', () => {
-        dataSection.style.display = 'none'; chooser.style.display = 'block';
-      });
+  // === data view ===
+  dataButton.addEventListener('click', () => {
+    chooser.style.display           = 'none';
+    workoutsContainer.style.display = 'none';
+    submitBtnWrapper.style.display  = 'none';
+    dataSection.style.display       = 'block';
 
-    // Helper to make one set-row
-    function makeSetRow() {
-      const row = document.createElement('div');
-      row.classList.add('set-row');
-      ['reps', 'kg'].forEach(ph => {
-        const wrap = document.createElement('div');
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.placeholder = ph;
-        wrap.appendChild(input);
-        row.appendChild(wrap);
+    fetch('https://gym-backend-m64q.onrender.com/exercises.json')
+      .then(res => res.json())
+      .then(exs => {
+        exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
+        exs.forEach(e => {
+          const opt = document.createElement('option');
+          opt.value       = e.id;
+          opt.textContent = `${e.name} (${e.muscle_group})`;
+          exerciseDropdown.appendChild(opt);
+        });
       });
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.textContent = '-';
-      button.classList.add('remove-set');
-      row.appendChild(button);
-      button.addEventListener('click', () => {
-      const rowEl = button.closest('.set-row');
-      const card = button.closest('.exercise-card');
-      const rows = card.querySelectorAll('.set-row');
-      rowEl.remove();
-      });
-      return row;
-    }
+  });
+  dataBack.addEventListener('click', () => {
+    dataSection.style.display = 'none';
+    chooser.style.display     = 'block';
+  });
 
-    // Attach '+' handlers to each exercise-card
-    document.querySelectorAll('.exercise-card').forEach(card => {
-      const btn = card.querySelector('.add-set');
-      if (!btn) return;
-      btn.addEventListener('click', () => {
-        const newRow = makeSetRow();
-        btn.before(newRow);
-      });
+  // === helper to create a new set-row ===
+  function makeSetRow() {
+    const row = document.createElement('div');
+    row.classList.add('set-row');
+    ['reps', 'kg'].forEach(ph => {
+      const wrap  = document.createElement('div');
+      const input = document.createElement('input');
+      input.type        = 'number';
+      input.placeholder = ph;
+      wrap.appendChild(input);
+      row.appendChild(wrap);
     });
-
-    function makeExerciseCard(name) {
-      const card = document.createElement('div');
-      card.classList.add('exercise-card');
-
-      // header wrapper
-      const headerWrap = document.createElement('div');
-      headerWrap.classList.add('exercise-header-wrapper');
-
-      const header = document.createElement('div');
-      header.classList.add('exercise-header');
-      header.textContent = name;
-
-      const removeCardBtn = document.createElement('button');
-      removeCardBtn.type = 'button';
-      removeCardBtn.textContent = '-';
-      removeCardBtn.classList.add('remove-card');
-      removeCardBtn.addEventListener('click', () => card.remove());
-
-      const addSetBtn = document.createElement('button');
-      addSetBtn.type = 'button';
-      addSetBtn.textContent = '+';
-      addSetBtn.classList.add('add-set');
-      addSetBtn.addEventListener('click', () => {
-        card.appendChild(makeSetRow());
-      });
-
-      // assemble header
-      headerWrap.append(header, removeCardBtn, addSetBtn);
-      card.appendChild(headerWrap);
-
-      // three initial set-rows
-      for (let i = 0; i < 3; i++) {
-        card.appendChild(makeSetRow());
-      }
-
-      return card;
-    }
-    
-    document.querySelectorAll('.exercise-card .add-card').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const exerciseName = prompt('Which exercise?');
-        if (!exerciseName) return;       // user cancelled or empty
-        const newCard = makeExerciseCard(exerciseName);
-        const section = btn.closest('.workout-section');
-        const placeholderCard = btn.closest('.exercise-card');
-        section.insertBefore(newCard, placeholderCard);
-      });
-    });
-
-    document.querySelectorAll('.set-row').forEach(card => {
-      const btn = card.querySelector('.remove-set');
-      btn.addEventListener('click', () => {
-        const row = btn.closest('.set-row');
-        row.remove();
-      });
-    });
-
-    document.querySelectorAll('.exercise-card').forEach(card => {
-      const btn = card.querySelector('.remove-card');
-      if (!btn) return; 
-      btn.addEventListener('click', () => {
-        card.remove();
-      });
-    });
-
-const dataButton = document.getElementById('dataButton');
-const dataSection = document.getElementById('dataSection');
-const dataBack = document.getElementById('dataBack');
-const exerciseDropdown = document.getElementById('exerciseDropdown');
-
-dataButton.addEventListener('click', () => {
-  chooser.style.display = 'none';
-  workoutsContainer.style.display = 'none';
-  dataSection.style.display = 'block';
-
-  // Fetch exercises (hardcoded for now, API later)
-  fetch('https://gym-backend-m64q.onrender.com/exercises.json')
-  // or an endpoint you’ll create
-    .then(res => res.json())
-    .then(exercises => {
-      exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
-      exercises.forEach(e => {
-        const opt = document.createElement('option');
-        opt.value = e.id;
-        opt.textContent = `${e.name} (${e.muscle_group})`;
-        exerciseDropdown.appendChild(opt);
-      });
-    });
-});
-
-dataBack.addEventListener('click', () => {
-  dataSection.style.display = 'none';
-  chooser.style.display = 'block';
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-document.getElementById('submitWorkout').addEventListener('click', () => {
-  console.log("Submit clicked!");
-  const workoutName = document.getElementById('WorkoutSelection').value;
-  if (!workoutName) {
-    alert("Please select a workout first.");
-    return;
+    const btn = document.createElement('button');
+    btn.type        = 'button';
+    btn.textContent = '-';
+    btn.classList.add('remove-set');
+    row.appendChild(btn);
+    btn.addEventListener('click', () => row.remove());
+    return row;
   }
 
-  const section = document.getElementById(workoutName);
-  const exerciseCards = section.querySelectorAll('.exercise-card');
-
-  const exercises = [];
-
-  exerciseCards.forEach(card => {
-    const name = card.querySelector('.exercise-header');
-    if (!name) return;
-
-    const sets = [];
-    card.querySelectorAll('.set-row').forEach(row => {
-      const inputs = row.querySelectorAll('input');
-      const reps = parseInt(inputs[0].value);
-      const weight = parseFloat(inputs[1].value);
-      if (!isNaN(reps) && !isNaN(weight)) {
-        sets.push({ reps, weight });
-      }
-    });
-
-    exercises.push({
-      name: name.textContent.trim(),
-      sets: sets
+  // === wire up existing add-set buttons ===
+  document.querySelectorAll('.exercise-card').forEach(card => {
+    const addSetBtn = card.querySelector('.add-set');
+    if (!addSetBtn) return;
+    addSetBtn.addEventListener('click', () => {
+      const newRow = makeSetRow();
+      addSetBtn.before(newRow);
     });
   });
 
-  const payload = {
-    workout: workoutName,
-    date: new Date().toISOString().slice(0, 10),
-    exercises: exercises
-  };
+  // === wire up the “+” that adds a whole new exercise card ===
+  document.querySelectorAll('.exercise-card .add-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = prompt('Which exercise?');
+      if (!name) return;
+      const newCard = makeExerciseCard(name);
+      const section = btn.closest('.workout-section');
+      section.insertBefore(newCard, btn.closest('.exercise-card'));
+    });
+  });
 
-  // Preview the data
-const summary = exercises.map(ex => {
-  const sets = ex.sets.map(s => `${s.reps} reps × ${s.weight} kg`).join(', ');
-  return `${ex.name}: ${sets}`;
-}).join('\n');
+  // === helper to create a whole new exercise card ===
+  function makeExerciseCard(name) {
+    const card = document.createElement('div');
+    card.classList.add('exercise-card');
 
-if (!confirm(`Submit this workout?\n\n${summary}`)) {
-  return; // Cancel submission
-}
+    const hdrWrap = document.createElement('div');
+    hdrWrap.classList.add('exercise-header-wrapper');
 
-// If confirmed, send to backend
-fetch('https://gym-backend.onrender.com/submit', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(payload)
-})
+    const hdr = document.createElement('div');
+    hdr.classList.add('exercise-header');
+    hdr.textContent = name;
 
-    .then(res => res.json())
+    const remBtn = document.createElement('button');
+    remBtn.type        = 'button';
+    remBtn.textContent = '-';
+    remBtn.classList.add('remove-card');
+    remBtn.addEventListener('click', () => card.remove());
+
+    const addSetBtn = document.createElement('button');
+    addSetBtn.type        = 'button';
+    addSetBtn.textContent = '+';
+    addSetBtn.classList.add('add-set');
+    addSetBtn.addEventListener('click', () => {
+      card.appendChild(makeSetRow());
+    });
+
+    hdrWrap.append(hdr, remBtn, addSetBtn);
+    card.appendChild(hdrWrap);
+
+    // three initial sets
+    for (let i = 0; i < 3; i++) {
+      card.appendChild(makeSetRow());
+    }
+    return card;
+  }
+
+  // === wire up any existing remove-card buttons ===
+  document.querySelectorAll('.exercise-card').forEach(card => {
+    const btn = card.querySelector('.remove-card');
+    if (!btn) return;
+    btn.addEventListener('click', () => card.remove());
+  });
+
+  // === wire up any existing remove-set buttons in the markup ===
+  document.querySelectorAll('.set-row .remove-set').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.set-row').remove());
+  });
+
+  // === submit workout ===
+  const submitWorkoutBtn = document.getElementById('submitWorkout');
+  submitWorkoutBtn.type = 'button';
+  submitWorkoutBtn.addEventListener('click', () => {
+    const workoutName = selector.value;
+    if (!workoutName) {
+      alert('Please select a workout first.');
+      return;
+    }
+    const section = document.getElementById(workoutName);
+    const cards   = section.querySelectorAll('.exercise-card');
+    const exercises = [];
+
+    cards.forEach(card => {
+      const hdr = card.querySelector('.exercise-header');
+      if (!hdr) return;
+      const sets = [];
+      card.querySelectorAll('.set-row').forEach(row => {
+        const [rInput, wInput] = row.querySelectorAll('input');
+        const reps   = parseInt(rInput.value, 10);
+        const weight = parseFloat(wInput.value);
+        if (!isNaN(reps) && !isNaN(weight)) {
+          sets.push({ reps, weight });
+        }
+      });
+      exercises.push({ name: hdr.textContent.trim(), sets });
+    });
+
+    const payload = {
+      workout: workoutName,
+      date:    new Date().toISOString().slice(0,10),
+      exercises
+    };
+
+    const summary = exercises
+      .map(e => `${e.name}: ` + e.sets.map(s => `${s.reps}×${s.weight}kg`).join(', '))
+      .join('\n');
+
+    if (!confirm(`Submit this workout?\n\n${summary}`)) return;
+
+    fetch('https://gym-backend.onrender.com/submit', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then(r => r.json())
     .then(data => {
       if (data.success) {
-        alert("Workout submitted successfully!");
-
-        // 🧹 Reset form
-        exerciseCards.forEach(card => {
-          // Remove custom cards
-          if (!card.querySelector('.exercise-header')) {
-            card.remove();
-            return;
-          }
-          // Clear inputs
-          card.querySelectorAll('input').forEach(input => input.value = '');
-        });
-
-        // Reset view
-        document.getElementById('WorkoutSelection').value = '';
-        chooser.style.display = 'block';
+        alert('Workout submitted successfully!');
+        // clear inputs
+        cards.forEach(c => c.querySelectorAll('input').forEach(i => i.value = ''));
+        selector.value        = '';
         workoutsContainer.style.display = 'none';
+        submitBtnWrapper.style.display  = 'none';
+        chooser.style.display           = 'block';
       } else {
-        alert("Error: " + data.error);
+        alert('Error: ' + data.error);
       }
     })
-    .catch(err => {
-      console.error(err);
-      alert("Submission failed.");
-    });
+    .catch(() => alert('Submission failed.'));
+  });
 });
-});
+</script>
 
-
-
-  </script>
 
 </body>
 </html>
