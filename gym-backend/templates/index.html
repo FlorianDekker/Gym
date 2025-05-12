@@ -681,6 +681,21 @@
     const selector = document.getElementById('WorkoutSelection');
     const sections = document.querySelectorAll('.workout-section');
 
+    document.getElementById('WorkoutSelection').addEventListener('change', function() {
+      const val = this.value;
+      if (!val) return; // nothing selected
+      // hide chooser, show workouts container, etc.
+      document.getElementById('chooser').style.display = 'none';
+      document.getElementById('workouts').style.display = 'block';
+
+      // hide all sections, then show only the chosen one
+      document.querySelectorAll('.workout-section').forEach(s => s.style.display = 'none');
+      document.getElementById(val).style.display = 'block';
+
+      // show the Finish button
+      document.getElementById('submitButton').style.display = 'block';
+    });
+
     selector.addEventListener('change', () => {
       chooser.style.display = 'none';
       workoutsContainer.style.display = 'block';
