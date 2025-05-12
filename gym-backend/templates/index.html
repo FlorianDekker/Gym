@@ -8,26 +8,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div id="chooser">
-    <h2>Select Your Workout</h2>
-    <div class="select-button-wrapper">
-      <!-- The visible “button” -->
-      <button type="button" id="fake-select" class="btn btn-select">
-        <span id="fake-select-text">Choose workout</span>
-        <i class="fas fa-chevron-down"></i>
-      </button>
-      <!-- The real select, visually hidden but still in the DOM -->
-      <select id="WorkoutSelection" class="visually-hidden">
-        <option value="">--Select--</option>
-        <option value="push1">Push 1</option>
-        <option value="pull1">Pull 1</option>
-        <option value="legs1">Legs 1</option>
-        <option value="push2">Push 2</option>
-        <option value="pull2">Pull 2</option>
-        <option value="legs2">Legs 2</option>
-      </select>
-    </div>
-  </div>
+  <label for="WorkoutSelection">Select Your Workout:</label>
+  <select id="WorkoutSelection">
+    <option value="">-- Select Workout --</option>
+    <option value="push1">Push 1</option>
+    <option value="pull1">Pull 1</option>
+    <option value="legs1">Legs 1</option>
+    <option value="push2">Push 2</option>
+    <option value="pull2">Pull 2</option>
+    <option value="legs2">Legs 2</option>
+  </select>
 
   <div id="dataButtonWrapper">
     <button id="dataButton" class="btn btn-data">
