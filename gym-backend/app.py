@@ -4,7 +4,7 @@ import psycopg2
 import os
 
 app = Flask(__name__)
-CORS(app, origins=["https://gym-pc00.onrender.com/"])  # allows frontend access
+CORS(app, origins=["https://gym-pc00.onrender.com"])  # allows frontend access
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
