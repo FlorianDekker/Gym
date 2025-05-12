@@ -878,9 +878,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!confirm(`Submit this workout?\n\n${summary}`)) return;
 
-    fetch('https://gym-backend.onrender.com/submit', {
+    const API_BASE = 'https://gym-backend-m64q.onrender.com';
+
+    fetch(`${API_BASE}/submit`, {
       method: 'POST',
-      headers: {'Content-Type':'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
     .then(r => r.json())
