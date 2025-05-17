@@ -695,34 +695,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === show workout section when user picks from dropdown ===
   selector.addEventListener('change', () => {
-      const val = selector.value;
-      if (!val) {
-        // nothing selected, go back to chooser
-        workoutsContainer.style.display = 'none';
-        submitButton.style.display      = 'none';
-        chooser.style.display           = 'block';
-        return;
-      }
+    const val = selector.value;
+    if (!val) {
+      // nothing selected, go back to chooser
+      workoutsContainer.style.display = 'none';
+      submitBtnWrapper.style.display  = 'none';
+      chooser.style.display           = 'block';
+      return;
+    }
 
-      // hide chooser, show workouts
-      chooser.style.display           = 'none';
-      workoutsContainer.style.display = 'block';
+    // hide chooser, show workouts
+    chooser.style.display           = 'none';
+    workoutsContainer.style.display = 'block';
 
-      // hide every section, then show the one you picked
-      sections.forEach(s => s.style.display = 'none');
-      document.getElementById(val).style.display = 'block';
+    // hide every section, then show the one you picked
+    sections.forEach(s => s.style.display = 'none');
+    document.getElementById(val).style.display = 'block';
 
-      // show the Finish button
-      submitButton.style.display = 'block';
-    });
+    // show the Finish button
+    submitBtnWrapper.style.display = 'block';
+  });
 
   // === back button ===
   backBtn.addEventListener('click', () => {
-      workoutsContainer.style.display = 'none';
-      submitButton.style.display      = 'none';
-      chooser.style.display           = 'block';
-      selector.value                  = '';
-    });
+    workoutsContainer.style.display = 'none';
+    submitBtnWrapper.style.display  = 'none';
+    chooser.style.display           = 'block';
+    selector.value                  = '';
+  });
 
   // === data view ===
   dataButton.addEventListener('click', () => {
@@ -827,28 +827,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // === wire up any existing remove-card buttons ===
-  document.querySelectorAll('.exercise-card').forEach(card => {
-    const btn = card.querySelector('.remove-card');
-    if (!btn) return;
-    btn.addEventListener('click', () => card.remove());
-  });
-
-  // === wire up any existing remove-set buttons in the markup ===
-  document.querySelectorAll('.set-row .remove-set').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.set-row').remove());
+  document.querySelectorAll('.exercise-card .remove-card').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.exercise-card').remove());
   });
 
   // === submit workout ===
   const submitWorkoutBtn = document.getElementById('submitWorkout');
   submitWorkoutBtn.type = 'button';
   submitWorkoutBtn.addEventListener('click', () => {
-    const selectedOption = selector.options[ selector.selectedIndex ];
-    const workoutName   = selectedOption.textContent.trim();
-    if (!workoutName) {
+    // use the option value for DOM lookup, and the text for payload
+    const workoutId   = selector.value;  
+    const workoutName = selector.options[selector.selectedIndex].text.trim();
+
+    if (!workoutId) {
       alert('Please select a workout first.');
       return;
     }
-    const section = document.getElementById(workoutName);
+
+    const section = document.getElementById(workoutId);
     const cards   = section.querySelectorAll('.exercise-card');
     const exercises = [];
 
@@ -892,10 +888,10 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Workout submitted successfully!');
         // clear inputs
         cards.forEach(c => c.querySelectorAll('input').forEach(i => i.value = ''));
-        selector.value        = '';
-        workoutsContainer.style.display = 'none';
-        submitBtnWrapper.style.display  = 'none';
-        chooser.style.display           = 'block';
+        selector.value                   = '';
+        workoutsContainer.style.display  = 'none';
+        submitBtnWrapper.style.display   = 'none';
+        chooser.style.display            = 'block';
       } else {
         alert('Error: ' + data.error);
       }
@@ -904,6 +900,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
 
 
 </body>
