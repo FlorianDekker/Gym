@@ -761,6 +761,46 @@ document.addEventListener('DOMContentLoaded', () => {
     return row;
   }
 
+  // === helper to add reorder buttons to a card ===
+  function addReorderButtons(card) {
+    const hdrWrap = card.querySelector('.exercise-header-wrapper');
+
+    // Up button
+    const upBtn = document.createElement('button');
+    upBtn.type = 'button';
+    upBtn.classList.add('move-up');
+    upBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    upBtn.addEventListener('click', () => {
+      const prev = card.previousElementSibling;
+      // only swap with another exercise-card
+      if (prev && prev.classList.contains('exercise-card')) {
+        card.parentNode.insertBefore(card, prev);
+      }
+    });
+
+    // Down button
+    const downBtn = document.createElement('button');
+    downBtn.type = 'button';
+    downBtn.classList.add('move-down');
+    downBtn.innerHTML = '<i class="fas fa-arrow-down"></i>';
+    downBtn.addEventListener('click', () => {
+      const next = card.nextElementSibling;
+      if (next && next.classList.contains('exercise-card')) {
+        card.parentNode.insertBefore(next, card);
+      }
+    });
+
+    // append to the right of the header
+    hdrWrap.append(upBtn, downBtn);
+  }
+
+  document.querySelectorAll('.exercise-card').forEach(card => {
+    // only if it actually has a header (to skip the “+” card at the end)
+    if (card.querySelector('.exercise-header')) {
+      addReorderButtons(card);
+    }
+  });
+
   // === wire up existing add-set buttons ===
   document.querySelectorAll('.exercise-card').forEach(card => {
     const addSetBtn = card.querySelector('.add-set');
@@ -808,6 +848,9 @@ function makeExerciseCard(name) {
 
   hdrWrap.append(hdr, remBtn);
   card.appendChild(hdrWrap);
+
+  // add the up/down controls
+  addReorderButtons(card);
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
