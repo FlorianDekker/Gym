@@ -64,7 +64,11 @@ def submit_workout():
                 exercise_id = cur.fetchone()[0]
 
             # Insert session_exercise
-            cur.execute("INSERT INTO workouts.session_exercise (session_id, exercise_id) VALUES (%s, %s) RETURNING id", (session_id, exercise_id))
+            default_group = 'Other'
+            cur.execute(
+                    "INSERT INTO workouts.exercise (name, muscle_group) VALUES (%s, %s) RETURNING id",
+                    (name, default_group)
+                )
             session_exercise_id = cur.fetchone()[0]
 
             # Insert sets
