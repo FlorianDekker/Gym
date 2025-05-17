@@ -697,22 +697,15 @@ document.addEventListener('DOMContentLoaded', () => {
   selector.addEventListener('change', () => {
     const val = selector.value;
     if (!val) {
-      // nothing selected, go back to chooser
       workoutsContainer.style.display = 'none';
       submitBtnWrapper.style.display  = 'none';
       chooser.style.display           = 'block';
       return;
     }
-
-    // hide chooser, show workouts
     chooser.style.display           = 'none';
     workoutsContainer.style.display = 'block';
-
-    // hide every section, then show the one you picked
     sections.forEach(s => s.style.display = 'none');
     document.getElementById(val).style.display = 'block';
-
-    // show the Finish button
     submitBtnWrapper.style.display = 'block';
   });
 
@@ -730,7 +723,6 @@ document.addEventListener('DOMContentLoaded', () => {
     workoutsContainer.style.display = 'none';
     submitBtnWrapper.style.display  = 'none';
     dataSection.style.display       = 'block';
-
     fetch('https://gym-backend-m64q.onrender.com/exercises.json')
       .then(res => res.json())
       .then(exs => {
@@ -764,8 +756,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.type        = 'button';
     btn.textContent = '-';
     btn.classList.add('remove-set');
-    row.appendChild(btn);
     btn.addEventListener('click', () => row.remove());
+    row.appendChild(btn);
     return row;
   }
 
@@ -777,6 +769,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const newRow = makeSetRow();
       addSetBtn.before(newRow);
     });
+  });
+
+  // === wire up any existing remove-set buttons in the initial markup ===
+  document.querySelectorAll('.set-row .remove-set').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.set-row').remove());
   });
 
   // === wire up the “+” that adds a whole new exercise card ===
@@ -791,40 +788,45 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // === helper to create a whole new exercise card ===
-  function makeExerciseCard(name) {
-    const card = document.createElement('div');
-    card.classList.add('exercise-card');
+function makeExerciseCard(name) {
+  const card = document.createElement('div');
+  card.classList.add('exercise-card');
 
-    const hdrWrap = document.createElement('div');
-    hdrWrap.classList.add('exercise-header-wrapper');
+  // — Header wrapper with title + trash icon button —
+  const hdrWrap = document.createElement('div');
+  hdrWrap.classList.add('exercise-header-wrapper');
 
-    const hdr = document.createElement('div');
-    hdr.classList.add('exercise-header');
-    hdr.textContent = name;
+  const hdr = document.createElement('div');
+  hdr.classList.add('exercise-header');
+  hdr.textContent = name;
 
-    const remBtn = document.createElement('button');
-    remBtn.type        = 'button';
-    remBtn.textContent = '-';
-    remBtn.classList.add('remove-card');
-    remBtn.addEventListener('click', () => card.remove());
+  const remBtn = document.createElement('button');
+  remBtn.type = 'button';
+  remBtn.classList.add('remove-card');
+  remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
+  remBtn.addEventListener('click', () => card.remove());
 
-    const addSetBtn = document.createElement('button');
-    addSetBtn.type        = 'button';
-    addSetBtn.textContent = '+';
-    addSetBtn.classList.add('add-set');
-    addSetBtn.addEventListener('click', () => {
-      card.appendChild(makeSetRow());
-    });
+  hdrWrap.append(hdr, remBtn);
+  card.appendChild(hdrWrap);
 
-    hdrWrap.append(hdr, remBtn, addSetBtn);
-    card.appendChild(hdrWrap);
-
-    // three initial sets
-    for (let i = 0; i < 3; i++) {
-      card.appendChild(makeSetRow());
-    }
-    return card;
+  // — Three initial set‐rows —
+  for (let i = 0; i < 3; i++) {
+    card.appendChild(makeSetRow());
   }
+
+  // — “+” add‐set button at bottom, same style as static cards —
+  const addSetBtn = document.createElement('button');
+  addSetBtn.type = 'button';
+  addSetBtn.classList.add('add-set');
+  addSetBtn.textContent = '+';                            // same text as your HTML
+  addSetBtn.addEventListener('click', () => {
+    const newRow = makeSetRow();
+    card.insertBefore(newRow, addSetBtn);
+  });
+  card.appendChild(addSetBtn);
+
+  return card;
+}
 
   // === wire up any existing remove-card buttons ===
   document.querySelectorAll('.exercise-card .remove-card').forEach(btn => {
@@ -835,10 +837,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitWorkoutBtn = document.getElementById('submitWorkout');
   submitWorkoutBtn.type = 'button';
   submitWorkoutBtn.addEventListener('click', () => {
-    // use the option value for DOM lookup, and the text for payload
-    const workoutId   = selector.value;  
+    const workoutId   = selector.value;
     const workoutName = selector.options[selector.selectedIndex].text.trim();
-
     if (!workoutId) {
       alert('Please select a workout first.');
       return;
@@ -886,7 +886,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       if (data.success) {
         alert('Workout submitted successfully!');
-        // clear inputs
         cards.forEach(c => c.querySelectorAll('input').forEach(i => i.value = ''));
         selector.value                   = '';
         workoutsContainer.style.display  = 'none';
@@ -900,6 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
 
 
 
