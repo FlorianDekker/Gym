@@ -677,6 +677,22 @@
     </select>
   </div>
 
+  <dialog id="exerciseDialog">
+  <form method="dialog" id="exerciseForm">
+    <label>
+      Choose or type an exercise:
+      <input list="exerciseList" id="exerciseInput" placeholder="e.g. Squat" />
+      <datalist id="exerciseList">
+        <!-- options will be injected by JS -->
+      </datalist>
+    </label>
+    <menu>
+      <button value="cancel">Cancel</button>
+      <button id="exerciseConfirm" value="default">Add</button>
+    </menu>
+  </form>
+</dialog>
+
 
   <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -816,15 +832,46 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => btn.closest('.set-row').remove());
   });
 
+  const API_BASE = 'https://gym-backend-m64q.onrender.com';
+  let allExercises = [];
+
+  fetch(`${API_BASE}/exercises.json`)
+    .then(res => res.json())
+    .then(exs => {
+      allExercises = exs; 
+      const dl = document.getElementById('exerciseList');
+      dl.innerHTML = exs
+        .map(e => `<option value="${e.name}">`)
+        .join('');
+    });
+
+  const dialog      = document.getElementById('exerciseDialog');
+  const input       = document.getElementById('exerciseInput');
+  const confirmBtn  = document.getElementById('exerciseConfirm');
+
   // === wire up the “+” that adds a whole new exercise card ===
   document.querySelectorAll('.exercise-card .add-card').forEach(btn => {
     btn.addEventListener('click', () => {
-      const name = prompt('Which exercise?');
-      if (!name) return;
-      const newCard = makeExerciseCard(name);
-      const section = btn.closest('.workout-section');
-      section.insertBefore(newCard, btn.closest('.exercise-card'));
+      input.value = '';         // clear previous
+      dialog.showModal();       // open the modal
     });
+  });
+
+// — when user confirms in the dialog —
+  dialog.addEventListener('close', () => {
+    if (dialog.returnValue === 'default') {
+      const name = input.value.trim();
+      if (name) {
+        // find the original “+” button that opened it:
+        // (we assume only one dialog open at a time)
+        const opener = document.activeElement; 
+        const section = opener.closest('.workout-section');
+        const newCard = makeExerciseCard(name);
+        // insert it right before the “+” card:
+        const addCardDiv = section.querySelector('.exercise-card:last-of-type');
+        section.insertBefore(newCard, addCardDiv);
+      }
+    }
   });
 
   // === helper to create a whole new exercise card ===
@@ -917,8 +964,6 @@ function makeExerciseCard(name) {
       .join('\n');
 
     if (!confirm(`Submit this workout?\n\n${summary}`)) return;
-
-    const API_BASE = 'https://gym-backend-m64q.onrender.com';
 
     fetch(`${API_BASE}/submit`, {
       method: 'POST',
