@@ -897,8 +897,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sets.forEach((s, i) => {
           if (rows[i]) {
             const [repInput, kgInput] = rows[i].querySelectorAll('input');
-            repInput.value = s.reps;
-            kgInput.value = s.weight;
+            repInput.placeholder = s.reps;
+            kgInput.placeholder = s.weight;
           }
         });
       });
@@ -976,8 +976,8 @@ if (matched) {
       sets.forEach((s, i) => {
         if (inputs[i]) {
           const [repInput, kgInput] = inputs[i].querySelectorAll('input');
-          repInput.value = s.reps;
-          kgInput.value  = s.weight;
+          repInput.placeholder = s.reps;
+          kgInput.placeholder  = s.weight;
         }
       });
     });
