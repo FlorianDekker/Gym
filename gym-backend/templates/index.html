@@ -809,7 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // === helper to add reorder buttons to a card ===
-  function addReorderButtons(card) {
+  function addCardControls(card) {
     const hdrWrap = card.querySelector('.exercise-header-wrapper');
 
     // Up button
@@ -819,7 +819,6 @@ document.addEventListener('DOMContentLoaded', () => {
     upBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
     upBtn.addEventListener('click', () => {
       const prev = card.previousElementSibling;
-      // only swap with another exercise-card
       if (prev && prev.classList.contains('exercise-card')) {
         card.parentNode.insertBefore(card, prev);
       }
@@ -837,14 +836,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // append to the right of the header
-    hdrWrap.append(upBtn, downBtn);
+    // Refresh (swap) button
+    const refreshBtn = document.createElement('button');
+    refreshBtn.type = 'button';
+    refreshBtn.classList.add('refresh-card');
+    refreshBtn.innerHTML = '<i class="fas fa-sync"></i>';
+    refreshBtn.addEventListener('click', () => {
+      cardToReplace = card;
+      dialog.showModal();
+    });
+
+    hdrWrap.append(upBtn, downBtn, refreshBtn);
   }
+
 
   document.querySelectorAll('.exercise-card').forEach(card => {
     // only if it actually has a header (to skip the “+” card at the end)
     if (card.querySelector('.exercise-header')) {
-      addReorderButtons(card);
+      addCardControls(card);
     }
   });
 
