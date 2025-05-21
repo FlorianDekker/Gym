@@ -987,17 +987,7 @@ function makeExerciseCard(name) {
   card.appendChild(hdrWrap);
 
   // add the up/down controls
-  addReorderButtons(card);
-
-  const refreshBtn = document.createElement('button');
-  refreshBtn.type = 'button';
-  refreshBtn.classList.add('refresh-card');
-  refreshBtn.innerHTML = '<i class="fas fa-sync"></i>';
-  refreshBtn.addEventListener('click', () => {
-    cardToReplace = card;
-    dialog.showModal();
-  });
-  hdrWrap.append(refreshBtn);  // Add after other buttons
+  addCardControls(card);
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
