@@ -910,6 +910,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 }
 
+function autofillCardPreviousSets(card, exerciseName) {
+  const match = allExercises.find(e => e.name.toLowerCase() === exerciseName.toLowerCase());
+  if (!match) return;
+
+  fetch(`${API_BASE}/latest_sets.json?exercise_id=${match.id}`)
+    .then(res => res.json())
+    .then(sets => {
+      const rows = card.querySelectorAll('.set-row');
+      sets.forEach((s, i) => {
+        if (rows[i]) {
+          const [repInput, kgInput] = rows[i].querySelectorAll('input');
+          repInput.placeholder = s.reps;
+          kgInput.placeholder  = s.weight;
+        }
+      });
+    });
+}
+
 
 // — when user confirms in the dialog —
   dialog.addEventListener('close', () => {
@@ -924,6 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // insert it right before the “+” card:
         const addCardDiv = section.querySelector('.exercise-card:last-of-type');
         section.insertBefore(newCard, addCardDiv);
+        autofillCardPreviousSets(newCard, name);
       }
     }
   });
