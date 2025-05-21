@@ -74,6 +74,32 @@ def submit_workout():
         print(e)
         return jsonify({"success": False, "error": str(e)}), 500
 
+@app.route("/latest_sets.json")
+def get_latest_sets():
+    exercise_id = request.args.get("exercise_id", type=int)
+    if not exercise_id:
+        return jsonify({"error": "Missing exercise_id"}), 400
+
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+
+        cur.execute("""
+            SELECT reps, weight
+            FROM workouts.workout_set
+            WHERE exercise_id = %s
+            ORDER BY workout_id DESC, id DESC
+            LIMIT 3
+        """, (exercise_id,))
+        sets = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        return jsonify([{"reps": r, "weight": float(w)} for r, w in sets])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host="0.0.0.0", port=port)

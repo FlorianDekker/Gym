@@ -918,6 +918,23 @@ function makeExerciseCard(name) {
   return card;
 }
 
+const matched = allExercises.find(e => e.name.toLowerCase() === name.toLowerCase());
+if (matched) {
+  fetch(`${API_BASE}/latest_sets.json?exercise_id=${matched.id}`)
+    .then(res => res.json())
+    .then(sets => {
+      const inputs = card.querySelectorAll('.set-row');
+      sets.forEach((s, i) => {
+        if (inputs[i]) {
+          const [repInput, kgInput] = inputs[i].querySelectorAll('input');
+          repInput.value = s.reps;
+          kgInput.value  = s.weight;
+        }
+      });
+    });
+}
+
+
   // === wire up any existing remove-card buttons ===
   document.querySelectorAll('.exercise-card .remove-card').forEach(btn => {
     btn.addEventListener('click', () => btn.closest('.exercise-card').remove());
