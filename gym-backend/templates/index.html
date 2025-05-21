@@ -843,6 +843,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dl.innerHTML = exs
         .map(e => `<option value="${e.name}">`)
         .join('');
+      autofillAllPreviousSets();
     });
 
   const dialog      = document.getElementById('exerciseDialog');
@@ -856,6 +857,31 @@ document.addEventListener('DOMContentLoaded', () => {
       dialog.showModal();       // open the modal
     });
   });
+
+  function autofillAllPreviousSets() {
+  document.querySelectorAll('.exercise-card').forEach(card => {
+    const hdr = card.querySelector('.exercise-header');
+    if (!hdr) return;
+
+    const name = hdr.textContent.trim();
+    const match = allExercises.find(e => e.name.toLowerCase() === name.toLowerCase());
+    if (!match) return;
+
+    fetch(`${API_BASE}/latest_sets.json?exercise_id=${match.id}`)
+      .then(res => res.json())
+      .then(sets => {
+        const rows = card.querySelectorAll('.set-row');
+        sets.forEach((s, i) => {
+          if (rows[i]) {
+            const [repInput, kgInput] = rows[i].querySelectorAll('input');
+            repInput.value = s.reps;
+            kgInput.value = s.weight;
+          }
+        });
+      });
+  });
+}
+
 
 // — when user confirms in the dialog —
   dialog.addEventListener('close', () => {
