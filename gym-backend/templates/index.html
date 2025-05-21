@@ -724,6 +724,7 @@
 
   <script>
 document.addEventListener('DOMContentLoaded', () => {
+  let dialogOpener = null;
   // === element references ===
   const chooser            = document.getElementById('chooser');
   const selector           = document.getElementById('WorkoutSelection');
@@ -882,6 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.exercise-card .add-card').forEach(btn => {
     btn.addEventListener('click', () => {
       input.value = '';         // clear previous
+      dialogOpener = btn;       // track which "+" was clicked
       dialog.showModal();       // open the modal
     });
   });
@@ -931,16 +933,17 @@ function autofillCardPreviousSets(card, exerciseName) {
 
 // — when user confirms in the dialog —
   confirmBtn.addEventListener('click', () => {
-  const name = input.value.trim();
-  if (!name) return;
-  const opener = document.activeElement;
-  const section = opener.closest('.workout-section');
-  const newCard = makeExerciseCard(name);
-  const addCardDiv = section.querySelector('.exercise-card:last-of-type');
-  section.insertBefore(newCard, addCardDiv);
-  autofillCardPreviousSets(newCard, name);
-  dialog.close();
-});
+    const name = input.value.trim();
+    if (!name || !dialogOpener) return;
+
+    const section = dialogOpener.closest('.workout-section');
+    const newCard = makeExerciseCard(name);
+    const addCardDiv = section.querySelector('.exercise-card:last-of-type');
+    section.insertBefore(newCard, addCardDiv);
+    autofillCardPreviousSets(newCard, name);
+    dialog.close();
+    dialogOpener = null; // reset
+  });
 
 document.getElementById('cancelExercise').addEventListener('click', () => {
   dialog.close();
