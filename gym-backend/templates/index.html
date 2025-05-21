@@ -930,22 +930,22 @@ function autofillCardPreviousSets(card, exerciseName) {
 
 
 // — when user confirms in the dialog —
-  dialog.addEventListener('close', () => {
-    if (dialog.returnValue === 'default') {
-      const name = input.value.trim();
-      if (name) {
-        // find the original “+” button that opened it:
-        // (we assume only one dialog open at a time)
-        const opener = document.activeElement; 
-        const section = opener.closest('.workout-section');
-        const newCard = makeExerciseCard(name);
-        // insert it right before the “+” card:
-        const addCardDiv = section.querySelector('.exercise-card:last-of-type');
-        section.insertBefore(newCard, addCardDiv);
-        autofillCardPreviousSets(newCard, name);
-      }
-    }
-  });
+  confirmBtn.addEventListener('click', () => {
+  const name = input.value.trim();
+  if (!name) return;
+  const opener = document.activeElement;
+  const section = opener.closest('.workout-section');
+  const newCard = makeExerciseCard(name);
+  const addCardDiv = section.querySelector('.exercise-card:last-of-type');
+  section.insertBefore(newCard, addCardDiv);
+  autofillCardPreviousSets(newCard, name);
+  dialog.close();
+});
+
+document.getElementById('cancelExercise').addEventListener('click', () => {
+  dialog.close();
+});
+
 
   // === helper to create a whole new exercise card ===
 function makeExerciseCard(name) {
