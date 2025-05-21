@@ -725,6 +725,8 @@
   <script>
 document.addEventListener('DOMContentLoaded', () => {
   let dialogOpener = null;
+  let cardToReplace = null;
+
   // === element references ===
   const chooser            = document.getElementById('chooser');
   const selector           = document.getElementById('WorkoutSelection');
@@ -933,21 +935,24 @@ function autofillCardPreviousSets(card, exerciseName) {
 
 // — when user confirms in the dialog —
   confirmBtn.addEventListener('click', () => {
-    const name = input.value.trim();
-    if (!name || !dialogOpener) return;
+  const name = input.value.trim();
+  if (!name) return;
 
+  const newCard = makeExerciseCard(name);
+  autofillCardPreviousSets(newCard, name);
+
+  if (cardToReplace) {
+    cardToReplace.parentNode.replaceChild(newCard, cardToReplace);
+    cardToReplace = null;
+  } else if (dialogOpener) {
     const section = dialogOpener.closest('.workout-section');
-    const newCard = makeExerciseCard(name);
     const addCardDiv = section.querySelector('.exercise-card:last-of-type');
     section.insertBefore(newCard, addCardDiv);
-    autofillCardPreviousSets(newCard, name);
-    dialog.close();
-    dialogOpener = null; // reset
-  });
+  }
 
-document.getElementById('cancelExercise').addEventListener('click', () => {
   dialog.close();
 });
+
 
 
   // === helper to create a whole new exercise card ===
@@ -974,6 +979,16 @@ function makeExerciseCard(name) {
 
   // add the up/down controls
   addReorderButtons(card);
+
+  const refreshBtn = document.createElement('button');
+  refreshBtn.type = 'button';
+  refreshBtn.classList.add('refresh-card');
+  refreshBtn.innerHTML = '<i class="fas fa-sync"></i>';
+  refreshBtn.addEventListener('click', () => {
+    cardToReplace = card;
+    dialog.showModal();
+  });
+  hdrWrap.append(refreshBtn);  // Add after other buttons
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
