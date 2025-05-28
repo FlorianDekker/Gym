@@ -909,19 +909,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!match) return;
 
     fetch(`${API_BASE}/latest_sets.json?exercise_id=${match.id}`)
-      .then(res => res.json())
-      .then(sets => {
-        const rows = card.querySelectorAll('.set-row');
-        const lastSets = sets.slice(-rows.length);
-        lastSets.forEach((s, i) => {
-          const row = rows[i];
-          if (!row) return;
-          const [repInput, kgInput] = row.querySelectorAll('input');
-          repInput.placeholder = s.reps;
-          kgInput.placeholder  = s.weight;
-        });
+      const rows = card.querySelectorAll('.set-row');
+        const recent = sets.slice(0, rows.length);
+        const ordered = recent.reverse();
+        ordered.forEach((s, i) => {
+        const row = rows[i];
+        if (!row) return;
+        const [repInput, kgInput] = row.querySelectorAll('input');
+        repInput.placeholder = s.reps;
+        kgInput.placeholder  = s.weight;
       });
-  });
+    });
 }
 
 function autofillCardPreviousSets(card, exerciseName) {
@@ -932,15 +930,16 @@ function autofillCardPreviousSets(card, exerciseName) {
       .then(res => res.json())
       .then(sets => {
         const rows = card.querySelectorAll('.set-row');
-        const lastSets = sets.slice(-rows.length);
-        lastSets.forEach((s, i) => {
-          const row = rows[i];
-          if (!row) return;
-          const [repInput, kgInput] = row.querySelectorAll('input');
-          repInput.placeholder = s.reps;
-          kgInput.placeholder  = s.weight;
-        });
+        const recent = sets.slice(0, rows.length);
+        const ordered = recent.reverse();
+        ordered.forEach((s, i) => {
+        const row = rows[i];
+        if (!row) return;
+        const [repInput, kgInput] = row.querySelectorAll('input');
+        repInput.placeholder = s.reps;
+        kgInput.placeholder  = s.weight;
       });
+    });
 }
 
 
