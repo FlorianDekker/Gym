@@ -904,22 +904,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const hdr = card.querySelector('.exercise-header');
     if (!hdr) return;
 
-    const name = hdr.textContent.trim();
+    const name  = hdr.textContent.trim();
     const match = allExercises.find(e => e.name.toLowerCase() === name.toLowerCase());
     if (!match) return;
 
     fetch(`${API_BASE}/latest_sets.json?exercise_id=${match.id}`)
-      const rows = card.querySelectorAll('.set-row');
+      .then(res => res.json())
+      .then(sets => {
+        const rows   = card.querySelectorAll('.set-row');
+        // grab the newest N, then reverse so row[0]=3rd-newest, [1]=2nd-newest, [2]=newest
         const recent = sets.slice(0, rows.length);
         const ordered = recent.reverse();
+
         ordered.forEach((s, i) => {
-        const row = rows[i];
-        if (!row) return;
-        const [repInput, kgInput] = row.querySelectorAll('input');
-        repInput.placeholder = s.reps;
-        kgInput.placeholder  = s.weight;
+          const row = rows[i];
+          if (!row) return;
+          const [repInput, kgInput] = row.querySelectorAll('input');
+          repInput.placeholder = s.reps;
+          kgInput.placeholder  = s.weight;
+        });
       });
-    });
+  });
 }
 
 function autofillCardPreviousSets(card, exerciseName) {
@@ -927,12 +932,13 @@ function autofillCardPreviousSets(card, exerciseName) {
   if (!match) return;
 
   fetch(`${API_BASE}/latest_sets.json?exercise_id=${match.id}`)
-      .then(res => res.json())
-      .then(sets => {
-        const rows = card.querySelectorAll('.set-row');
-        const recent = sets.slice(0, rows.length);
-        const ordered = recent.reverse();
-        ordered.forEach((s, i) => {
+    .then(res => res.json())
+    .then(sets => {
+      const rows   = card.querySelectorAll('.set-row');
+      const recent = sets.slice(0, rows.length);
+      const ordered = recent.reverse();
+
+      ordered.forEach((s, i) => {
         const row = rows[i];
         if (!row) return;
         const [repInput, kgInput] = row.querySelectorAll('input');
@@ -941,6 +947,7 @@ function autofillCardPreviousSets(card, exerciseName) {
       });
     });
 }
+
 
 
 // — when user confirms in the dialog —
