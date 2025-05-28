@@ -912,12 +912,13 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(res => res.json())
       .then(sets => {
         const rows = card.querySelectorAll('.set-row');
-        sets.forEach((s, i) => {
-          if (rows[i]) {
-            const [repInput, kgInput] = rows[i].querySelectorAll('input');
-            repInput.placeholder = s.reps;
-            kgInput.placeholder = s.weight;
-          }
+        const lastSets = sets.slice(-rows.length);
+        lastSets.forEach((s, i) => {
+          const row = rows[i];
+          if (!row) return;
+          const [repInput, kgInput] = row.querySelectorAll('input');
+          repInput.placeholder = s.reps;
+          kgInput.placeholder  = s.weight;
         });
       });
   });
