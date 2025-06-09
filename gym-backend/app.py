@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
+from datetime import date
 import psycopg2
 import os
 
@@ -29,12 +30,14 @@ def get_exercises():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+from datetime import datetime
+
 @app.route("/latest_workouts.json")
 def latest_workouts():
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute("""
-        SELECT id, date, notes
+        SELECT date, notes
         FROM workouts.workout
         ORDER BY date DESC
         LIMIT 10
@@ -42,9 +45,14 @@ def latest_workouts():
     rows = cur.fetchall()
     cur.close()
     conn.close()
-    return jsonify([
-        {"id": row[0], "date": row[1], "notes": row[2]} for row in rows
-    ])
+
+    # Format date into 'Sat, 07 Jun 2025'
+    result = [{
+        "date": row[0].strftime('%a, %d %b %Y'),
+        "notes": row[1]
+    } for row in rows]
+
+    return jsonify(result)
 
 @app.route("/submit", methods=["POST"])
 def submit_workout():

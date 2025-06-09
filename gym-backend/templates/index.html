@@ -28,15 +28,16 @@
     </button>
   </div>
 
-  <section id="latestWorkoutsSection">
-    <h2>Last 10 Workouts</h2>
-    <table id="latestWorkoutsTable" border="1">
-      <thead>
-        <tr><th>ID</th><th>Date</th><th>Notes</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
+  <table id="latestWorkoutsTable">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
 
   <div id="workouts" style="display:none">
     <button id="back" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back</button>
@@ -756,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tbody.innerHTML = '';
     data.forEach(row => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${row.id}</td><td>${row.date}</td><td>${row.notes}</td>`;
+      tr.innerHTML = `<td>${row.date}</td><td>${row.notes}</td>`;
       tbody.appendChild(tr);
     });
   });
