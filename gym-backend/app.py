@@ -25,6 +25,23 @@ def get_exercises():
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/latest_workouts.json")
+def latest_workouts():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT id, date, notes
+        FROM workouts.workout
+        ORDER BY date DESC
+        LIMIT 10
+    """)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return jsonify([
+        {"id": row[0], "date": row[1], "notes": row[2]} for row in rows
+    ])
 
 @app.route("/submit", methods=["POST"])
 def submit_workout():

@@ -27,7 +27,16 @@
       <i class="fas fa-database"></i> Data
     </button>
   </div>
-    
+
+  <section id="latestWorkoutsSection">
+    <h2>Last 10 Workouts</h2>
+    <table id="latestWorkoutsTable" border="1">
+      <thead>
+        <tr><th>ID</th><th>Date</th><th>Notes</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
 
   <div id="workouts" style="display:none">
     <button id="back" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back</button>
@@ -739,6 +748,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const dataSection        = document.getElementById('dataSection');
   const dataBack           = document.getElementById('dataBack');
   const exerciseDropdown   = document.getElementById('exerciseDropdown');
+
+  fetch('https://gym-backend-m64q.onrender.com/latest_workouts.json')
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.querySelector('#latestWorkoutsTable tbody');
+    tbody.innerHTML = '';
+    data.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${row.id}</td><td>${row.date}</td><td>${row.notes}</td>`;
+      tbody.appendChild(tr);
+    });
+  });
 
   // === show workout section when user picks from dropdown ===
   selector.addEventListener('change', () => {
