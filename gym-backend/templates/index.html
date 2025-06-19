@@ -129,7 +129,40 @@ const workoutsData = {
   ]
 };
 
-function loadWorkout(workoutName) {
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  let dialogOpener = null;
+  let cardToReplace = null;
+
+  // === element references ===
+  const chooser            = document.getElementById('chooser');
+  const selector           = document.getElementById('WorkoutSelection');
+  const workoutsContainer  = document.getElementById('workouts');
+  const sections           = document.querySelectorAll('.workout-section');
+  const submitBtnWrapper   = document.getElementById('submitButton');
+  const backBtn            = document.getElementById('back');
+
+  const dataButton         = document.getElementById('dataButton');
+  const dataSection        = document.getElementById('dataSection');
+  const dataBack           = document.getElementById('dataBack');
+  const exerciseDropdown   = document.getElementById('exerciseDropdown');
+
+  fetch('https://gym-backend-m64q.onrender.com/latest_workouts.json')
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.querySelector('#latestWorkoutsTable tbody');
+    tbody.innerHTML = '';
+    data.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${row.date}</td><td>${row.notes}</td>`;
+      tbody.appendChild(tr);
+    });
+  });
+
+  function loadWorkout(workoutName) {
   const container = document.getElementById('workoutContainer');
   container.innerHTML = ''; // clear previous
 
@@ -169,37 +202,6 @@ selector.addEventListener('change', () => {
   submitBtnWrapper.style.display = 'block';
   loadWorkout(val);
 });
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  let dialogOpener = null;
-  let cardToReplace = null;
-
-  // === element references ===
-  const chooser            = document.getElementById('chooser');
-  const selector           = document.getElementById('WorkoutSelection');
-  const workoutsContainer  = document.getElementById('workouts');
-  const sections           = document.querySelectorAll('.workout-section');
-  const submitBtnWrapper   = document.getElementById('submitButton');
-  const backBtn            = document.getElementById('back');
-
-  const dataButton         = document.getElementById('dataButton');
-  const dataSection        = document.getElementById('dataSection');
-  const dataBack           = document.getElementById('dataBack');
-  const exerciseDropdown   = document.getElementById('exerciseDropdown');
-
-  fetch('https://gym-backend-m64q.onrender.com/latest_workouts.json')
-  .then(res => res.json())
-  .then(data => {
-    const tbody = document.querySelector('#latestWorkoutsTable tbody');
-    tbody.innerHTML = '';
-    data.forEach(row => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${row.date}</td><td>${row.notes}</td>`;
-      tbody.appendChild(tr);
-    });
-  });
 
   // === show workout section when user picks from dropdown ===
   selector.addEventListener('change', () => {
