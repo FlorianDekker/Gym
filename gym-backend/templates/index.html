@@ -26,13 +26,6 @@
     <button id="dataButton" class="btn btn-data">
       <i class="fas fa-database"></i> Data
     </button>
-    <div id="dataSection" style="display: none;">
-      <button id="dataBack">← Back</button>
-      <select id="exerciseDropdown">
-        <option value="">--Select Exercise--</option>
-      </select>
-      <canvas id="progressChart" width="400" height="200" style="display: none;"></canvas>
-    </div>
   </div>
 
   <table id="latestWorkoutsTable">
@@ -814,58 +807,6 @@ document.addEventListener('DOMContentLoaded', () => {
   dataBack.addEventListener('click', () => {
     dataSection.style.display = 'none';
     chooser.style.display     = 'block';
-  });
-
-  const exerciseDropdown = document.getElementById('exerciseDropdown');
-  const progressChartCanvas = document.getElementById('progressChart');
-  let progressChart = null;
-
-  exerciseDropdown.addEventListener('change', async () => {
-    const exerciseId = exerciseDropdown.value;
-    if (!exerciseId) return;
-
-    const res = await fetch(`https://gym-backend-m64q.onrender.com/api/exercise_progress?exercise_id=${exerciseId}`);
-    const progressData = await res.json();
-
-    const labels = progressData.map(d => d.date);      // x-axis (dates)
-    const volumes = progressData.map(d => d.volume);   // y-axis (total volume)
-
-    const ctx = progressChartCanvas.getContext('2d');
-    if (progressChart) progressChart.destroy();
-
-    progressChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Total Volume (reps × weight)',
-          data: volumes,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(0, 123, 255, 0.2)',
-          tension: 0.3,
-          pointRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true }
-        },
-        scales: {
-          x: {
-            type: 'time',
-            time: { unit: 'day' },
-            title: { display: true, text: 'Date' }
-          },
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'Volume' }
-          }
-        }
-      }
-    });
-
-    progressChartCanvas.style.display = 'block';
   });
 
   // === helper to create a new set-row ===
