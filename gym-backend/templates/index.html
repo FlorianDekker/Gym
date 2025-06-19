@@ -26,6 +26,13 @@
     <button id="dataButton" class="btn btn-data">
       <i class="fas fa-database"></i> Data
     </button>
+    <select id="exerciseSelect">
+      <option value="1">Squat</option>
+      <option value="2">Bench Press</option>
+      <option value="3">Deadlift</option>
+      <!-- Fill dynamically or hardcode -->
+    </select>
+    <canvas id="volumeChart" width="600" height="400"></canvas>
   </div>
 
   <table id="latestWorkoutsTable">
@@ -77,7 +84,7 @@
   </form>
 </dialog>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
 const workoutsData = {
   push1: [
@@ -536,6 +543,80 @@ function makeExerciseCard(name) {
     .catch(() => alert('Submission failed.'));
   });
 });
+
+const ctx = document.getElementById('volumeChart').getContext('2d');
+let volumeChart;
+
+// Function to fetch volume data for selected exercise
+async function fetchVolumeData(exerciseId) {
+  // Adjust this URL to your actual API endpoint
+  const response = await fetch(`/api/volume?exercise_id=${exerciseId}`);
+  const data = await response.json();
+
+  // Data is expected as [{ workout_id, date, total_volume }, ...]
+  return data;
+}
+
+// Function to draw/update chart
+function drawChart(data) {
+  const labels = data.map(d => d.date);
+  const volumes = data.map(d => d.total_volume);
+
+  if (volumeChart) {
+    // Update existing chart
+    volumeChart.data.labels = labels;
+    volumeChart.data.datasets[0].data = volumes;
+    volumeChart.update();
+  } else {
+    // Create new chart
+    volumeChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Total Volume',
+          data: volumes,
+          borderColor: 'blue',
+          fill: false,
+          tension: 0.1,
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'time',
+            time: {
+              unit: 'day',
+              tooltipFormat: 'yyyy-MM-dd',
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Volume (Reps × Weight)'
+            }
+          }
+        }
+      }
+    });
+  }
+}
+
+// Event listener for exercise select dropdown
+document.getElementById('exerciseSelect').addEventListener('change', async (event) => {
+  const exerciseId = event.target.value;
+  const data = await fetchVolumeData(exerciseId);
+  drawChart(data);
+});
+
+// Initial load with first exercise selected
+(async () => {
+  const select = document.getElementById('exerciseSelect');
+  const initialExerciseId = select.value;
+  const data = await fetchVolumeData(initialExerciseId);
+  drawChart(data);
+})();
 </script>
 
 
