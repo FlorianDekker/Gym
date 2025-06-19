@@ -127,6 +127,31 @@ def get_latest_sets():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/api/exercise_progress")
+def exercise_progress():
+    exercise_id = request.args.get("exercise_id")
+    
+    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    cur = conn.cursor()
+
+    query = """
+        SELECT 
+            w.date,
+            SUM(ws.reps * ws.weight) as total_volume
+        FROM workout_set ws
+        JOIN workout w ON ws.workout_id = w.id
+        WHERE ws.exercise_id = %s
+        GROUP BY w.date
+        ORDER BY w.date
+    """
+    cur.execute(query, (exercise_id,))
+    results = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    data = [{"date": r[0].isoformat(), "volume": r[1]} for r in results]
+    return jsonify(data)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
