@@ -127,29 +127,35 @@ def get_latest_sets():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-app.get('/api/volume', async (req, res) => {
-  const exerciseId = req.query.exercise_id;
-  
-  const query = `
-    SELECT
-      w.id AS workout_id,
-      w.date,
-      SUM(ws.reps * ws.weight) AS total_volume
-    FROM workout w
-    JOIN workout_set ws ON ws.workout_id = w.id
-    WHERE ws.exercise_id = $1
-    GROUP BY w.id, w.date
-    ORDER BY w.date;
-  `;
+@app.route('/api/volume')
+def get_volume():
+    exercise_id = request.args.get('exercise_id')
+    if not exercise_id:
+        return jsonify({'error': 'Missing exercise_id'}), 400
 
-  try {
-    const result = await db.query(query, [exerciseId]);
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+    query = """
+        SELECT
+            workout.id AS workout_id,
+            workout.date,
+            SUM(workout_set.reps * workout_set.weight) AS total_volume
+        FROM workout
+        JOIN workout_set ON workout.id = workout_set.workout_id
+        WHERE workout_set.exercise_id = %s
+        GROUP BY workout.id, workout.date
+        ORDER BY workout.date;
+    """
+
+    try:
+        cursor.execute(query, (exercise_id,))
+        rows = cursor.fetchall()
+        result = [
+            {'workout_id': r[0], 'date': r[1].isoformat(), 'total_volume': float(r[2])}
+            for r in rows
+        ]
+        return jsonify(result)
+    except Exception as e:
+        print("Error fetching volume data:", e)
+        return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
