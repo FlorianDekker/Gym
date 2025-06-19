@@ -200,24 +200,12 @@ selector.addEventListener('change', () => {
   chooser.style.display = 'none';
   workoutsContainer.style.display = 'block';
   submitBtnWrapper.style.display = 'block';
-  loadWorkout(val);
+  // Hide other workout sections if needed:
+  sections.forEach(s => s.style.display = 'none');
+
+  loadWorkout(val); // this actually creates exercise cards!
 });
 
-  // === show workout section when user picks from dropdown ===
-  selector.addEventListener('change', () => {
-    const val = selector.value;
-    if (!val) {
-      workoutsContainer.style.display = 'none';
-      submitBtnWrapper.style.display  = 'none';
-      chooser.style.display           = 'block';
-      return;
-    }
-    chooser.style.display           = 'none';
-    workoutsContainer.style.display = 'block';
-    sections.forEach(s => s.style.display = 'none');
-    // document.getElementById(val).style.display = 'block';
-    submitBtnWrapper.style.display = 'block';
-  });
 
   // === back button ===
   backBtn.addEventListener('click', () => {
