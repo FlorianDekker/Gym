@@ -464,11 +464,25 @@ function makeExerciseCard(name) {
 
   hdrWrap.append(hdr);
 
-  if (infoExercises.includes(name)) {
-      const infoIcon = document.createElement('i');
-      infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon'); // Using 'info-icon' for styling
-      hdrWrap.appendChild(infoIcon); // Append the icon directly to hdrWrap
+  if (infoData[name]) { // Check if infoData has an entry for this exercise
+      const infoBtn = document.createElement('button'); // Create a button element
+      infoBtn.type = 'button'; // Make it a button
+      infoBtn.classList.add('info-card'); // Apply the info-card class for styling
+
+      const infoIcon = document.createElement('i'); // Create the Font Awesome icon
+      infoIcon.classList.add('fas', 'fa-info-circle');
+
+      infoBtn.appendChild(infoIcon); // Put the icon inside the button
+
+      // Add the click event listener to the button
+      infoBtn.addEventListener('click', () => {
+          infoText.textContent = infoData[name]; // Set the dialog text
+          infoDialog.showModal(); // Show the dialog
+      });
+
+      hdrWrap.appendChild(infoBtn); // Append the button (containing the icon) to the header wrapper
   }
+
   // hdrWrap.appendchild(remBtn);
   card.appendChild(hdrWrap);
 
