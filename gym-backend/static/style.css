@@ -1,6 +1,13 @@
 /* style.css */
 
 /* --- General Body and Container Styles --- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling due to potential zoom */
+}
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f7f7f7;
@@ -398,6 +405,7 @@ dialog button:hover {
     padding: 6px; /* Keep padding consistent */
     font-size: 16px; /* Keep font size consistent */
     -webkit-text-size-adjust: 100%;
+    line-height: normal;
   }
   .remove-set {
     width: 28px; /* Maintain or slightly increase size for tap target */
