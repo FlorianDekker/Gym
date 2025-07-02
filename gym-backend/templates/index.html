@@ -449,12 +449,13 @@ function makeExerciseCard(name) {
 
   const infoExercises = ["Squat", "Bench Press", "Close-Grip Bench Press"];
 
-  hdrWrap.append(hdr, remBtn);
+  hdrWrap.append(hdr);
   if (infoExercises.includes(name)) {
       const infoIcon = document.createElement('i');
       infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon'); // Add 'info-icon' class for styling
       hdrWrap.appendChild(infoIcon); // Add info icon next to the header
   }
+  hdrWrap.appendchild(remBtn);
   card.appendChild(hdrWrap);
 
   // add the up/down controls
