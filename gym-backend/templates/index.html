@@ -22,6 +22,18 @@
     </select>
   </div>
 
+  <div id="dataButtonWrapper">
+    <button id="dataButton" class="btn btn-data">
+      <i class="fas fa-database"></i> Data
+    </button>
+    <select id="exerciseSelect">
+      <option value="1">Squat</option>
+      <option value="2">Bench Press</option>
+      <option value="3">Deadlift</option>
+      <!-- Fill dynamically or hardcode -->
+    </select>
+  </div>
+
   <table id="latestWorkoutsTable">
   <thead>
     <tr>
@@ -429,20 +441,13 @@ function makeExerciseCard(name) {
   hdr.classList.add('exercise-header');
   hdr.textContent = name;
 
-  const hdrTextSpan = document.createElement('span');
-  hdrTextSpan.textContent = name;
-  hdr.appendChild(hdrTextSpan); // Append the span to the header div
-
   const remBtn = document.createElement('button');
   remBtn.type = 'button';
   remBtn.classList.add('remove-card');
   remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
   remBtn.addEventListener('click', () => card.remove());
 
-  const infoExercises = ["Squat", "Bench Press", "Close-Grip Bench Press"];
-
-  hdrWrap.append(hdr)
-  hdrWrap.appendChild(remBtn);
+  hdrWrap.append(hdr, remBtn);
   card.appendChild(hdrWrap);
 
   // add the up/down controls
