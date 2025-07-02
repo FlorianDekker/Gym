@@ -369,7 +369,6 @@ dialog button:hover {
 }
 
 /* --- Responsive Tweaks --- */
-/* --- Responsive Tweaks --- */
 @media (max-width: 480px) {
   body {
     padding: 10px;
@@ -388,28 +387,31 @@ dialog button:hover {
   /* --- SPECIFICALLY FOR SET ROWS ON MOBILE --- */
   .set-row {
     flex-wrap: nowrap; /* Prevent wrapping to force them on one line */
-    gap: 5px; /* Significantly reduce gap for tighter fit */
-    justify-content: space-between; /* Distribute space if any */
+    gap: 8px; /* Slightly increase gap between elements in the row */
+    align-items: center; /* Ensure vertical alignment */
   }
   .set-row input {
-    width: 60px; /* Make inputs smaller fixed width */
-    flex-grow: 1; /* Allow them to grow if space is available (though fixed width takes precedence) */
-    padding: 6px; /* Reduce input padding */
-    font-size: 0.9em; /* Smaller font in inputs */
+    width: auto; /* Remove fixed width */
+    flex-grow: 1; /* Allow them to grow and fill available space */
+    min-width: 50px; /* Set a minimum width so they don't disappear */
+    max-width: 80px; /* Set a maximum width to prevent them from becoming too wide */
+    padding: 6px; /* Keep padding consistent */
+    font-size: 0.9em; /* Keep font size consistent */
   }
   .remove-set {
-    width: 24px;
-    height: 24px;
-    font-size: 1em;
-    flex-shrink: 0; /* Ensure it doesn't shrink */
+    width: 28px; /* Maintain or slightly increase size for tap target */
+    height: 28px;
+    font-size: 1.1em; /* Slightly larger icon */
+    flex-shrink: 0;
+    margin-left: 8px; /* ADD THIS: Small gap between the last textbox and the remove button */
   }
   /* END SET ROW MOBILE ADJUSTMENTS */
 
   #submitButton button {
-    font-size: 1rem; /* Adjust submit button text size */
+    font-size: 1rem;
     padding: 10px 0;
   }
   .exercise-card .add-card {
-    padding: 12px; /* Smaller padding for add card button */
+    padding: 12px;
   }
 }
