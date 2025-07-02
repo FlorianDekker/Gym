@@ -454,14 +454,17 @@ function makeExerciseCard(name) {
   hdr.classList.add('exercise-header');
   hdr.textContent = name;
 
-  // const remBtn = document.createElement('button');
-  // remBtn.type = 'button';
-  // remBtn.classList.add('remove-card');
-  // remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
-  // remBtn.addEventListener('click', () => card.remove());
+  const remBtn = document.createElement('button');
+  remBtn.type = 'button';
+  remBtn.classList.add('remove-card');
+  remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
+  remBtn.addEventListener('click', () => card.remove());
 
-  const infoExercises = ["Squat", "Bench Press", "Close-Grip Bench Press"];
-
+  const infoData = { // Your info data
+      "Squat": "Onder 11",
+      "Bench Press": "Boven 5",
+      "Close-Grip Bench Press": "Boven 5"
+  };
   hdrWrap.append(hdr);
 
   if (infoData[name]) { // Check if infoData has an entry for this exercise
@@ -487,7 +490,7 @@ function makeExerciseCard(name) {
   card.appendChild(hdrWrap);
 
   // add the up/down controls
-  // addCardControls(card);
+  addCardControls(card);
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
