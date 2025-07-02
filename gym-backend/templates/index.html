@@ -547,21 +547,13 @@ function makeExerciseCard(name) {
 const ctx = document.getElementById('volumeChart').getContext('2d');
 let volumeChart;
 
-// Function to fetch volume data for selected exercise
-async function fetchVolumeData(exerciseId) {
-  // Adjust this URL to your actual API endpoint
-  const response = await fetch(`/api/volume?exercise_id=${exerciseId}`);
-  const data = await response.json();
+const hardcodedVolumeData = [
+    { date: '2025-06-01', total_volume: 1035 },
+    { date: '2025-06-08', total_volume: 1050 },
+    { date: '2025-06-15', total_volume: 1100 }
+];
 
-  // Data is expected as [{ workout_id, date, total_volume }, ...]
-  return [
-      { date: '2025-06-01', total_volume: 1035 },
-      { date: '2025-06-08', total_volume: 1050 },
-      { date: '2025-06-15', total_volume: 1100 }
-  ];
-}
-
-// Function to draw/update chart
+// --- Function to draw or update the chart ---
 function drawChart(data) {
     const labels = data.map(d => d.date);
     const volumes = data.map(d => d.total_volume);
@@ -578,23 +570,23 @@ function drawChart(data) {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Total Volume (Reps × Weight)',
+                    label: 'Total Volume (kg)', // Updated label for clarity
                     data: volumes,
                     borderColor: 'blue',
-                    backgroundColor: 'rgba(0, 0, 255, 0.1)', // Light fill below the line
-                    fill: true, // Fill the area below the line
-                    tension: 0.1 // Smooth the line
+                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    fill: true,
+                    tension: 0.1
                 }]
             },
             options: {
                 scales: {
                     x: {
-                        type: 'time', // Use time scale for dates
+                        type: 'time',
                         time: {
                             unit: 'day',
                             tooltipFormat: 'yyyy-MM-dd',
                             displayFormats: {
-                                day: 'MMM d' // Format for axis labels
+                                day: 'MMM d'
                             }
                         },
                         title: {
@@ -610,35 +602,24 @@ function drawChart(data) {
                         }
                     }
                 },
-                responsive: true, // Chart will resize with its container
-                maintainAspectRatio: false // Allow height to be controlled by CSS/HTML
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
     }
 }
 
-// Event listener for exercise select dropdown
-document.getElementById('exerciseDropdown').addEventListener('change', async (event) => {
-    const exerciseId = event.target.value;
-    if (exerciseId) { // Only fetch data if an exercise is selected
-        const data = await fetchVolumeData(exerciseId);
-        drawChart(data);
-    } else {
-        // If "Select Exercise" is chosen, destroy the chart if it exists
-        if (volumeChart) {
-            volumeChart.destroy();
-            volumeChart = null; // Clear the reference
-        }
-    }
-});
-
-document.getElementById('dataButton').addEventListener('click', async () => {
+// --- Event listener for the Data button to display the section and the chart ---
+document.getElementById('dataButton').addEventListener('click', () => {
     document.getElementById('chooser').style.display = 'none';
     document.getElementById('workouts').style.display = 'none';
     document.getElementById('submitButton').style.display = 'none';
     document.getElementById('dataSection').style.display = 'block';
 
-    // Fetch exercises for the dropdown
+    // Directly draw the chart with hardcoded data when the data section is opened
+    drawChart(hardcodedVolumeData);
+
+    // Keep the dropdown populated, but it won't affect the hardcoded chart
     fetch('https://gym-backend-m64q.onrender.com/exercises.json')
       .then(res => res.json())
       .then(exs => {
@@ -650,29 +631,20 @@ document.getElementById('dataButton').addEventListener('click', async () => {
           opt.textContent = `${e.name} (${e.muscle_group})`;
           exerciseDropdown.appendChild(opt);
         });
-
-        // After populating the dropdown, select the first exercise (if any)
-        // and draw the initial chart.
-        if (exs.length > 0) {
-            exerciseDropdown.value = exs[0].id; // Select the first exercise
-            fetchVolumeData(exs[0].id).then(data => drawChart(data));
-        } else {
-            // No exercises, clear any existing chart
-            if (volumeChart) {
-                volumeChart.destroy();
-                volumeChart = null;
-            }
-        }
+        // Note: The dropdown's change event listener is effectively disabled for the graph
+        // because we're drawing the hardcoded data directly above.
       });
 });
 
-// Initial load with first exercise selected
-(async () => {
-  const select = document.getElementById('exerciseSelect');
-  const initialExerciseId = select.value;
-  const data = await fetchVolumeData(initialExerciseId);
-  drawChart(data);
-})();
+// --- Event listener for the Data Back button to hide the section and destroy the chart ---
+document.getElementById('dataBack').addEventListener('click', () => {
+    document.getElementById('dataSection').style.display = 'none';
+    document.getElementById('chooser').style.display     = 'block';
+    if (volumeChart) {
+        volumeChart.destroy(); // Destroy the chart instance
+        volumeChart = null; // Clear the reference
+    }
+});
 </script>
 
 
