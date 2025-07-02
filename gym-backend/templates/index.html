@@ -71,11 +71,6 @@
   </form>
 </dialog>
 
-<dialog id="infoDialog">
-  <p id="infoText"></p>
-  <button type="button" id="infoCloseButton">Close</button>
-</dialog>
-
   <script>
 const workoutsData = {
   push1: [
@@ -147,14 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const dataSection        = document.getElementById('dataSection');
   const dataBack           = document.getElementById('dataBack');
   const exerciseDropdown   = document.getElementById('exerciseDropdown');
-
-  const infoDialog         = document.getElementById('infoDialog');
-  const infoText           = document.getElementById('infoText');
-  const infoCloseButton    = document.getElementById('infoCloseButton');
-
-  infoCloseButton.addEventListener('click', () => {
-      infoDialog.close();
-  });
 
   fetch('https://gym-backend-m64q.onrender.com/latest_workouts.json')
   .then(res => res.json())
@@ -442,38 +429,31 @@ function makeExerciseCard(name) {
   hdr.classList.add('exercise-header');
   hdr.textContent = name;
 
+  const hdrTextSpan = document.createElement('span');
+  hdrTextSpan.textContent = name;
+  hdr.appendChild(hdrTextSpan); // Append the span to the header div
+
   const remBtn = document.createElement('button');
   remBtn.type = 'button';
   remBtn.classList.add('remove-card');
   remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
   remBtn.addEventListener('click', () => card.remove());
 
-  const infoData = {
-      "Squat": "Onder 11",
-      "Bench Press": "Boven 5",
-      "Close-Grip Bench Press": "Boven 5"
-  };
+  const infoExercises = ["Squat", "Bench Press", "Close-Grip Bench Press"];
 
   hdrWrap.append(hdr)
 
-  if (infoData[name]) {
-      const infoBtn = document.createElement('button');
-      infoBtn.type = 'button';
-      infoBtn.classList.add('info-card');
-      infoBtn.innerHTML = '<i class="fas fa-info-circle"></i>'; // Font Awesome info icon
-      infoBtn.addEventListener('click', () => {
-          infoText.textContent = infoData[name];
-          infoDialog.showModal();
-      });
-      hdrWrap.appendChild(infoBtn); // Add info button next
+    if (infoExercises.includes(name)) {
+      const infoIcon = document.createElement('i');
+      infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon'); // Add 'info-icon' class for styling
+      hdrWrap.appendChild(infoIcon); // Add info icon next to the header
   }
 
   card.appendChild(hdrWrap);
-  // add the up/down controls
   addCardControls(card);
-
   hdrWrap.appendChild(remBtn);
-  
+
+  // add the up/down controls
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
