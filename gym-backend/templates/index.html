@@ -468,11 +468,12 @@ function makeExerciseCard(name) {
       hdrWrap.appendChild(infoBtn); // Add info button next
   }
 
+  card.appendChild(hdrWrap);
   // add the up/down controls
   addCardControls(card);
 
   hdrWrap.appendChild(remBtn);
-  card.appendChild(hdrWrap);
+  
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
