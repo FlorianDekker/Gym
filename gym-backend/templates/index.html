@@ -83,6 +83,11 @@
   </form>
 </dialog>
 
+<dialog id="infoDialog">
+  <p id="infoText"></p>
+  <button type="button" id="infoCloseButton">Close</button>
+</dialog>
+
   <script>
 const workoutsData = {
   push1: [
@@ -154,6 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const dataSection        = document.getElementById('dataSection');
   const dataBack           = document.getElementById('dataBack');
   const exerciseDropdown   = document.getElementById('exerciseDropdown');
+
+  const infoDialog         = document.getElementById('infoDialog');
+  const infoText           = document.getElementById('infoText');
+  const infoCloseButton    = document.getElementById('infoCloseButton');
+
+  infoCloseButton.addEventListener('click', () => {
+      infoDialog.close();
+  });
 
   fetch('https://gym-backend-m64q.onrender.com/latest_workouts.json')
   .then(res => res.json())
@@ -450,23 +463,10 @@ function makeExerciseCard(name) {
   const infoExercises = ["Squat", "Bench Press", "Close-Grip Bench Press"];
 
   hdrWrap.append(hdr);
-  if (infoData[name]) { // Check if infoData has an entry for this exercise
-      const infoBtn = document.createElement('button'); // Create a button for the info icon
-      infoBtn.type = 'button';
-      infoBtn.classList.add('info-card'); // Use the class you already have for styling
-
+  if (infoExercises.includes(name)) {
       const infoIcon = document.createElement('i');
-      infoIcon.classList.add('fas', 'fa-info-circle'); // No need for 'info-icon' class on the i, the button class is enough
-
-      infoBtn.appendChild(infoIcon); // Put the icon inside the button
-
-      // Add the event listener to the button
-      infoBtn.addEventListener('click', () => {
-          infoText.textContent = infoData[name]; // Set the text from infoData
-          infoDialog.showModal(); // Open the dialog
-      });
-
-      hdrWrap.appendChild(infoBtn); // Add the button to the header wrapper
+      infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon'); // Using 'info-icon' for styling
+      hdrWrap.appendChild(infoIcon); // Append the icon directly to hdrWrap
   }
   hdrWrap.appendchild(remBtn);
   card.appendChild(hdrWrap);
