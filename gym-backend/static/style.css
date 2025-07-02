@@ -369,9 +369,13 @@ dialog button:hover {
 }
 
 /* --- Responsive Tweaks --- */
+/* --- Responsive Tweaks --- */
 @media (max-width: 480px) {
   body {
     padding: 10px;
+  }
+  h2, h3 {
+    font-size: 1.3em;
   }
   .exercise-header {
     font-size: 1rem;
@@ -380,16 +384,32 @@ dialog button:hover {
     font-size: 1rem; /* Smaller icons on small screens */
     padding: 0 3px;
   }
+
+  /* --- SPECIFICALLY FOR SET ROWS ON MOBILE --- */
   .set-row {
-    flex-wrap: wrap; /* Allow set rows to wrap on small screens */
-    gap: 8px;
+    flex-wrap: nowrap; /* Prevent wrapping to force them on one line */
+    gap: 5px; /* Significantly reduce gap for tighter fit */
+    justify-content: space-between; /* Distribute space if any */
   }
   .set-row input {
-    width: calc(50% - 10px); /* Make inputs take roughly half width */
+    width: 60px; /* Make inputs smaller fixed width */
+    flex-grow: 1; /* Allow them to grow if space is available (though fixed width takes precedence) */
+    padding: 6px; /* Reduce input padding */
+    font-size: 0.9em; /* Smaller font in inputs */
   }
   .remove-set {
     width: 24px;
     height: 24px;
     font-size: 1em;
+    flex-shrink: 0; /* Ensure it doesn't shrink */
+  }
+  /* END SET ROW MOBILE ADJUSTMENTS */
+
+  #submitButton button {
+    font-size: 1rem; /* Adjust submit button text size */
+    padding: 10px 0;
+  }
+  .exercise-card .add-card {
+    padding: 12px; /* Smaller padding for add card button */
   }
 }
