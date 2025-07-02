@@ -22,18 +22,6 @@
     </select>
   </div>
 
-  <div id="dataButtonWrapper">
-    <button id="dataButton" class="btn btn-data">
-      <i class="fas fa-database"></i> Data
-    </button>
-    <select id="exerciseSelect">
-      <option value="1">Squat</option>
-      <option value="2">Bench Press</option>
-      <option value="3">Deadlift</option>
-      <!-- Fill dynamically or hardcode -->
-    </select>
-  </div>
-
   <table id="latestWorkoutsTable">
   <thead>
     <tr>
@@ -154,6 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const dataSection        = document.getElementById('dataSection');
   const dataBack           = document.getElementById('dataBack');
   const exerciseDropdown   = document.getElementById('exerciseDropdown');
+
+  const infoDialog         = document.getElementById('infoDialog');
+  const infoText           = document.getElementById('infoText');
+  const infoCloseButton    = document.getElementById('infoCloseButton');
+
+  infoCloseButton.addEventListener('click', () => {
+      infoDialog.close();
+  });
 
   fetch('https://gym-backend-m64q.onrender.com/latest_workouts.json')
   .then(res => res.json())
@@ -447,7 +443,27 @@ function makeExerciseCard(name) {
   remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
   remBtn.addEventListener('click', () => card.remove());
 
-  hdrWrap.append(hdr, remBtn);
+  hdrWrap.append(hdr)
+  
+  const infoData = {
+      "Squat": "Onder 11",
+      "Bench Press": "Boven 5",
+      "Close-Grip Bench Press": "Boven 5"
+  };
+
+  if (infoData[name]) {
+      const infoBtn = document.createElement('button');
+      infoBtn.type = 'button';
+      infoBtn.classList.add('info-card');
+      infoBtn.innerHTML = '<i class="fas fa-info-circle"></i>'; // Font Awesome info icon
+      infoBtn.addEventListener('click', () => {
+          infoText.textContent = infoData[name];
+          infoDialog.showModal();
+      });
+      hdrWrap.appendChild(infoBtn); // Add info button next
+  }
+
+  hdrWrap.appendChild(remBtn);
   card.appendChild(hdrWrap);
 
   // add the up/down controls
