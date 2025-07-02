@@ -23,6 +23,15 @@
   </div>
 
   <div id="dataButtonWrapper">
+    <button id="dataButton" class="btn btn-data">
+      <i class="fas fa-database"></i> Data
+    </button>
+    <select id="exerciseSelect">
+      <option value="1">Squat</option>
+      <option value="2">Bench Press</option>
+      <option value="3">Deadlift</option>
+      <!-- Fill dynamically or hardcode -->
+    </select>
   </div>
 
   <table id="latestWorkoutsTable">
@@ -431,6 +440,10 @@ function makeExerciseCard(name) {
   const hdr = document.createElement('div');
   hdr.classList.add('exercise-header');
   hdr.textContent = name;
+
+  const hdrTextSpan = document.createElement('span');
+  hdrTextSpan.textContent = name;
+  hdr.appendChild(hdrTextSpan); // Append the span to the header div
 
   const remBtn = document.createElement('button');
   remBtn.type = 'button';
