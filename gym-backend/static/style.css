@@ -230,3 +230,13 @@ dialog button {
 dialog button:hover {
     background-color: #0056b3;
 }
+
+.exercise-header-wrapper .move-up {
+    margin-left: auto; /* This pushes move-up (and subsequent move-down, refresh, remove) to the far right */
+}
+
+/* Ensure these follow immediately after move-up and are not affected by auto-margins themselves */
+.exercise-header-wrapper .move-down,
+.exercise-header-wrapper .refresh-card {
+    margin-left: 0; /* Important: reset any previous auto margin that might be inferred */
+}
