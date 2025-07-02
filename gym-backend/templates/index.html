@@ -450,10 +450,23 @@ function makeExerciseCard(name) {
   const infoExercises = ["Squat", "Bench Press", "Close-Grip Bench Press"];
 
   hdrWrap.append(hdr);
-  if (infoExercises.includes(name)) {
+  if (infoData[name]) { // Check if infoData has an entry for this exercise
+      const infoBtn = document.createElement('button'); // Create a button for the info icon
+      infoBtn.type = 'button';
+      infoBtn.classList.add('info-card'); // Use the class you already have for styling
+
       const infoIcon = document.createElement('i');
-      infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon'); // Add 'info-icon' class for styling
-      hdrWrap.appendChild(infoIcon); // Add info icon next to the header
+      infoIcon.classList.add('fas', 'fa-info-circle'); // No need for 'info-icon' class on the i, the button class is enough
+
+      infoBtn.appendChild(infoIcon); // Put the icon inside the button
+
+      // Add the event listener to the button
+      infoBtn.addEventListener('click', () => {
+          infoText.textContent = infoData[name]; // Set the text from infoData
+          infoDialog.showModal(); // Open the dialog
+      });
+
+      hdrWrap.appendChild(infoBtn); // Add the button to the header wrapper
   }
   hdrWrap.appendchild(remBtn);
   card.appendChild(hdrWrap);
