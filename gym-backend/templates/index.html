@@ -32,7 +32,6 @@
       <option value="3">Deadlift</option>
       <!-- Fill dynamically or hardcode -->
     </select>
-    <canvas id="volumeChart" width="600" height="400"></canvas>
   </div>
 
   <table id="latestWorkoutsTable">
@@ -59,6 +58,15 @@
     </div>
   </div>
 
+  <div id="dataSection" style="display:none">
+    <button id="dataBack" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2>All Exercises</h2>
+    <select id="exerciseDropdown">
+      <option value="">--Select Exercise--</option>
+      <!-- Options will be added dynamically from JS -->
+    </select>
+  </div>
+
   <dialog id="exerciseDialog">
   <form method="dialog" id="exerciseForm">
     <label>
@@ -75,7 +83,6 @@
   </form>
 </dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
 const workoutsData = {
   push1: [
@@ -533,108 +540,6 @@ function makeExerciseCard(name) {
     })
     .catch(() => alert('Submission failed.'));
   });
-});
-
-const ctx = document.getElementById('volumeChart').getContext('2d');
-let volumeChart;
-
-const hardcodedVolumeData = [
-    { date: '2025-06-01', total_volume: 1035 },
-    { date: '2025-06-08', total_volume: 1050 },
-    { date: '2025-06-15', total_volume: 1100 }
-];
-
-// --- Function to draw or update the chart ---
-function drawChart(data) {
-    const labels = data.map(d => d.date);
-    const volumes = data.map(d => d.total_volume);
-
-    if (volumeChart) {
-        // If chart already exists, update its data
-        volumeChart.data.labels = labels;
-        volumeChart.data.datasets[0].data = volumes;
-        volumeChart.update();
-    } else {
-        // Otherwise, create a new chart
-        volumeChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Total Volume (kg)', // Updated label for clarity
-                    data: volumes,
-                    borderColor: 'blue',
-                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
-                    fill: true,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day',
-                            tooltipFormat: 'yyyy-MM-dd',
-                            displayFormats: {
-                                day: 'MMM d'
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Volume (kg)'
-                        }
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-    }
-}
-
-// --- Event listener for the Data button to display the section and the chart ---
-document.getElementById('dataButton').addEventListener('click', () => {
-    document.getElementById('chooser').style.display = 'none';
-    document.getElementById('workouts').style.display = 'none';
-    document.getElementById('submitButton').style.display = 'none';
-    document.getElementById('dataSection').style.display = 'block';
-
-    // Directly draw the chart with hardcoded data when the data section is opened
-    drawChart(hardcodedVolumeData);
-
-    // Keep the dropdown populated, but it won't affect the hardcoded chart
-    fetch('https://gym-backend-m64q.onrender.com/exercises.json')
-      .then(res => res.json())
-      .then(exs => {
-        const exerciseDropdown = document.getElementById('exerciseDropdown');
-        exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
-        exs.forEach(e => {
-          const opt = document.createElement('option');
-          opt.value       = e.id;
-          opt.textContent = `${e.name} (${e.muscle_group})`;
-          exerciseDropdown.appendChild(opt);
-        });
-        // Note: The dropdown's change event listener is effectively disabled for the graph
-        // because we're drawing the hardcoded data directly above.
-      });
-});
-
-// --- Event listener for the Data Back button to hide the section and destroy the chart ---
-document.getElementById('dataBack').addEventListener('click', () => {
-    document.getElementById('dataSection').style.display = 'none';
-    document.getElementById('chooser').style.display     = 'block';
-    if (volumeChart) {
-        volumeChart.destroy(); // Destroy the chart instance
-        volumeChart = null; // Clear the reference
-    }
 });
 </script>
 
