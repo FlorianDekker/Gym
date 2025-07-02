@@ -396,7 +396,8 @@ dialog button:hover {
     min-width: 50px; /* Set a minimum width so they don't disappear */
     max-width: 80px; /* Set a maximum width to prevent them from becoming too wide */
     padding: 6px; /* Keep padding consistent */
-    font-size: 0.9em; /* Keep font size consistent */
+    font-size: 16px; /* Keep font size consistent */
+    -webkit-text-size-adjust: 100%;
   }
   .remove-set {
     width: 28px; /* Maintain or slightly increase size for tap target */

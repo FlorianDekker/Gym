@@ -312,6 +312,7 @@ selector.addEventListener('change', () => {
     refreshBtn.innerHTML = '<i class="fas fa-sync"></i>';
     refreshBtn.addEventListener('click', () => {
       cardToReplace = card;
+      input.value = '';
       dialog.showModal();
     });
 
