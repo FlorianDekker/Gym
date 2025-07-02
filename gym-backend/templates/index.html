@@ -22,19 +22,6 @@
     </select>
   </div>
 
-  <div id="dataButtonWrapper">
-    <button id="dataButton" class="btn btn-data">
-      <i class="fas fa-database"></i> Data
-    </button>
-    <select id="exerciseSelect">
-      <option value="1">Squat</option>
-      <option value="2">Bench Press</option>
-      <option value="3">Deadlift</option>
-      <!-- Fill dynamically or hardcode -->
-    </select>
-    <canvas id="volumeChart" width="600" height="400"></canvas>
-  </div>
-
   <table id="latestWorkoutsTable">
   <thead>
     <tr>
@@ -59,15 +46,6 @@
     </div>
   </div>
 
-  <div id="dataSection" style="display:none">
-    <button id="dataBack" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2>All Exercises</h2>
-    <select id="exerciseDropdown">
-      <option value="">--Select Exercise--</option>
-      <!-- Options will be added dynamically from JS -->
-    </select>
-  </div>
-
   <dialog id="exerciseDialog">
   <form method="dialog" id="exerciseForm">
     <label>
@@ -84,7 +62,6 @@
   </form>
 </dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
 const workoutsData = {
   push1: [
@@ -543,57 +520,6 @@ function makeExerciseCard(name) {
     .catch(() => alert('Submission failed.'));
   });
 });
-
-const ctx = document.getElementById('volumeChart').getContext('2d');
-let volumeChart;
-
-const hardcodedVolumeData = [
-    { date: '2025-06-01', total_volume: 1035 },
-    { date: '2025-06-08', total_volume: 1050 },
-    { date: '2025-06-15', total_volume: 1100 }
-];
-
-new Chart(ctx, {
-          type: 'line',
-          data: {
-              labels: hardcodedVolumeData.map(d => d.date),
-              datasets: [{
-                  label: 'Total Volume (kg)',
-                  data: hardcodedVolumeData.map(d => d.total_volume),
-                  borderColor: 'blue',
-                  backgroundColor: 'rgba(0, 0, 255, 0.1)',
-                  fill: true,
-                  tension: 0.1
-              }]
-          },
-          options: {
-              scales: {
-                  x: {
-                      type: 'time', // Important for date parsing
-                      time: {
-                          unit: 'day',
-                          tooltipFormat: 'yyyy-MM-dd',
-                          displayFormats: {
-                              day: 'MMM d'
-                          }
-                      },
-                      title: {
-                          display: true,
-                          text: 'Date'
-                      }
-                  },
-                  y: {
-                      beginAtZero: true,
-                      title: {
-                          display: true,
-                          text: 'Volume (kg)'
-                      }
-                  }
-              },
-              responsive: true,
-              maintainAspectRatio: false
-          }
-      });
 </script>
 
 
