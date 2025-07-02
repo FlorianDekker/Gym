@@ -448,13 +448,13 @@ function makeExerciseCard(name) {
   remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
   remBtn.addEventListener('click', () => card.remove());
 
-  hdrWrap.append(hdr)
-  
   const infoData = {
       "Squat": "Onder 11",
       "Bench Press": "Boven 5",
       "Close-Grip Bench Press": "Boven 5"
   };
+
+  hdrWrap.append(hdr)
 
   if (infoData[name]) {
       const infoBtn = document.createElement('button');
@@ -468,11 +468,11 @@ function makeExerciseCard(name) {
       hdrWrap.appendChild(infoBtn); // Add info button next
   }
 
-  hdrWrap.appendChild(remBtn);
-  card.appendChild(hdrWrap);
-
   // add the up/down controls
   addCardControls(card);
+
+  hdrWrap.appendChild(remBtn);
+  card.appendChild(hdrWrap);
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
