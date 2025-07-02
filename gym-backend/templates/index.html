@@ -491,7 +491,7 @@ function makeExerciseCard(name) {
   remBtn.classList.add('remove-card');
   remBtn.innerHTML = '<i class="fas fa-trash"></i>';      // same icon as your HTML
   remBtn.addEventListener('click', () => card.remove());
-  hdrWrap.appendchild(remBtn);
+  hdrWrap.appendChild(remBtn);
 
   // — Three initial set‐rows —
   for (let i = 0; i < 3; i++) {
