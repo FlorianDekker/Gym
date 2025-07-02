@@ -1,12 +1,17 @@
+/* style.css */
+
+/* --- General Body and Container Styles --- */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f7f7f7;
   color: #333;
   padding: 20px;
   max-width: 600px;
-  margin: auto;
+  margin: auto; /* Centers the main content area */
+  line-height: 1.6;
 }
 
+/* Visually hidden for accessibility */
 .visually-hidden {
   position: absolute !important;
   left: -9999px !important;
@@ -17,48 +22,114 @@ body {
 
 h2, h3 {
   color: #333;
+  margin-top: 20px;
+  margin-bottom: 15px;
 }
 
-.select-button-wrapper {
-  position: relative;
-  display: inline-block;
+/* --- Chooser and Data Button Wrapper --- */
+#chooser, #dataButtonWrapper {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* The pill‑shaped fake button */
-.btn-select {
+#chooser label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#WorkoutSelection, #exerciseSelect, #exerciseDropdown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #fcfcfc;
+    appearance: none; /* Removes default select arrow */
+    -webkit-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.7L146.2%20224.2%2018.6%2075.1c-3.2-3.7-7.9-5.7-12.8-5.7H17.2c-10.4%200-15.9%2012.3-9.5%2020.6l138%20147.2c3.2%203.7%207.9%205.7%2012.8%205.7s9.6-2%2012.8-5.7l138-147.2c6.4-8.3%20.9-20.6-9.5-20.6h-4.2z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px auto;
+}
+
+/* --- Table Styles --- */
+#latestWorkoutsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden; /* Ensures rounded corners on table */
+}
+
+#latestWorkoutsTable th, #latestWorkoutsTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+#latestWorkoutsTable th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+#latestWorkoutsTable tbody tr:last-child td {
+    border-bottom: none; /* No border on the last row */
+}
+
+#latestWorkoutsTable tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+
+/* --- Button General Styles --- */
+.btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center; /* Center content in buttons */
   gap: 8px;
   padding: 10px 16px;
-  background: #007BFF;
-  color: #fff;
-  font-size: 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
-/* Hide the real select off‑screen */
-.select-button-wrapper select {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  opacity: 0;
-  cursor: pointer;
+.btn-data {
+    background: #4CAF50; /* Green for data button */
+    color: #fff;
 }
 
-/* back button variant */
+.btn-data:hover {
+    background: #45a049;
+}
+
 .btn-back {
   background: transparent;
   color: #007BFF;
   font-size: 0.9rem;
   padding: 6px 12px;
   border-radius: 6px;
+  margin-bottom: 15px; /* Space below back button */
 }
+
 .btn-back:hover {
   background: rgba(0, 123, 255, 0.1);
 }
 
+/* --- Exercise Card Specific Styles --- */
 .exercise-card {
   background-color: #fff;
   border-radius: 12px;
@@ -67,19 +138,113 @@ h2, h3 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* The header wrapper for flexbox alignment of name and buttons */
 .exercise-header-wrapper {
-  position: relative;
-  padding-right: 32px;  /* ensure space for the button */
-  padding-bottom: 10px;
+  display: flex; /* Makes it a flex container */
+  align-items: center; /* Vertically aligns items in the middle */
+  gap: 8px; /* Space between direct children */
+  margin-bottom: 10px; /* Space below the header line */
 }
 
 .exercise-header {
   font-weight: bold;
   font-size: 1.1em;
-  margin-bottom: 12px;
+  flex-shrink: 0; /* Prevents the text from shrinking */
 }
 
-/* override the old absolute positioning */
+/* --- Info Button Styling --- */
+.info-card {
+    background: none;
+    border: none;
+    color: #007bff; /* Blue for the info icon */
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 0;
+    margin: 0; /* No extra spacing from default button styles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-card:hover {
+    color: #0056b3;
+}
+
+/* --- General Styling for Control Buttons (Move, Refresh, Remove) --- */
+.exercise-header-wrapper button { /* Applies to move-up, move-down, refresh-card, remove-card */
+  background: none;
+  border: none;
+  color: #666; /* Default color for move/refresh buttons */
+  font-size: 1.2em; /* Icon size */
+  cursor: pointer;
+  padding: 0 5px; /* Small padding for easier clicking */
+  flex-shrink: 0; /* Prevents buttons from shrinking */
+}
+
+/* --- Positioning for Move/Refresh/Remove Buttons within Flexbox --- */
+/* This is the key to pushing the group of control buttons to the right */
+.exercise-header-wrapper .move-up {
+    margin-left: auto;
+}
+
+/* Ensure these follow immediately after move-up and don't introduce extra auto margins */
+.exercise-header-wrapper .move-down,
+.exercise-header-wrapper .refresh-card {
+    margin-left: 0;
+}
+
+/* Specific styling for the remove button */
+.remove-card {
+    color: #dc3545; /* Red for the trash icon */
+    margin-left: 5px; /* Small gap between the refresh button and the trash button */
+}
+
+/* --- Set Row Styles --- */
+.set-row {
+  display: flex; /* Makes the set row a flex container */
+  align-items: center; /* Vertically aligns inputs and button */
+  gap: 12px; /* Space between reps input, kg input, and remove button */
+  margin-bottom: 10px;
+}
+
+.set-row input {
+  width: 100px; /* Fixed width for inputs */
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  text-align: center; /* Center the placeholder/entered text */
+}
+
+.set-row input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Remove Set Button */
+.remove-set {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 50%; /* Makes it a circle */
+  font-size: 1.2em;
+  line-height: 1; /* Adjusts text vertically in the circle */
+  display: flex; /* Use flex to center the '-' */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+.remove-set:hover {
+    background-color: #cc0000;
+}
+
+/* Add Set Button at the bottom of the card */
 .add-set {
   display: block;
   width: 100%;
@@ -99,51 +264,7 @@ h2, h3 {
   background-color: #e0e0e0;
 }
 
-/* ensure the last row still aligns everything nicely */
-.set-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-
-.remove-set {
-  width: 28px;
-  height: 28px;
-  border: none;
-  background: #ff0000;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 1.2em;
-  line-height: 28px;
-  cursor: pointer;
-}
-
-.remove-card {
-  position: absolute;
-  top: 0;
-  right: 3px;
-  width: 25px;
-  height: 25px;
-  border: none;
-  background: transparent;
-  color: #939393;
-  border-radius: 50%;
-  font-size: 1.5em;
-  line-height: 28px;
-  cursor: pointer;
-}
-
-.set-row input {
-  width: 100px;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1em;
-}
-
-/* Placeholder “add-card” area */
+/* --- Add New Card Button --- */
 .exercise-card .add-card {
   display: inline-block;
   width: 100%;
@@ -158,11 +279,16 @@ h2, h3 {
   margin: 16px 0;
 }
 
+.exercise-card .add-card:hover {
+  background: #f0f0f0;
+  border-color: #007aff;
+}
+
+/* --- Submit Workout Button --- */
 #submitButton {
   margin-top: 24px;
 }
 
-/* full‑width pill button */
 #submitButton button {
   display: block;
   width: 100%;
@@ -177,35 +303,22 @@ h2, h3 {
   transition: background 0.2s;
 }
 
-/* hover/focus states */
 #submitButton button:hover,
 #submitButton button:focus {
   background: #218838;
   outline: none;
 }
 
-
-/* Responsive tweaks */
-@media (max-width: 480px) {
-  .exercise-header {
-    font-size: 1rem;
-  }
-  .exercise-header-wrapper button {
-    width: 24px; height: 24px;
-    font-size: 1rem;
-  }
-  .set-row {
-    flex-wrap: wrap;
-  }
-}
-
+/* --- Dialog (Modal) Styles --- */
 dialog {
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     min-width: 250px;
+    max-width: 400px;
     text-align: center;
+    background-color: #fff;
 }
 
 dialog::backdrop {
@@ -215,6 +328,7 @@ dialog::backdrop {
 dialog p {
     font-size: 1.2em;
     margin-bottom: 15px;
+    color: #333;
 }
 
 dialog button {
@@ -225,18 +339,57 @@ dialog button {
     color: white;
     cursor: pointer;
     font-size: 1em;
+    margin: 5px; /* Space between dialog buttons */
 }
 
 dialog button:hover {
     background-color: #0056b3;
 }
 
-.exercise-header-wrapper .move-up {
-    margin-left: auto; /* This pushes move-up (and subsequent move-down, refresh, remove) to the far right */
+#exerciseForm label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
-/* Ensure these follow immediately after move-up and are not affected by auto-margins themselves */
-.exercise-header-wrapper .move-down,
-.exercise-header-wrapper .refresh-card {
-    margin-left: 0; /* Important: reset any previous auto margin that might be inferred */
+#exerciseInput {
+    width: calc(100% - 20px); /* Account for padding */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+#exerciseDialog menu {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between menu buttons */
+    padding: 0;
+    margin: 0;
+}
+
+/* --- Responsive Tweaks --- */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  .exercise-header {
+    font-size: 1rem;
+  }
+  .exercise-header-wrapper button {
+    font-size: 1rem; /* Smaller icons on small screens */
+    padding: 0 3px;
+  }
+  .set-row {
+    flex-wrap: wrap; /* Allow set rows to wrap on small screens */
+    gap: 8px;
+  }
+  .set-row input {
+    width: calc(50% - 10px); /* Make inputs take roughly half width */
+  }
+  .remove-set {
+    width: 24px;
+    height: 24px;
+    font-size: 1em;
+  }
 }
