@@ -212,18 +212,23 @@ dialog::backdrop {
     background: rgba(0, 0, 0, 0.5);
 }
 
-.exercise-header-wrapper {
-  display: flex; /* This is KEY for horizontal alignment */
-  align-items: center; /* Vertically centers items */
-  gap: 8px; /* Adds space between items in the flex container */
-  margin-bottom: 10px;
-  /* Remove any position: relative; or padding-right: from here if they conflict */
+dialog p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
 }
 
-.exercise-header {
-  font-weight: bold;
-  font-size: 1.1em;
-  flex-shrink: 0; /* Prevents the text from shrinking */
+dialog button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+dialog button:hover {
+    background-color: #0056b3;
 }
 
 /* Style for the info button itself */
@@ -245,26 +250,3 @@ dialog::backdrop {
     color: #0056b3;
 }
 
-/* General styling for all buttons in the header wrapper */
-.exercise-header-wrapper button {
-  background: none;
-  border: none;
-  color: #666; /* Default color for move/refresh buttons */
-  font-size: 1.2em;
-  cursor: pointer;
-  padding: 0 5px;
-  flex-shrink: 0;
-}
-
-/* Push the move/refresh buttons to the right */
-.exercise-header-wrapper .move-up,
-.exercise-header-wrapper .move-down,
-.exercise-header-wrapper .refresh-card {
-    margin-left: auto; /* This pushes these buttons to the far right */
-}
-
-/* Style for the remove button */
-.remove-card {
-    color: #dc3545; /* Red color for the trash icon */
-    margin-left: 5px; /* Small space between refresh and trash */
-}
