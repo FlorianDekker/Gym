@@ -230,23 +230,3 @@ dialog button {
 dialog button:hover {
     background-color: #0056b3;
 }
-
-/* Style for the info button itself */
-.info-card {
-    background: none;
-    border: none;
-    color: #007bff; /* Blue color for the info icon */
-    font-size: 1.1em;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    display: flex; /* Flex on the button itself to center the icon if needed */
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.info-card:hover {
-    color: #0056b3;
-}
-
