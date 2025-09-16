@@ -95,9 +95,7 @@ const workoutsData = {
     "Dips",
     "Eccentric Skull Crushers",
     "Egyptian Lateral Raise",
-    "Cable Tricep Kickback",
-    "Hip Abductor",
-    "Hip Adductor"
+    "Cable Tricep Kickback"
   ],
   pull1: [
     "Weighted Pull-Up",
@@ -112,15 +110,18 @@ const workoutsData = {
     "Single Leg Press",
     "Leg Extension",
     "Seated Leg Curls",
-    "Standing Calf Raise"
+    "Single-Leg Calf Raise",
+    "Hip Abductor",
+    "Hip Adductor"
   ],
   push2: [
     "Overhead Press",
     "Close-Grip Bench Press",
     "Cable Crossover",
+    "Cable Crossover Decline",
     "Overhead Tricep Ext",
     "Lateral Raise 21's",
-    "Neck Flexion/Extension"
+    "Incline Dumbbell Shrug (Optional)"
   ],
   pull2: [
     "Omni-Grip Lat Pulldown",
@@ -136,7 +137,9 @@ const workoutsData = {
     "Hack Squat",
     "Single-Leg Hip Thrust",
     "Single-Leg Calf Raise",
-    "Weighted L-Sit Hold"
+    "Weighted L-Sit Hold",
+    "Hip Abductor",
+    "Hip Adductor"
   ]
 };
 
@@ -457,9 +460,38 @@ function makeExerciseCard(name) {
   hdr.textContent = name;
 
   const infoData = { // Your info data
-      "Squat": "Onder 11 / 19",
-      "Bench Press": "Boven 5",
-      "Close-Grip Bench Press": "Boven 5"
+      "Squat": "Onder 11 / 19 | 4 reps",
+      "Romanian Deadlift": "10 reps",
+      "Single Leg Press": "15 reps",
+      "Leg Extension": "10-12 reps",
+      "Seated Leg Curls": "10-12 reps",
+      "Standing Calf Raise": "10-12 reps",
+      "Bench Press": "Boven 5 | 8 reps",
+      "Machine Shoulder Press": "12 reps",
+      "Dips": "12-15 reps",
+      "Eccentric Skull Crushers": "8-10 reps",
+      "Egyptian Lateral Raise": "12 reps",
+      "Cable Tricep Kickback": "20-30 reps",
+      "Weighted Pull-Up": "6 reps",
+      "Seated Cable Row": "10-12 reps",
+      "Cable Pullover": "15-20 reps",
+      "Hammer Curl": "8-10 reps",
+      "Incline Dumbbell Curl": "12-15 reps",
+      "Deadlift": "3 reps",
+      "Hack Squat": "10-12 reps",
+      "Single-Leg Hip Thrust": "15 reps",
+      "Single-Leg Calf Raise": "8-10 reps",
+      "Overhead Press": "4 reps",
+      "Close-Grip Bench Press": "Boven 5 | 10 reps",
+      "Cable Crossover": "10-12 reps",
+      "Overhead Tricep Ext": "10-12 reps",
+      "Omni-Grip Lat Pulldown": "10-12 reps",
+      "Chest-Supported Row": "10-12 reps",
+      "Rope Facepull": "15-20 reps",
+      "Incline Dumbbell Shrug (Optional)": "15-20 reps",
+      "Reverse Pec Deck": "15 reps",
+      "Pronated Curl": "10 reps",
+      "Supinated Curl": "10 reps"
   };
   hdrWrap.append(hdr);
 
