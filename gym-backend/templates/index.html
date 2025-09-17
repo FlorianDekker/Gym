@@ -64,6 +64,22 @@
       <option value="">--Select Exercise--</option>
       <!-- Options will be added dynamically from JS -->
     </select>
+
+    <div id="benchPressData" style="display:none;">
+    <h3>Bench Press Volume Progress</h3>
+    <canvas id="volumeChart"></canvas>
+    <h4>Workout History</h4>
+    <table id="benchPressTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Total Volume (kg)</th>
+          <th>Sets</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
   </div>
 
   <dialog id="exerciseDialog">
@@ -87,7 +103,7 @@
   <button type="button" id="infoCloseButton">Close</button>
 </dialog>
 
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
 const workoutsData = {
   push1: [
     "Bench Press",
@@ -481,7 +497,7 @@ function makeExerciseCard(name) {
       "Hack Squat": "10-12 reps",
       "Single-Leg Hip Thrust": "15 reps",
       "Single-Leg Calf Raise": "8-10 reps",
-      "Overhead Press": "4 reps",
+      "Overhead Press": "Onder 11 | 4 reps",
       "Close-Grip Bench Press": "Boven 5 | 10 reps",
       "Cable Crossover": "10-12 reps",
       "Overhead Tricep Ext": "10-12 reps",
@@ -615,6 +631,80 @@ function makeExerciseCard(name) {
     .catch(() => alert('Submission failed.'));
   });
 });
+
+// Add a new global variable for the chart instance
+let myChart = null;
+
+// Add a new element reference
+const benchPressDataSection = document.getElementById('benchPressData');
+
+// --- New Event Listener for the Exercise Dropdown ---
+exerciseDropdown.addEventListener('change', () => {
+    const exerciseId = exerciseDropdown.value;
+    // Get the name from the selected option text
+    const exerciseName = exerciseDropdown.options[exerciseDropdown.selectedIndex].text.trim().split(' ')[0]; 
+
+    // Only show the section if Bench Press is selected
+    if (exerciseName === 'Bench Press') {
+        benchPressDataSection.style.display = 'block';
+        fetchAndDisplayVolumeData(exerciseId);
+    } else {
+        benchPressDataSection.style.display = 'none';
+    }
+});
+
+// --- New function to fetch and display data ---
+function fetchAndDisplayVolumeData(exerciseId) {
+    fetch(`${API_BASE}/api/volume?exercise_id=${exerciseId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                return;
+            }
+
+            // Populate the new table
+            const tbody = document.querySelector('#benchPressTable tbody');
+            tbody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${new Date(row.date).toLocaleDateString()}</td><td>${row.total_volume.toFixed(2)}</td><td><button>View Sets</button></td>`;
+                tbody.appendChild(tr);
+            });
+
+            // Create or update the chart
+            const dates = data.map(item => new Date(item.date).toLocaleDateString());
+            const volumes = data.map(item => item.total_volume);
+
+            const ctx = document.getElementById('volumeChart').getContext('2d');
+            
+            // Destroy any existing chart instance before creating a new one
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Total Volume (kg)',
+                        data: volumes,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(err => console.error("Error fetching volume data:", err));
+}
 </script>
 
 

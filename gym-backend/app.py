@@ -129,29 +129,32 @@ def get_latest_sets():
 
 @app.route('/api/volume')
 def get_volume():
-    exercise_id = request.args.get('exercise_id')
+    exercise_id = request.args.get('exercise_id', type=int)
     if not exercise_id:
         return jsonify({'error': 'Missing exercise_id'}), 400
 
     query = """
         SELECT
-            workout.id AS workout_id,
-            workout.date,
-            SUM(workout_set.reps * workout_set.weight) AS total_volume
-        FROM workout
-        JOIN workout_set ON workout.id = workout_set.workout_id
-        WHERE workout_set.exercise_id = %s
-        GROUP BY workout.id, workout.date
-        ORDER BY workout.date;
+            w.date,
+            SUM(ws.reps * ws.weight) AS total_volume
+        FROM workouts.workout_set ws
+        JOIN workouts.workout w ON ws.workout_id = w.id
+        WHERE ws.exercise_id = %s
+        GROUP BY w.date
+        ORDER BY w.date;
     """
 
     try:
-        cursor.execute(query, (exercise_id,))
-        rows = cursor.fetchall()
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute(query, (exercise_id,))
+        rows = cur.fetchall()
         result = [
-            {'workout_id': r[0], 'date': r[1].isoformat(), 'total_volume': float(r[2])}
+            {'date': r[0].isoformat(), 'total_volume': float(r[1])}
             for r in rows
         ]
+        cur.close()
+        conn.close()
         return jsonify(result)
     except Exception as e:
         print("Error fetching volume data:", e)
