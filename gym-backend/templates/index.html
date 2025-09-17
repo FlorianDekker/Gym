@@ -195,6 +195,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const benchPressId = 2; // Assuming Bench Press has an ID of 2 in your database
+
+  fetch(`${API_BASE}/latest_sets_by_exercise.json?exercise_id=${benchPressId}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      const tbody = document.querySelector('#BenchPressWorkoutData tbody');
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3">No Bench Press data found.</td></tr>';
+        return;
+      }
+
+      data.forEach(workout => {
+        const tr = document.createElement('tr');
+
+        // Date Cell
+        const dateTd = document.createElement('td');
+        dateTd.textContent = workout.date;
+
+        // Total Volume Cell
+        const volumeTd = document.createElement('td');
+        volumeTd.textContent = workout.total_volume.toFixed(2) + ' kg';
+
+        // Sets Cell
+        const setsTd = document.createElement('td');
+        const setsList = document.createElement('ul');
+        setsList.classList.add('sets-list');
+
+        // Populate the list with reps and weights
+        workout.sets.forEach(set => {
+          const li = document.createElement('li');
+          li.textContent = `${set.reps}x${set.weight}kg`;
+          setsList.appendChild(li);
+        });
+        setsTd.appendChild(setsList);
+
+        // Append all cells to the row
+        tr.appendChild(dateTd);
+        tr.appendChild(volumeTd);
+        tr.appendChild(setsTd);
+
+        // Append the row to the table body
+        tbody.appendChild(tr);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching Bench Press data:', error);
+      const tbody = document.querySelector('#BenchPressWorkoutData tbody');
+      tbody.innerHTML = `<tr><td colspan="3">Error loading data.</td></tr>`;
+    });
+
   function loadWorkout(workoutName) {
   const container = document.getElementById('workoutContainer');
   container.innerHTML = ''; // clear previous
@@ -250,70 +307,26 @@ selector.addEventListener('change', () => {
 
   // === data view ===
   dataButton.addEventListener('click', () => {
-    // Hide workout-related sections
-    chooser.style.display = 'none';
+    chooser.style.display           = 'none';
     workoutsContainer.style.display = 'none';
-    submitBtnWrapper.style.display = 'none';
-
-    // Show data-related sections
-    dataSection.style.display = 'block';
-    benchPressTable.style.display = 'table';
-    latestWorkoutsTable.style.display = 'none'; // Hide the original table
-
-    // Populate the exercise dropdown
+    submitBtnWrapper.style.display  = 'none';
+    dataSection.style.display       = 'block';
     fetch('https://gym-backend-m64q.onrender.com/exercises.json')
       .then(res => res.json())
       .then(exs => {
         exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
         exs.forEach(e => {
           const opt = document.createElement('option');
-          opt.value = e.id;
+          opt.value       = e.id;
           opt.textContent = `${e.name} (${e.muscle_group})`;
           exerciseDropdown.appendChild(opt);
         });
-        // Automatically select Bench Press and display its data
-        const benchPressOption = exs.find(e => e.name === 'Bench Press');
-        if (benchPressOption) {
-          exerciseDropdown.value = benchPressOption.id;
-          fetchAndDisplayBenchPressData();
-        }
       });
   });
   dataBack.addEventListener('click', () => {
     dataSection.style.display = 'none';
     chooser.style.display     = 'block';
   });
-
-  dataButton.addEventListener('click', () => {
-  // Hide workout-related sections
-  chooser.style.display = 'none';
-  workoutsContainer.style.display = 'none';
-  submitBtnWrapper.style.display = 'none';
-
-  // Show data-related sections
-  dataSection.style.display = 'block';
-  benchPressTable.style.display = 'table';
-  latestWorkoutsTable.style.display = 'none'; // Hide the original table
-
-  // Populate the exercise dropdown
-  fetch('https://gym-backend-m64q.onrender.com/exercises.json')
-    .then(res => res.json())
-    .then(exs => {
-      exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
-      exs.forEach(e => {
-        const opt = document.createElement('option');
-        opt.value = e.id;
-        opt.textContent = `${e.name} (${e.muscle_group})`;
-        exerciseDropdown.appendChild(opt);
-      });
-      // Automatically select Bench Press and display its data
-      const benchPressOption = exs.find(e => e.name === 'Bench Press');
-      if (benchPressOption) {
-        exerciseDropdown.value = benchPressOption.id;
-        fetchAndDisplayBenchPressData();
-      }
-    });
-});
 
   // === helper to create a new set-row ===
   function makeSetRow() {
@@ -670,66 +683,6 @@ function makeExerciseCard(name) {
     .catch(() => alert('Submission failed.'));
   });
 });
-
-function fetchAndDisplayBenchPressData() {
-  const API_BASE = 'https://gym-backend-m64q.onrender.com';
-  const exerciseId = 2; // Hardcoding ID for Bench Press as per your dropdown
-
-  fetch(`${API_BASE}/latest_sets_by_exercise.json?exercise_id=${exerciseId}`)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then(data => {
-      const tbody = document.querySelector('#BenchPressWorkoutData tbody');
-      tbody.innerHTML = '';
-
-      if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3">No Bench Press data found.</td></tr>';
-        return;
-      }
-
-      data.forEach(workout => {
-        const tr = document.createElement('tr');
-
-        // Date Cell
-        const dateTd = document.createElement('td');
-        dateTd.textContent = workout.date;
-
-        // Total Volume Cell
-        const volumeTd = document.createElement('td');
-        volumeTd.textContent = workout.total_volume.toFixed(2) + ' kg';
-
-        // Sets Cell
-        const setsTd = document.createElement('td');
-        const setsList = document.createElement('ul');
-        setsList.classList.add('sets-list');
-        
-        // Populate the list with reps and weights
-        workout.sets.forEach(set => {
-          const li = document.createElement('li');
-          li.textContent = `${set.reps}x${set.weight}kg`;
-          setsList.appendChild(li);
-        });
-        setsTd.appendChild(setsList);
-
-        // Append all cells to the row
-        tr.appendChild(dateTd);
-        tr.appendChild(volumeTd);
-        tr.appendChild(setsTd);
-
-        // Append the row to the table body
-        tbody.appendChild(tr);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching Bench Press data:', error);
-      const tbody = document.querySelector('#BenchPressWorkoutData tbody');
-      tbody.innerHTML = `<tr><td colspan="3">Error loading data.</td></tr>`;
-    });
-}
 </script>
 
 
