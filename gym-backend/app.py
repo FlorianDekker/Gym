@@ -159,6 +159,55 @@ def get_volume():
     except Exception as e:
         print("Error fetching volume data:", e)
         return jsonify({'error': 'Internal server error'}), 500
+    
+@app.route("/latest_sets_by_exercise.json")
+def get_latest_sets_by_exercise():
+    exercise_id = request.args.get("exercise_id", type=int)
+    if not exercise_id:
+        return jsonify({"error": "Missing exercise_id"}), 400
+    
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        query = """
+            SELECT
+                ws.reps,
+                ws.weight,
+                w.date
+            FROM workouts.workout_set ws
+            JOIN workouts.workout w ON ws.workout_id = w.id
+            WHERE ws.exercise_id = %s
+            ORDER BY w.date DESC, ws.id DESC
+        """
+        cur.execute(query, (exercise_id,))
+        sets = cur.fetchall()
+        cur.close()
+        conn.close()
+        
+        # Group sets by workout date to display them in the table
+        grouped_sets = {}
+        for reps, weight, workout_date in sets:
+            date_str = workout_date.strftime('%a, %d %b %Y')
+            if date_str not in grouped_sets:
+                grouped_sets[date_str] = []
+            grouped_sets[date_str].append({"reps": reps, "weight": float(weight)})
+
+        # Calculate total volume for each date
+        volume_data = []
+        for date_str, set_list in grouped_sets.items():
+            total_volume = sum(s['reps'] * s['weight'] for s in set_list)
+            volume_data.append({
+                "date": date_str,
+                "total_volume": total_volume,
+                "sets": set_list
+            })
+            
+        return jsonify(volume_data)
+        
+    except Exception as e:
+        print(f"Error fetching detailed sets: {e}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
