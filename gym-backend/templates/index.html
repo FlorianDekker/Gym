@@ -34,14 +34,25 @@
   </div>
 
   <table id="latestWorkoutsTable">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <table id="BenchPressWorkoutData">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Total Volume (kg)</th>
+        <th>Sets</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
 
   <div id="workouts" style="display:none">
@@ -64,22 +75,6 @@
       <option value="">--Select Exercise--</option>
       <!-- Options will be added dynamically from JS -->
     </select>
-
-    <div id="benchPressData" style="display:none;">
-    <h3>Bench Press Volume Progress</h3>
-    <canvas id="volumeChart"></canvas>
-    <h4>Workout History</h4>
-    <table id="benchPressTable">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Total Volume (kg)</th>
-          <th>Sets</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
   </div>
 
   <dialog id="exerciseDialog">
@@ -103,7 +98,6 @@
   <button type="button" id="infoCloseButton">Close</button>
 </dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
 const workoutsData = {
   push1: [
@@ -256,34 +250,70 @@ selector.addEventListener('change', () => {
 
   // === data view ===
   dataButton.addEventListener('click', () => {
+    // Hide workout-related sections
     chooser.style.display = 'none';
     workoutsContainer.style.display = 'none';
     submitBtnWrapper.style.display = 'none';
+
+    // Show data-related sections
     dataSection.style.display = 'block';
-    
+    benchPressTable.style.display = 'table';
+    latestWorkoutsTable.style.display = 'none'; // Hide the original table
+
+    // Populate the exercise dropdown
     fetch('https://gym-backend-m64q.onrender.com/exercises.json')
-        .then(res => res.json())
-        .then(exs => {
-            exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
-            exs.forEach(e => {
-                const opt = document.createElement('option');
-                opt.value = e.id;
-                opt.textContent = `${e.name} (${e.muscle_group})`;
-                exerciseDropdown.appendChild(opt);
-            });
-            // Auto-select Bench Press if it exists and load its data
-            const benchPressOption = exs.find(e => e.name === 'Bench Press');
-            if (benchPressOption) {
-                exerciseDropdown.value = benchPressOption.id;
-                benchPressDataSection.style.display = 'block';
-                fetchAndDisplayVolumeData(benchPressOption.id);
-            }
+      .then(res => res.json())
+      .then(exs => {
+        exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
+        exs.forEach(e => {
+          const opt = document.createElement('option');
+          opt.value = e.id;
+          opt.textContent = `${e.name} (${e.muscle_group})`;
+          exerciseDropdown.appendChild(opt);
         });
-});
+        // Automatically select Bench Press and display its data
+        const benchPressOption = exs.find(e => e.name === 'Bench Press');
+        if (benchPressOption) {
+          exerciseDropdown.value = benchPressOption.id;
+          fetchAndDisplayBenchPressData();
+        }
+      });
+  });
   dataBack.addEventListener('click', () => {
     dataSection.style.display = 'none';
     chooser.style.display     = 'block';
   });
+
+  dataButton.addEventListener('click', () => {
+  // Hide workout-related sections
+  chooser.style.display = 'none';
+  workoutsContainer.style.display = 'none';
+  submitBtnWrapper.style.display = 'none';
+
+  // Show data-related sections
+  dataSection.style.display = 'block';
+  benchPressTable.style.display = 'table';
+  latestWorkoutsTable.style.display = 'none'; // Hide the original table
+
+  // Populate the exercise dropdown
+  fetch('https://gym-backend-m64q.onrender.com/exercises.json')
+    .then(res => res.json())
+    .then(exs => {
+      exerciseDropdown.innerHTML = '<option value="">--Select Exercise--</option>';
+      exs.forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e.id;
+        opt.textContent = `${e.name} (${e.muscle_group})`;
+        exerciseDropdown.appendChild(opt);
+      });
+      // Automatically select Bench Press and display its data
+      const benchPressOption = exs.find(e => e.name === 'Bench Press');
+      if (benchPressOption) {
+        exerciseDropdown.value = benchPressOption.id;
+        fetchAndDisplayBenchPressData();
+      }
+    });
+});
 
   // === helper to create a new set-row ===
   function makeSetRow() {
@@ -641,101 +671,64 @@ function makeExerciseCard(name) {
   });
 });
 
-// Add a new global variable for the chart instance
-let myChart = null;
+function fetchAndDisplayBenchPressData() {
+  const API_BASE = 'https://gym-backend-m64q.onrender.com';
+  const exerciseId = 2; // Hardcoding ID for Bench Press as per your dropdown
 
-// Add a new element reference
-const benchPressDataSection = document.getElementById('benchPressData');
+  fetch(`${API_BASE}/latest_sets_by_exercise.json?exercise_id=${exerciseId}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      const tbody = document.querySelector('#BenchPressWorkoutData tbody');
+      tbody.innerHTML = '';
 
-// --- New Event Listener for the Exercise Dropdown ---
-exerciseDropdown.addEventListener('change', () => {
-    const exerciseId = exerciseDropdown.value;
-    // Get the name from the selected option text
-    const exerciseName = exerciseDropdown.options[exerciseDropdown.selectedIndex].text.trim().split(' ')[0]; 
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3">No Bench Press data found.</td></tr>';
+        return;
+      }
 
-    // Only show the section if Bench Press is selected
-    if (exerciseName === 'Bench Press') {
-        benchPressDataSection.style.display = 'block';
-        fetchAndDisplayVolumeData(exerciseId);
-    } else {
-        benchPressDataSection.style.display = 'none';
-    }
-});
+      data.forEach(workout => {
+        const tr = document.createElement('tr');
 
-// --- New function to fetch and display data ---
-function fetchAndDisplayVolumeData(exerciseId) {
-    // Fetch detailed sets and volume data from the new endpoint
-    fetch(`${API_BASE}/latest_sets_by_exercise.json?exercise_id=${exerciseId}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                console.error(data.error);
-                return;
-            }
+        // Date Cell
+        const dateTd = document.createElement('td');
+        dateTd.textContent = workout.date;
 
-            // Populate the new table
-            const tbody = document.querySelector('#benchPressTable tbody');
-            tbody.innerHTML = '';
-            
-            data.forEach(row => {
-                const tr = document.createElement('tr');
-                
-                // Create a list for the sets to make them look like a proper table cell
-                const setsList = document.createElement('ul');
-                setsList.classList.add('sets-list'); // Optional: Add a class for styling
-                row.sets.forEach(set => {
-                    const li = document.createElement('li');
-                    li.textContent = `${set.reps}x${set.weight}kg`;
-                    setsList.appendChild(li);
-                });
+        // Total Volume Cell
+        const volumeTd = document.createElement('td');
+        volumeTd.textContent = workout.total_volume.toFixed(2) + ' kg';
 
-                // Populate the table row with the date, volume, and the sets list
-                const dateCell = document.createElement('td');
-                dateCell.textContent = row.date;
-                tr.appendChild(dateCell);
+        // Sets Cell
+        const setsTd = document.createElement('td');
+        const setsList = document.createElement('ul');
+        setsList.classList.add('sets-list');
+        
+        // Populate the list with reps and weights
+        workout.sets.forEach(set => {
+          const li = document.createElement('li');
+          li.textContent = `${set.reps}x${set.weight}kg`;
+          setsList.appendChild(li);
+        });
+        setsTd.appendChild(setsList);
 
-                const volumeCell = document.createElement('td');
-                volumeCell.textContent = row.total_volume.toFixed(2);
-                tr.appendChild(volumeCell);
+        // Append all cells to the row
+        tr.appendChild(dateTd);
+        tr.appendChild(volumeTd);
+        tr.appendChild(setsTd);
 
-                const setsCell = document.createElement('td');
-                setsCell.appendChild(setsList);
-                tr.appendChild(setsCell);
-
-                tbody.appendChild(tr);
-            });
-
-            // Create or update the chart (this part remains the same)
-            const dates = data.map(item => item.date);
-            const volumes = data.map(item => item.total_volume);
-
-            const ctx = document.getElementById('volumeChart').getContext('2d');
-            
-            if (myChart) {
-                myChart.destroy();
-            }
-
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: dates,
-                    datasets: [{
-                        label: 'Total Volume (kg)',
-                        data: volumes,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        })
-        .catch(err => console.error("Error fetching volume data:", err));
+        // Append the row to the table body
+        tbody.appendChild(tr);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching Bench Press data:', error);
+      const tbody = document.querySelector('#BenchPressWorkoutData tbody');
+      tbody.innerHTML = `<tr><td colspan="3">Error loading data.</td></tr>`;
+    });
 }
 </script>
 
