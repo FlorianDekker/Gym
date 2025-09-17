@@ -664,59 +664,6 @@ exerciseDropdown.addEventListener('change', () => {
 
 // --- New function to fetch and display data ---
 function fetchAndDisplayVolumeData(exerciseId) {
-    fetch(`${API_BASE}/api/volume?exercise_id=${exerciseId}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                console.error(data.error);
-                return;
-            }
-
-            // Populate the new table
-            const tbody = document.querySelector('#benchPressTable tbody');
-            tbody.innerHTML = '';
-            data.forEach(row => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${new Date(row.date).toLocaleDateString()}</td><td>${row.total_volume.toFixed(2)}</td><td><button>View Sets</button></td>`;
-                tbody.appendChild(tr);
-            });
-
-            // Create or update the chart
-            const dates = data.map(item => new Date(item.date).toLocaleDateString());
-            const volumes = data.map(item => item.total_volume);
-
-            const ctx = document.getElementById('volumeChart').getContext('2d');
-            
-            // Destroy any existing chart instance before creating a new one
-            if (myChart) {
-                myChart.destroy();
-            }
-
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: dates,
-                    datasets: [{
-                        label: 'Total Volume (kg)',
-                        data: volumes,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        })
-        .catch(err => console.error("Error fetching volume data:", err));
-}
-
-// --- New function to fetch and display data ---
-function fetchAndDisplayVolumeData(exerciseId) {
     // Fetch detailed sets and volume data from the new endpoint
     fetch(`${API_BASE}/latest_sets_by_exercise.json?exercise_id=${exerciseId}`)
         .then(res => res.json())
@@ -732,18 +679,38 @@ function fetchAndDisplayVolumeData(exerciseId) {
             
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                const sets_text = row.sets.map(s => `${s.reps}x${s.weight}kg`).join(', ');
-                tr.innerHTML = `<td>${row.date}</td><td>${row.total_volume.toFixed(2)}</td><td>${sets_text}</td>`;
+                
+                // Create a list for the sets to make them look like a proper table cell
+                const setsList = document.createElement('ul');
+                setsList.classList.add('sets-list'); // Optional: Add a class for styling
+                row.sets.forEach(set => {
+                    const li = document.createElement('li');
+                    li.textContent = `${set.reps}x${set.weight}kg`;
+                    setsList.appendChild(li);
+                });
+
+                // Populate the table row with the date, volume, and the sets list
+                const dateCell = document.createElement('td');
+                dateCell.textContent = row.date;
+                tr.appendChild(dateCell);
+
+                const volumeCell = document.createElement('td');
+                volumeCell.textContent = row.total_volume.toFixed(2);
+                tr.appendChild(volumeCell);
+
+                const setsCell = document.createElement('td');
+                setsCell.appendChild(setsList);
+                tr.appendChild(setsCell);
+
                 tbody.appendChild(tr);
             });
 
-            // Create or update the chart
+            // Create or update the chart (this part remains the same)
             const dates = data.map(item => item.date);
             const volumes = data.map(item => item.total_volume);
 
             const ctx = document.getElementById('volumeChart').getContext('2d');
             
-            // Destroy any existing chart instance before creating a new one
             if (myChart) {
                 myChart.destroy();
             }
