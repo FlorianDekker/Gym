@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 const STORAGE_KEY = 'gym-rest-default';
 
@@ -7,12 +7,17 @@ export function getDefaultRest() {
   return Number.isFinite(stored) && stored > 0 ? stored : 90;
 }
 
-export default function RestTimer() {
+const RestTimer = forwardRef(function RestTimer(_, ref) {
   const [duration, setDuration] = useState(getDefaultRest());
   const [remaining, setRemaining] = useState(0);
   const [running, setRunning] = useState(false);
   const tickRef = useRef(null);
   const endRef = useRef(0);
+
+  useImperativeHandle(ref, () => ({
+    start: (seconds) => start(seconds ?? duration),
+    stop: () => reset()
+  }));
 
   useEffect(() => {
     if (!running) return;
@@ -29,10 +34,11 @@ export default function RestTimer() {
     return () => clearInterval(tickRef.current);
   }, [running]);
 
-  function start(seconds = duration) {
+  function start(seconds) {
     endRef.current = Date.now() + seconds * 1000;
     setRemaining(seconds);
     setRunning(true);
+    try { navigator.vibrate?.(20); } catch {}
   }
 
   function adjust(delta) {
@@ -51,7 +57,7 @@ export default function RestTimer() {
     setRemaining(0);
   }
 
-  const mm = String(Math.floor(remaining / 60)).padStart(1, '0');
+  const mm = String(Math.floor(remaining / 60));
   const ss = String(remaining % 60).padStart(2, '0');
   const progress = duration > 0 ? remaining / duration : 0;
 
@@ -85,25 +91,7 @@ export default function RestTimer() {
     );
   }
 
-  return (
-    <div className="fixed bottom-24 left-0 right-0 z-40 px-5 pointer-events-none">
-      <div className="max-w-sm mx-auto flex justify-center pointer-events-auto">
-        <button
-          onClick={() => start()}
-          className="bg-ink dark:bg-white text-white dark:text-ink rounded-full px-5 py-2.5 text-sm font-semibold shadow-lg flex items-center gap-2"
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="13" r="8" />
-            <path d="M12 9v4l2 2" />
-            <path d="M9 2h6" />
-          </svg>
-          Rest {duration}s
-          <span className="inline-flex gap-1 ml-1 text-xs opacity-70">
-            <span onClick={(e) => { e.stopPropagation(); adjust(-15); }} className="px-1">−</span>
-            <span onClick={(e) => { e.stopPropagation(); adjust(15); }} className="px-1">+</span>
-          </span>
-        </button>
-      </div>
-    </div>
-  );
-}
+  return null;
+});
+
+export default RestTimer;

@@ -1,5 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  TouchSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { db } from '../db/db.js';
 import { todayISO, volume } from '../lib/volume.js';
 import { detectPRs } from '../lib/prs.js';
@@ -22,7 +39,15 @@ export default function LogWorkout() {
   const [plateFor, setPlateFor] = useState(null);
   const [showSummary, setShowSummary] = useState(false);
   const [prs, setPrs] = useState([]);
+  const [focused, setFocused] = useState(null); // `${idx}:${sIdx}`
   const [allExercises, setAllExercises] = useState([]);
+  const restRef = useRef(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 220, tolerance: 6 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -33,7 +58,8 @@ export default function LogWorkout() {
       const teRows = await db.templateExercises.where('templateId').equals(tId).sortBy('order');
       const exs = await Promise.all(teRows.map((te) => db.exercises.get(te.exerciseId)));
       const built = await Promise.all(
-        exs.filter(Boolean).map(async (ex) => ({
+        exs.filter(Boolean).map(async (ex, i) => ({
+          uid: `e-${ex.id}-${i}`,
           exerciseId: ex.id,
           name: ex.name,
           muscleGroup: ex.muscleGroup,
@@ -51,13 +77,20 @@ export default function LogWorkout() {
     };
   }, [templateId]);
 
-  const totalSets = useMemo(() => items.reduce((s, it) => s + it.sets.filter((x) => x.reps).length, 0), [items]);
+  const doneSetCount = useMemo(
+    () => items.reduce((s, it) => s + it.sets.filter((x) => x.done).length, 0),
+    [items]
+  );
+  const filledSetCount = useMemo(
+    () => items.reduce((s, it) => s + it.sets.filter((x) => Number(x.reps) > 0).length, 0),
+    [items]
+  );
   const totalVolume = useMemo(
-    () => items.reduce((sum, it) => sum + volume(it.sets), 0),
+    () => items.reduce((sum, it) => sum + volume(it.sets.filter((s) => s.done || Number(s.reps) > 0)), 0),
     [items]
   );
 
-  function updateSet(idx, sIdx, patch) {
+  function patchSet(idx, sIdx, patch) {
     setItems((prev) =>
       prev.map((it, i) =>
         i === idx
@@ -67,12 +100,23 @@ export default function LogWorkout() {
     );
   }
 
+  function toggleDone(idx, sIdx) {
+    const current = items[idx].sets[sIdx];
+    const nextDone = !current.done;
+    patchSet(idx, sIdx, { done: nextDone });
+    if (nextDone) {
+      restRef.current?.start();
+    }
+  }
+
   function addSet(idx) {
     setItems((prev) =>
       prev.map((it, i) => {
         if (i !== idx) return it;
         const last = it.sets[it.sets.length - 1];
-        const base = last ? { reps: last.reps, weight: last.weight, done: false } : newSet();
+        const base = last
+          ? { reps: last.reps, weight: last.weight, done: false }
+          : newSet();
         return { ...it, sets: [...it.sets, base] };
       })
     );
@@ -82,16 +126,6 @@ export default function LogWorkout() {
     setItems((prev) =>
       prev.map((it, i) => (i === idx ? { ...it, sets: it.sets.filter((_, j) => j !== sIdx) } : it))
     );
-  }
-
-  function move(idx, dir) {
-    setItems((prev) => {
-      const next = [...prev];
-      const target = idx + dir;
-      if (target < 0 || target >= next.length) return prev;
-      [next[idx], next[target]] = [next[target], next[idx]];
-      return next;
-    });
   }
 
   function adjustWeight(idx, sIdx, delta) {
@@ -118,11 +152,30 @@ export default function LogWorkout() {
     setItems((prev) =>
       prev.map((it, i) =>
         i === idx
-          ? { ...it, exerciseId: ex.id, name: ex.name, muscleGroup: ex.muscleGroup, bodyweight: !!ex.bodyweight, sets }
+          ? {
+              ...it,
+              uid: `e-${ex.id}-${i}-${Date.now()}`,
+              exerciseId: ex.id,
+              name: ex.name,
+              muscleGroup: ex.muscleGroup,
+              bodyweight: !!ex.bodyweight,
+              sets
+            }
           : it
       )
     );
     setShowSwap(null);
+  }
+
+  function onDragEnd(event) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    setItems((prev) => {
+      const oldIndex = prev.findIndex((it) => it.uid === active.id);
+      const newIndex = prev.findIndex((it) => it.uid === over.id);
+      if (oldIndex < 0 || newIndex < 0) return prev;
+      return arrayMove(prev, oldIndex, newIndex);
+    });
   }
 
   async function save() {
@@ -180,7 +233,7 @@ export default function LogWorkout() {
           <div className="flex-1 min-w-0">
             <h1 className="text-lg font-bold leading-tight truncate">{template.name}</h1>
             <p className="text-xs text-muted tabular-nums">
-              {totalSets} sets · {Math.round(totalVolume)} kg·rep
+              {doneSetCount}/{filledSetCount || items.reduce((a, b) => a + b.sets.length, 0)} sets · {Math.round(totalVolume)} kg·rep
             </p>
           </div>
           <input
@@ -193,20 +246,28 @@ export default function LogWorkout() {
       </header>
 
       <div className="px-5 pt-4 space-y-4">
-        {items.map((it, idx) => (
-          <ExerciseSection
-            key={`${it.exerciseId}-${idx}`}
-            item={it}
-            index={idx}
-            onUpdateSet={updateSet}
-            onAddSet={() => addSet(idx)}
-            onRemoveSet={(sIdx) => removeSet(idx, sIdx)}
-            onMove={(dir) => move(idx, dir)}
-            onSwap={() => setShowSwap(idx)}
-            onAdjustWeight={(sIdx, delta) => adjustWeight(idx, sIdx, delta)}
-            onShowPlates={(weight) => setPlateFor(weight)}
-          />
-        ))}
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+          <SortableContext items={items.map((it) => it.uid)} strategy={verticalListSortingStrategy}>
+            {items.map((it, idx) => (
+              <SortableExercise
+                key={it.uid}
+                id={it.uid}
+                item={it}
+                index={idx}
+                focused={focused}
+                onFocusRow={(sIdx) => setFocused(`${idx}:${sIdx}`)}
+                onBlurRow={() => setFocused(null)}
+                onPatchSet={(sIdx, patch) => patchSet(idx, sIdx, patch)}
+                onToggleDone={(sIdx) => toggleDone(idx, sIdx)}
+                onAddSet={() => addSet(idx)}
+                onRemoveSet={(sIdx) => removeSet(idx, sIdx)}
+                onSwap={() => setShowSwap(idx)}
+                onAdjustWeight={(sIdx, delta) => adjustWeight(idx, sIdx, delta)}
+                onShowPlates={(weight) => setPlateFor(weight)}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
 
         <textarea
           value={notes}
@@ -217,27 +278,22 @@ export default function LogWorkout() {
         />
       </div>
 
-      <RestTimer />
+      <RestTimer ref={restRef} />
 
-      <div
-        className="fixed bottom-0 inset-x-0 z-40 bg-gradient-to-t from-white via-white/95 to-transparent dark:from-[#0b0c0e] dark:via-[#0b0c0e]/95 pt-4 pb-5 px-5"
-      >
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-gradient-to-t from-white via-white/95 to-transparent dark:from-[#0b0c0e] dark:via-[#0b0c0e]/95 pt-4 pb-5 px-5">
         <div className="max-w-sm mx-auto">
           <button
             onClick={save}
-            disabled={saving || totalSets === 0}
+            disabled={saving || filledSetCount === 0}
             className="w-full rounded-2xl bg-primary text-white font-semibold py-4 text-base shadow-lg shadow-primary/30 disabled:opacity-40 disabled:shadow-none"
           >
-            {saving ? 'Saving…' : `Save ${totalSets} set${totalSets === 1 ? '' : 's'}`}
+            {saving ? 'Saving…' : `Save ${filledSetCount} set${filledSetCount === 1 ? '' : 's'}`}
           </button>
         </div>
       </div>
 
       <BottomSheet open={showSwap !== null} onClose={() => setShowSwap(null)} title="Swap exercise">
-        <ExercisePicker
-          exercises={allExercises}
-          onPick={(id) => swapExercise(showSwap, id)}
-        />
+        <ExercisePicker exercises={allExercises} onPick={(id) => swapExercise(showSwap, id)} />
       </BottomSheet>
 
       <PlateSheet open={plateFor !== null} onClose={() => setPlateFor(null)} weight={plateFor} />
@@ -249,7 +305,7 @@ export default function LogWorkout() {
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 6 9 17l-5-5" />
               </svg>
-              <span className="font-semibold">{totalSets} sets · {Math.round(totalVolume)} kg·rep</span>
+              <span className="font-semibold">{filledSetCount} sets · {Math.round(totalVolume)} kg·rep</span>
             </div>
           </div>
           {prs.length > 0 && (
@@ -281,10 +337,30 @@ export default function LogWorkout() {
   );
 }
 
-function ExerciseSection({ item, index, onUpdateSet, onAddSet, onRemoveSet, onMove, onSwap, onAdjustWeight, onShowPlates }) {
+function SortableExercise({ id, item, index, focused, onFocusRow, onBlurRow, onPatchSet, onToggleDone, onAddSet, onRemoveSet, onSwap, onAdjustWeight, onShowPlates }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 30 : undefined
+  };
   return (
-    <section className="bg-white dark:bg-[#101115] rounded-2xl border border-line dark:border-[#1f2227]">
-      <header className="flex items-center gap-2 px-4 py-3 border-b border-line dark:border-[#1f2227]">
+    <section
+      ref={setNodeRef}
+      style={style}
+      className={`bg-white dark:bg-[#101115] rounded-2xl border border-line dark:border-[#1f2227] ${
+        isDragging ? 'shadow-2xl ring-2 ring-primary/40' : ''
+      }`}
+    >
+      <header className="flex items-center gap-2 px-3 py-3 border-b border-line dark:border-[#1f2227]">
+        <button
+          {...attributes}
+          {...listeners}
+          aria-label="Drag to reorder"
+          className="p-2 -ml-1 text-muted-light touch-none cursor-grab active:cursor-grabbing"
+        >
+          <GripIcon />
+        </button>
         <Link to={`/exercise/${item.exerciseId}`} className="flex-1 font-semibold truncate">
           {item.name}
         </Link>
@@ -293,63 +369,34 @@ function ExerciseSection({ item, index, onUpdateSet, onAddSet, onRemoveSet, onMo
             BW
           </span>
         )}
-        <button onClick={() => onMove(-1)} aria-label="Move up" className="p-2 text-muted">↑</button>
-        <button onClick={() => onMove(+1)} aria-label="Move down" className="p-2 text-muted">↓</button>
-        <button onClick={onSwap} aria-label="Swap exercise" className="p-2 text-muted">⇄</button>
+        <button onClick={onSwap} aria-label="Swap exercise" className="p-2 text-muted">
+          <SwapIcon />
+        </button>
       </header>
       <ul className="divide-y divide-line dark:divide-[#1f2227]">
-        {item.sets.map((s, sIdx) => (
-          <li key={sIdx} className="px-4 py-2.5">
-            <div className="flex items-center gap-2.5">
-              <span className="w-6 text-sm font-semibold text-muted tabular-nums">{sIdx + 1}</span>
-              <NumberInput
-                value={s.reps}
-                onChange={(v) => onUpdateSet(index, sIdx, { reps: v })}
-                inputMode="numeric"
-                placeholder="reps"
-              />
-              {!item.bodyweight && (
-                <>
-                  <span className="text-muted">×</span>
-                  <NumberInput
-                    value={s.weight}
-                    onChange={(v) => onUpdateSet(index, sIdx, { weight: v })}
-                    inputMode="decimal"
-                    placeholder="kg"
-                    onLongPress={() => s.weight && onShowPlates(Number(s.weight))}
-                  />
-                </>
-              )}
-              <button
-                onClick={() => onRemoveSet(sIdx)}
-                aria-label="Remove set"
-                className="p-2 text-muted-light"
-              >
-                ✕
-              </button>
-            </div>
-            {!item.bodyweight && (
-              <div className="flex gap-2 mt-1.5 pl-8">
-                <QuickButton onClick={() => onAdjustWeight(sIdx, -2.5)}>−2.5</QuickButton>
-                <QuickButton onClick={() => onAdjustWeight(sIdx, -1.25)}>−1.25</QuickButton>
-                <QuickButton onClick={() => onAdjustWeight(sIdx, 1.25)}>+1.25</QuickButton>
-                <QuickButton onClick={() => onAdjustWeight(sIdx, 2.5)}>+2.5</QuickButton>
-                {s.weight && (
-                  <button
-                    onClick={() => onShowPlates(Number(s.weight))}
-                    className="ml-auto text-[11px] font-semibold text-primary px-2"
-                  >
-                    Plates
-                  </button>
-                )}
-              </div>
-            )}
-          </li>
-        ))}
+        {item.sets.map((s, sIdx) => {
+          const isFocused = focused === `${index}:${sIdx}`;
+          return (
+            <SetRow
+              key={sIdx}
+              setIndex={sIdx}
+              data={s}
+              bodyweight={item.bodyweight}
+              focused={isFocused}
+              onFocus={() => onFocusRow(sIdx)}
+              onBlur={onBlurRow}
+              onPatch={(p) => onPatchSet(sIdx, p)}
+              onToggleDone={() => onToggleDone(sIdx)}
+              onRemove={() => onRemoveSet(sIdx)}
+              onAdjustWeight={(d) => onAdjustWeight(sIdx, d)}
+              onShowPlates={() => s.weight && onShowPlates(Number(s.weight))}
+            />
+          );
+        })}
       </ul>
       <button
         onClick={onAddSet}
-        className="w-full py-3 text-sm font-semibold text-primary"
+        className="w-full py-3.5 text-sm font-semibold text-primary border-t border-dashed border-line dark:border-[#1f2227]"
       >
         + Add set
       </button>
@@ -357,7 +404,112 @@ function ExerciseSection({ item, index, onUpdateSet, onAddSet, onRemoveSet, onMo
   );
 }
 
-function QuickButton({ children, onClick }) {
+function SetRow({ setIndex, data, bodyweight, focused, onFocus, onBlur, onPatch, onToggleDone, onRemove, onAdjustWeight, onShowPlates }) {
+  return (
+    <li
+      className={`transition-colors ${data.done ? 'bg-success-light/60 dark:bg-success/10' : ''}`}
+      onPointerDown={onFocus}
+    >
+      <div className="flex items-center gap-2 px-3 py-2.5">
+        <span
+          className={`w-6 text-center text-sm font-bold tabular-nums ${
+            data.done ? 'text-success' : 'text-muted'
+          }`}
+        >
+          {setIndex + 1}
+        </span>
+        <NumberInput
+          value={data.reps}
+          onChange={(v) => onPatch({ reps: v })}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          inputMode="numeric"
+          placeholder="reps"
+          done={data.done}
+        />
+        {!bodyweight && (
+          <>
+            <span className="text-muted-light text-sm">×</span>
+            <NumberInput
+              value={data.weight}
+              onChange={(v) => onPatch({ weight: v })}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              inputMode="decimal"
+              placeholder="kg"
+              done={data.done}
+            />
+          </>
+        )}
+        <CheckButton checked={data.done} onClick={onToggleDone} />
+      </div>
+      {focused && (
+        <div className="flex items-center gap-1.5 px-3 pb-2.5 -mt-0.5 animate-fade-in">
+          {!bodyweight && (
+            <>
+              <QuickPill onClick={() => onAdjustWeight(-2.5)}>−2.5</QuickPill>
+              <QuickPill onClick={() => onAdjustWeight(-1.25)}>−1.25</QuickPill>
+              <QuickPill onClick={() => onAdjustWeight(1.25)}>+1.25</QuickPill>
+              <QuickPill onClick={() => onAdjustWeight(2.5)}>+2.5</QuickPill>
+              {data.weight && (
+                <button
+                  onClick={onShowPlates}
+                  className="ml-auto text-[11px] font-semibold text-primary px-1.5"
+                >
+                  Plates
+                </button>
+              )}
+            </>
+          )}
+          <button
+            onClick={onRemove}
+            className={`text-[11px] font-semibold text-muted-light ${bodyweight ? 'ml-auto' : ''}`}
+          >
+            Remove
+          </button>
+        </div>
+      )}
+    </li>
+  );
+}
+
+function NumberInput({ value, onChange, onFocus, onBlur, inputMode, placeholder, done }) {
+  return (
+    <input
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      inputMode={inputMode}
+      placeholder={placeholder}
+      className={`flex-1 min-w-0 text-center text-lg font-semibold tabular-nums rounded-xl py-2 px-2 border outline-none transition ${
+        done
+          ? 'bg-success-light/0 border-transparent text-success'
+          : 'bg-surface dark:bg-[#16181c] border-transparent focus:border-primary'
+      }`}
+    />
+  );
+}
+
+function CheckButton({ checked, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={checked ? 'Mark not done' : 'Mark set done'}
+      className={`shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition ${
+        checked
+          ? 'bg-success text-white shadow-md shadow-success/30'
+          : 'bg-surface dark:bg-[#16181c] border border-line dark:border-[#1f2227] text-muted-light'
+      }`}
+    >
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+    </button>
+  );
+}
+
+function QuickPill({ children, onClick }) {
   return (
     <button
       onClick={onClick}
@@ -365,24 +517,6 @@ function QuickButton({ children, onClick }) {
     >
       {children}
     </button>
-  );
-}
-
-function NumberInput({ value, onChange, inputMode, placeholder, onLongPress }) {
-  let timer;
-  return (
-    <input
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      onTouchStart={() => {
-        if (onLongPress) timer = setTimeout(onLongPress, 500);
-      }}
-      onTouchEnd={() => clearTimeout(timer)}
-      onTouchMove={() => clearTimeout(timer)}
-      inputMode={inputMode}
-      placeholder={placeholder}
-      className="flex-1 min-w-0 text-center text-lg font-semibold tabular-nums bg-surface dark:bg-[#16181c] rounded-xl py-2 px-2 border border-transparent focus:border-primary outline-none"
-    />
   );
 }
 
@@ -409,6 +543,29 @@ function ExercisePicker({ exercises, onPick }) {
         {filtered.length === 0 && <li className="py-6 text-center text-muted">No matches</li>}
       </ul>
     </div>
+  );
+}
+
+function GripIcon() {
+  return (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="9" cy="6" r="1.6" />
+      <circle cx="15" cy="6" r="1.6" />
+      <circle cx="9" cy="12" r="1.6" />
+      <circle cx="15" cy="12" r="1.6" />
+      <circle cx="9" cy="18" r="1.6" />
+      <circle cx="15" cy="18" r="1.6" />
+    </svg>
+  );
+}
+
+function SwapIcon() {
+  return (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 16l-4-4 4-4" />
+      <path d="M3 12h12a4 4 0 0 1 4 4" />
+      <path d="M17 8l4 4-4 4" />
+    </svg>
   );
 }
 
