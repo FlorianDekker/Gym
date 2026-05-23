@@ -5,7 +5,11 @@ import psycopg2
 import os
 
 app = Flask(__name__)
-CORS(app, origins=["https://gym-pc00.onrender.com"])  # allows frontend access
+CORS(app, origins=[
+    "https://gym-pc00.onrender.com",
+    "https://floriandekker.github.io",
+    "http://localhost:5173",
+])
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
@@ -208,6 +212,49 @@ def get_latest_sets_by_exercise():
     except Exception as e:
         print(f"Error fetching detailed sets: {e}")
         return jsonify({"error": str(e)}), 500
+
+@app.route("/export_all.json")
+def export_all():
+    """One-time bulk export for migrating to the new local-first app."""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        cur.execute("SELECT id, name, muscle_group FROM workouts.exercise ORDER BY id")
+        exercises = [{"id": r[0], "name": r[1], "muscle_group": r[2]} for r in cur.fetchall()]
+
+        cur.execute("SELECT id, date, notes FROM workouts.workout ORDER BY date, id")
+        workouts_rows = cur.fetchall()
+
+        cur.execute("""
+            SELECT workout_id, exercise_id, order_in_workout, reps, weight, id
+            FROM workouts.workout_set
+            ORDER BY workout_id, order_in_workout, id
+        """)
+        sets_rows = cur.fetchall()
+        sets_by_workout = {}
+        for workout_id, exercise_id, order_in_workout, reps, weight, set_id in sets_rows:
+            sets_by_workout.setdefault(workout_id, []).append({
+                "id": set_id,
+                "exercise_id": exercise_id,
+                "order_in_workout": order_in_workout,
+                "reps": reps,
+                "weight": float(weight),
+            })
+
+        workouts = [{
+            "id": wid,
+            "date": d.isoformat() if hasattr(d, "isoformat") else d,
+            "notes": notes,
+            "sets": sets_by_workout.get(wid, []),
+        } for wid, d, notes in workouts_rows]
+
+        cur.close()
+        conn.close()
+        return jsonify({"exercises": exercises, "workouts": workouts})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
