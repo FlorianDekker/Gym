@@ -2,21 +2,54 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  color-scheme: light dark;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+@theme {
+  --color-surface: #f7f7f8;
+  --color-surface-2: #ffffff;
+  --color-ink: #0b0c0e;
+  --color-muted: #8a8d94;
+  --color-muted-light: #d6d8dd;
+  --color-line: #ececef;
+  --color-primary: #ff6a13;
+  --color-primary-dark: #d8540a;
+  --color-primary-light: #ffe9d9;
+  --color-primary-subtle: #fff5ec;
+  --color-success: #1f9c5b;
+  --color-success-light: #e3f6ec;
+  --color-pr: #ffb800;
+  --color-pr-subtle: #fff6db;
+}
+
+* {
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 html, body, #root {
-  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 body {
   margin: 0;
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-top: env(safe-area-inset-top);
-  overscroll-behavior-y: none;
+  font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #ffffff;
+  color: #0b0c0e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+.dark body {
+  background-color: #0b0c0e;
+  color: #f7f7f8;
+}
+
+button, a {
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+button:active, a:active {
+  opacity: 0.85;
+  transform: scale(0.985);
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -24,6 +57,38 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="number"] {
+input[type="number"], input[inputmode] {
   -moz-appearance: textfield;
 }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes sheetIn {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 106, 19, 0.35); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 106, 19, 0); }
+}
+
+.animate-slide-up { animation: slideUp 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+.animate-fade-in { animation: fadeIn 0.2s ease-out both; }
+.animate-scale-in { animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.animate-sheet-in { animation: sheetIn 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+.animate-pulse-glow { animation: pulseGlow 1.6s ease-in-out infinite; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+canvas { touch-action: pan-y !important; }
