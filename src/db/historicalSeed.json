@@ -1,0 +1,6812 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-24T18:16:12.819Z",
+  "workouts": [
+    {
+      "date": "2024-07-14",
+      "name": "Push 1",
+      "notes": "Sporten (undated)",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 35
+            },
+            {
+              "reps": 8,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 25
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 14,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 2.5
+            },
+            {
+              "reps": 10,
+              "weight": 2.5
+            },
+            {
+              "reps": 8,
+              "weight": 2.5
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-07-16",
+      "name": "Pull 1",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 0
+            },
+            {
+              "reps": 4,
+              "weight": 0
+            },
+            {
+              "reps": 2,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Assisted Pull-Up Machine",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 25
+            },
+            {
+              "reps": 15,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 40
+            },
+            {
+              "reps": 12,
+              "weight": 35
+            },
+            {
+              "reps": 11,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 8
+            },
+            {
+              "reps": 7,
+              "weight": 8
+            },
+            {
+              "reps": 8,
+              "weight": 6
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 6
+            },
+            {
+              "reps": 6,
+              "weight": 6
+            },
+            {
+              "reps": 6,
+              "weight": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-07-20",
+      "name": "Legs 1",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 45
+            },
+            {
+              "reps": 4,
+              "weight": 45
+            },
+            {
+              "reps": 5,
+              "weight": 47.5
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 60
+            },
+            {
+              "reps": 9,
+              "weight": 57.5
+            },
+            {
+              "reps": 9,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 20
+            },
+            {
+              "reps": 13,
+              "weight": 20
+            },
+            {
+              "reps": 12,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 25
+            },
+            {
+              "reps": 13,
+              "weight": 30
+            },
+            {
+              "reps": 12,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 22.5
+            },
+            {
+              "reps": 10,
+              "weight": 22.5
+            },
+            {
+              "reps": 9,
+              "weight": 22.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-07-22",
+      "name": "Push 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 35
+            },
+            {
+              "reps": 7,
+              "weight": 35
+            },
+            {
+              "reps": 6,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 25
+            },
+            {
+              "reps": 4,
+              "weight": 25
+            },
+            {
+              "reps": 4,
+              "weight": 27.5
+            },
+            {
+              "reps": 5,
+              "weight": 27.5
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 7.5
+            },
+            {
+              "reps": 13,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 5
+            },
+            {
+              "reps": 4,
+              "weight": 4
+            },
+            {
+              "reps": 3,
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-07-28",
+      "name": "Pull 2",
+      "notes": "seated row niet langzaam terug gedaan",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 35
+            },
+            {
+              "reps": 13,
+              "weight": 35
+            },
+            {
+              "reps": 14,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Rope Facepull",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 18
+            },
+            {
+              "reps": 14,
+              "weight": 18
+            }
+          ]
+        },
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 40
+            },
+            {
+              "reps": 10,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 15
+            },
+            {
+              "reps": 14,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-01",
+      "name": "Legs 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 40
+            },
+            {
+              "reps": 6,
+              "weight": 45
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Deadlift",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 80
+            },
+            {
+              "reps": 3,
+              "weight": 90
+            },
+            {
+              "reps": 3,
+              "weight": 90
+            }
+          ]
+        },
+        {
+          "name": "Single-Leg Hip Thrust",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 40
+            },
+            {
+              "reps": 10,
+              "weight": 60
+            },
+            {
+              "reps": 10,
+              "weight": 60
+            }
+          ]
+        },
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 37.5
+            },
+            {
+              "reps": 5,
+              "weight": 37.5
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 16,
+              "weight": 45
+            },
+            {
+              "reps": 13,
+              "weight": 45
+            },
+            {
+              "reps": 13,
+              "weight": 45
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-04",
+      "name": "Push 1",
+      "notes": "BW 70.1 kg · set 1: g; set 2: r",
+      "bodyWeight": 70.1,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 40
+            },
+            {
+              "reps": 7,
+              "weight": 37.5
+            },
+            {
+              "reps": 7,
+              "weight": 37.5
+            },
+            {
+              "reps": 3,
+              "weight": 37.5
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 20
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 15,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-06",
+      "name": "Pull 1",
+      "notes": "BW 71.5 kg · 11.2% BF · set 1: g; set 2: g; set 3: r",
+      "bodyWeight": 71.5,
+      "bodyFat": 11.2,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 40
+            },
+            {
+              "reps": 10,
+              "weight": 40
+            },
+            {
+              "reps": 12,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 8
+            },
+            {
+              "reps": 8,
+              "weight": 8
+            },
+            {
+              "reps": 9,
+              "weight": 6
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 6
+            },
+            {
+              "reps": 11,
+              "weight": 6
+            },
+            {
+              "reps": 10,
+              "weight": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-07",
+      "name": "Legs 1",
+      "notes": "BW 71.9 kg · 11.3% BF · stand 4 · net boven 2",
+      "bodyWeight": 71.9,
+      "bodyFat": 11.3,
+      "exercises": [
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 30
+            },
+            {
+              "reps": 14,
+              "weight": 30
+            },
+            {
+              "reps": 13,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 60
+            },
+            {
+              "reps": 11,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 50
+            },
+            {
+              "reps": 4,
+              "weight": 50
+            },
+            {
+              "reps": 4,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 32.5
+            },
+            {
+              "reps": 11,
+              "weight": 32.5
+            },
+            {
+              "reps": 9,
+              "weight": 32.5
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 27.5
+            },
+            {
+              "reps": 9,
+              "weight": 27.5
+            },
+            {
+              "reps": 10,
+              "weight": 22.5
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 45
+            },
+            {
+              "reps": 10,
+              "weight": 45
+            },
+            {
+              "reps": 9,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Hip Adductor",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 35
+            },
+            {
+              "reps": 10,
+              "weight": 35
+            },
+            {
+              "reps": 13,
+              "weight": 35
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-08",
+      "name": "Push 2",
+      "notes": "BW 73.5 kg · 12.2% BF",
+      "bodyWeight": 73.5,
+      "bodyFat": 12.2,
+      "exercises": [
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 40
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            },
+            {
+              "reps": 6,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 3,
+              "weight": 30
+            },
+            {
+              "reps": 2,
+              "weight": 30
+            },
+            {
+              "reps": 4,
+              "weight": 27.5
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-12",
+      "name": "Pull 2",
+      "notes": "BW 73.2 kg · 11.9% BF",
+      "bodyWeight": 73.2,
+      "bodyFat": 11.9,
+      "exercises": [
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 40
+            },
+            {
+              "reps": 14,
+              "weight": 42.5
+            },
+            {
+              "reps": 11,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 45
+            },
+            {
+              "reps": 10,
+              "weight": 40
+            },
+            {
+              "reps": 12,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Rope Facepull",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 12.5
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 18
+            },
+            {
+              "reps": 15,
+              "weight": 18
+            },
+            {
+              "reps": 15,
+              "weight": 18
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 7,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            },
+            {
+              "reps": 7,
+              "weight": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-17",
+      "name": "Push 1",
+      "notes": "BW 72.2 kg · 11.6% BF",
+      "bodyWeight": 72.2,
+      "bodyFat": 11.6,
+      "exercises": [
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 7,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Chest Press",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 25
+            },
+            {
+              "reps": 11,
+              "weight": 25
+            },
+            {
+              "reps": 11,
+              "weight": 25
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 12.5
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 20
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Abdominal Crunch",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-22",
+      "name": "Pull 1",
+      "notes": "set 2: g; set 3: g",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 0
+            },
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 7,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 40
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 45
+            },
+            {
+              "reps": 10,
+              "weight": 45
+            },
+            {
+              "reps": 9,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Bent-Over Row",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 20
+            },
+            {
+              "reps": 9,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 8
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 8
+            },
+            {
+              "reps": 7,
+              "weight": 8
+            },
+            {
+              "reps": 6,
+              "weight": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-26",
+      "name": "Legs 1",
+      "notes": "BW 70.3 kg · 10.8% BF",
+      "bodyWeight": 70.3,
+      "bodyFat": 10.8,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 3,
+              "weight": 55
+            },
+            {
+              "reps": 4,
+              "weight": 55
+            },
+            {
+              "reps": 4,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 62.5
+            },
+            {
+              "reps": 10,
+              "weight": 62.5
+            },
+            {
+              "reps": 9,
+              "weight": 62.5
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 30
+            },
+            {
+              "reps": 10,
+              "weight": 30
+            },
+            {
+              "reps": 10,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 37.5
+            },
+            {
+              "reps": 9,
+              "weight": 35
+            },
+            {
+              "reps": 10,
+              "weight": 32.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-27",
+      "name": "Pull 2",
+      "notes": "BW 70 kg · 10.7% BF",
+      "bodyWeight": 70,
+      "bodyFat": 10.7,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 45
+            },
+            {
+              "reps": 11,
+              "weight": 45
+            },
+            {
+              "reps": 11,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 6,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 7.5
+            },
+            {
+              "reps": 8,
+              "weight": 7.5
+            },
+            {
+              "reps": 10,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Rope Facepull",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 42.5
+            },
+            {
+              "reps": 12,
+              "weight": 47.5
+            },
+            {
+              "reps": 10,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 20
+            },
+            {
+              "reps": 11,
+              "weight": 20
+            },
+            {
+              "reps": 11,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            },
+            {
+              "reps": 6,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            },
+            {
+              "reps": 5,
+              "weight": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-28",
+      "name": "Push 2",
+      "notes": "BW 70.4 kg · 10.8% BF",
+      "bodyWeight": 70.4,
+      "bodyFat": 10.8,
+      "exercises": [
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 30
+            },
+            {
+              "reps": 4,
+              "weight": 32.5
+            },
+            {
+              "reps": 3,
+              "weight": 32.5
+            },
+            {
+              "reps": 4,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 42.5
+            },
+            {
+              "reps": 6,
+              "weight": 40
+            },
+            {
+              "reps": 6,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 5
+            },
+            {
+              "reps": 12,
+              "weight": 5
+            },
+            {
+              "reps": 12,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 7.5
+            },
+            {
+              "reps": 10,
+              "weight": 7.5
+            },
+            {
+              "reps": 10,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 4
+            },
+            {
+              "reps": 4,
+              "weight": 4
+            },
+            {
+              "reps": 3,
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-08-29",
+      "name": "Legs 2",
+      "notes": "BW 70.7 kg · 10.9% BF · knie",
+      "bodyWeight": 70.7,
+      "bodyFat": 10.9,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 45
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            },
+            {
+              "reps": 3,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Deadlift",
+          "sets": [
+            {
+              "reps": 3,
+              "weight": 90
+            },
+            {
+              "reps": 3,
+              "weight": 90
+            },
+            {
+              "reps": 3,
+              "weight": 90
+            }
+          ]
+        },
+        {
+          "name": "Single-Leg Hip Thrust",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 60
+            },
+            {
+              "reps": 10,
+              "weight": 60
+            },
+            {
+              "reps": 10,
+              "weight": 60
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-02",
+      "name": "Push 2",
+      "notes": "BW 70.8 kg · 10.9% BF",
+      "bodyWeight": 70.8,
+      "bodyFat": 10.9,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 42.5
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 22.5
+            },
+            {
+              "reps": 10,
+              "weight": 17.5
+            },
+            {
+              "reps": 9,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 7.5
+            },
+            {
+              "reps": 9,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 7.5
+            },
+            {
+              "reps": 12,
+              "weight": 5
+            },
+            {
+              "reps": 12,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 2.5
+            },
+            {
+              "reps": 11,
+              "weight": 2.5
+            },
+            {
+              "reps": 11,
+              "weight": 2.5
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 12.5
+            },
+            {
+              "reps": 12,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 35
+            },
+            {
+              "reps": 6,
+              "weight": 35
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-03",
+      "name": "Pull 1",
+      "notes": "BW 70.7 kg · 10.9% BF · set 2: groenblauw; set 3: groenblauw",
+      "bodyWeight": 70.7,
+      "bodyFat": 10.9,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 47.5
+            },
+            {
+              "reps": 9,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 8
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 9
+            },
+            {
+              "reps": 7,
+              "weight": 8
+            },
+            {
+              "reps": 8,
+              "weight": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-04",
+      "name": "Legs 1",
+      "notes": "BW 70.4 kg · 10.8% BF · net boven 11, guard net boven 4, vorm niet diep genoeg",
+      "bodyWeight": 70.4,
+      "bodyFat": 10.8,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 57.5
+            },
+            {
+              "reps": 4,
+              "weight": 57.5
+            },
+            {
+              "reps": 4,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 67.5
+            },
+            {
+              "reps": 10,
+              "weight": 65
+            },
+            {
+              "reps": 10,
+              "weight": 65
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 30
+            },
+            {
+              "reps": 15,
+              "weight": 30
+            },
+            {
+              "reps": 13,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 37.5
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 50
+            },
+            {
+              "reps": 10,
+              "weight": 50
+            },
+            {
+              "reps": 11,
+              "weight": 50
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-07",
+      "name": "Push 2",
+      "notes": "BW 70.6 kg · 11% BF",
+      "bodyWeight": 70.6,
+      "bodyFat": 11,
+      "exercises": [
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 3,
+              "weight": 35
+            },
+            {
+              "reps": 4,
+              "weight": 32.5
+            },
+            {
+              "reps": 4,
+              "weight": 32.5
+            },
+            {
+              "reps": 4,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 45
+            },
+            {
+              "reps": 6,
+              "weight": 42.5
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 4
+            },
+            {
+              "reps": 7,
+              "weight": 4
+            },
+            {
+              "reps": 6,
+              "weight": 4
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 7,
+              "weight": 35
+            },
+            {
+              "reps": 7,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 7.5
+            },
+            {
+              "reps": 11,
+              "weight": 7.5
+            },
+            {
+              "reps": 11,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Chest Press",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 25
+            },
+            {
+              "reps": 10,
+              "weight": 25
+            },
+            {
+              "reps": 9,
+              "weight": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-08",
+      "name": "Pull 2",
+      "notes": "BW 70.8 kg · 11% BF · niet langzaam terug eerste set",
+      "bodyWeight": 70.8,
+      "bodyFat": 11,
+      "exercises": [
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 50
+            },
+            {
+              "reps": 10,
+              "weight": 50
+            },
+            {
+              "reps": 11,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 50
+            },
+            {
+              "reps": 9,
+              "weight": 47.5
+            },
+            {
+              "reps": 10,
+              "weight": 47.5
+            }
+          ]
+        },
+        {
+          "name": "Rope Facepull",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 22
+            },
+            {
+              "reps": 12,
+              "weight": 22
+            },
+            {
+              "reps": 11,
+              "weight": 22
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 7,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 7,
+              "weight": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-11",
+      "name": "Legs 2",
+      "notes": "BW 70.9 kg · 10.9% BF · eerste twee slechte vorm",
+      "bodyWeight": 70.9,
+      "bodyFat": 10.9,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 47.5
+            },
+            {
+              "reps": 7,
+              "weight": 47.5
+            },
+            {
+              "reps": 8,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Deadlift",
+          "sets": [
+            {
+              "reps": 3,
+              "weight": 95
+            },
+            {
+              "reps": 4,
+              "weight": 90
+            },
+            {
+              "reps": 3,
+              "weight": 80
+            }
+          ]
+        },
+        {
+          "name": "Single-Leg Hip Thrust",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 20
+            },
+            {
+              "reps": 10,
+              "weight": 20
+            },
+            {
+              "reps": 9,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Single-Leg Calf Raise",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 6,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 50
+            },
+            {
+              "reps": 12,
+              "weight": 50
+            },
+            {
+              "reps": 11,
+              "weight": 50
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-14",
+      "name": "Pull 1",
+      "notes": "BW 70.8 kg · 10.9% BF · set 2: rood klein; set 3: rood klein",
+      "bodyWeight": 70.8,
+      "bodyFat": 10.9,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 52.5
+            },
+            {
+              "reps": 7,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-16",
+      "name": "Push 1",
+      "notes": "BW 72 kg · 11.5% BF",
+      "bodyWeight": 72,
+      "bodyFat": 11.5,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 45
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 22.5
+            },
+            {
+              "reps": 9,
+              "weight": 20
+            },
+            {
+              "reps": 9,
+              "weight": 17.5
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 0
+            },
+            {
+              "reps": 10,
+              "weight": 35
+            },
+            {
+              "reps": 11,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 3.75
+            },
+            {
+              "reps": 12,
+              "weight": 3.75
+            },
+            {
+              "reps": 11,
+              "weight": 3.75
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-18",
+      "name": "Legs 1",
+      "notes": "BW 72 kg · 11.5% BF · had hiervoor fiets interval gedaan",
+      "bodyWeight": 72,
+      "bodyFat": 11.5,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 55
+            },
+            {
+              "reps": 4,
+              "weight": 55
+            },
+            {
+              "reps": 4,
+              "weight": 57.5
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 70
+            },
+            {
+              "reps": 7,
+              "weight": 70
+            },
+            {
+              "reps": 10,
+              "weight": 67.5
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 5
+            },
+            {
+              "reps": 12,
+              "weight": 5
+            },
+            {
+              "reps": 10,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 42.5
+            },
+            {
+              "reps": 11,
+              "weight": 40
+            },
+            {
+              "reps": 10,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 50
+            },
+            {
+              "reps": 12,
+              "weight": 50
+            },
+            {
+              "reps": 14,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Hip Adductor",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 40
+            },
+            {
+              "reps": 12,
+              "weight": 45
+            },
+            {
+              "reps": 11,
+              "weight": 45
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-20",
+      "name": "Pull 2",
+      "notes": "BW 72.4 kg · 11.6% BF",
+      "bodyWeight": 72.4,
+      "bodyFat": 11.6,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 55
+            },
+            {
+              "reps": 11,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Chest-Supported Row",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 50
+            },
+            {
+              "reps": 10,
+              "weight": 50
+            },
+            {
+              "reps": 12,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Rope Facepull",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 22
+            },
+            {
+              "reps": 14,
+              "weight": 22
+            },
+            {
+              "reps": 13,
+              "weight": 22
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-23",
+      "name": "Push 2",
+      "notes": "BW 72.4 kg · 11.6% BF",
+      "bodyWeight": 72.4,
+      "bodyFat": 11.6,
+      "exercises": [
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 35
+            },
+            {
+              "reps": 3,
+              "weight": 35
+            },
+            {
+              "reps": 4,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 7.5
+            },
+            {
+              "reps": 8,
+              "weight": 7.5
+            },
+            {
+              "reps": 16,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 40
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            },
+            {
+              "reps": 6,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 4
+            },
+            {
+              "reps": 7,
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-09-25",
+      "name": "Pull 1",
+      "notes": "BW 73.2 kg · 11.9% BF · set 2: zwart; set 3: zwart",
+      "bodyWeight": 73.2,
+      "bodyFat": 11.9,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 55
+            },
+            {
+              "reps": 6,
+              "weight": 52.5
+            },
+            {
+              "reps": 9,
+              "weight": 47.5
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 12
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 9
+            },
+            {
+              "reps": 9,
+              "weight": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-11-23",
+      "name": "Pull 1",
+      "notes": "set 2: g; set 3: g",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 50
+            },
+            {
+              "reps": 7,
+              "weight": 45
+            },
+            {
+              "reps": 6,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 9
+            },
+            {
+              "reps": 7,
+              "weight": 9
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 8
+            },
+            {
+              "reps": 6,
+              "weight": 7
+            },
+            {
+              "reps": 5,
+              "weight": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-11-26",
+      "name": "Push 1",
+      "notes": "set 1: r; set 2: r; set 3: r",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 42.5
+            },
+            {
+              "reps": 6,
+              "weight": 42.5
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 22.5
+            },
+            {
+              "reps": 9,
+              "weight": 22.5
+            },
+            {
+              "reps": 5,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 9,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 12.5
+            },
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 2.5
+            },
+            {
+              "reps": 12,
+              "weight": 2.5
+            },
+            {
+              "reps": 11,
+              "weight": 2.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-11-30",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 50
+            },
+            {
+              "reps": 12,
+              "weight": 45
+            },
+            {
+              "reps": 12,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 7.5
+            },
+            {
+              "reps": 9,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Chest-Supported Row",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 50
+            },
+            {
+              "reps": 10,
+              "weight": 45
+            },
+            {
+              "reps": 11,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 22
+            },
+            {
+              "reps": 12,
+              "weight": 22
+            },
+            {
+              "reps": 13,
+              "weight": 22
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 10
+            },
+            {
+              "reps": 18,
+              "weight": 10
+            },
+            {
+              "reps": 12,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 10
+            },
+            {
+              "reps": 14,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Rope Facepull",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 9,
+              "weight": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-02",
+      "name": "Push 2",
+      "notes": "BW 70 kg",
+      "bodyWeight": 70,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 40
+            },
+            {
+              "reps": 7,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 3,
+              "weight": 27.5
+            },
+            {
+              "reps": 3,
+              "weight": 25
+            },
+            {
+              "reps": 3,
+              "weight": 25
+            }
+          ]
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 12.5
+            },
+            {
+              "reps": 6,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 8.75
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 7.5
+            },
+            {
+              "reps": 11,
+              "weight": 6.25
+            },
+            {
+              "reps": 7,
+              "weight": 6.25
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 4
+            },
+            {
+              "reps": 6,
+              "weight": 4
+            },
+            {
+              "reps": 4,
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-04",
+      "name": "Legs 1",
+      "notes": "BW 69.8 kg · durf niet te hard vanwege rug en pols",
+      "bodyWeight": 69.8,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 55
+            },
+            {
+              "reps": 4,
+              "weight": 55
+            },
+            {
+              "reps": 4,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 70
+            },
+            {
+              "reps": 6,
+              "weight": 65
+            },
+            {
+              "reps": 7,
+              "weight": 60
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 30
+            },
+            {
+              "reps": 11,
+              "weight": 30
+            },
+            {
+              "reps": 12,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 42.5
+            },
+            {
+              "reps": 10,
+              "weight": 42.5
+            },
+            {
+              "reps": 9,
+              "weight": 42.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-05",
+      "name": "Pull 1",
+      "notes": "BW 70.9 kg · set 2: g; set 3: g",
+      "bodyWeight": 70.9,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 50
+            },
+            {
+              "reps": 6,
+              "weight": 50
+            },
+            {
+              "reps": 9,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 9
+            },
+            {
+              "reps": 10,
+              "weight": 9
+            },
+            {
+              "reps": 10,
+              "weight": 9
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 8
+            },
+            {
+              "reps": 8,
+              "weight": 8
+            },
+            {
+              "reps": 7,
+              "weight": 8
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 40,
+              "weight": 0
+            },
+            {
+              "reps": 13,
+              "weight": 0
+            },
+            {
+              "reps": 13,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-13",
+      "name": "Legs 1",
+      "notes": "BW 71 kg · blessure gekregen",
+      "bodyWeight": 71,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 57.5
+            },
+            {
+              "reps": 4,
+              "weight": 57.5
+            },
+            {
+              "reps": 4,
+              "weight": 57.5
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 60
+            },
+            {
+              "reps": 8,
+              "weight": 65
+            },
+            {
+              "reps": 8,
+              "weight": 60
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 13,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 42.5
+            },
+            {
+              "reps": 10,
+              "weight": 42.5
+            },
+            {
+              "reps": 9,
+              "weight": 42.5
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 16,
+              "weight": 50
+            },
+            {
+              "reps": 16,
+              "weight": 60
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-19",
+      "name": "Legs 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 50
+            },
+            {
+              "reps": 6,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Deadlift",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 80
+            },
+            {
+              "reps": 5,
+              "weight": 80
+            },
+            {
+              "reps": 3,
+              "weight": 80
+            }
+          ]
+        },
+        {
+          "name": "Single-Leg Hip Thrust",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 20
+            },
+            {
+              "reps": 12,
+              "weight": 20
+            },
+            {
+              "reps": 11,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 42.5
+            },
+            {
+              "reps": 10,
+              "weight": 42.5
+            },
+            {
+              "reps": 11,
+              "weight": 42.5
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 30,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 20
+            },
+            {
+              "reps": 15,
+              "weight": 0
+            },
+            {
+              "reps": 9,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-23",
+      "name": "Push 2",
+      "notes": "BW 70.3 kg",
+      "bodyWeight": 70.3,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 40
+            },
+            {
+              "reps": 8,
+              "weight": 42.5
+            },
+            {
+              "reps": 9,
+              "weight": 42.5
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 0
+            },
+            {
+              "reps": 12,
+              "weight": 35
+            },
+            {
+              "reps": 10,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 30,
+              "weight": 0
+            },
+            {
+              "reps": 11,
+              "weight": 0
+            },
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 9,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 6,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 2.5
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 12.5
+            },
+            {
+              "reps": 11,
+              "weight": 12.5
+            },
+            {
+              "reps": 6,
+              "weight": 12.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-24",
+      "name": "Pull 1",
+      "notes": "spierpijn van gisteren",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            },
+            {
+              "reps": 4,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 19,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 9
+            },
+            {
+              "reps": 10,
+              "weight": 9
+            },
+            {
+              "reps": 10,
+              "weight": 9
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 8
+            },
+            {
+              "reps": 8,
+              "weight": 8
+            },
+            {
+              "reps": 6,
+              "weight": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-27",
+      "name": "Push 2",
+      "notes": "BW 70.3 kg · doet pijn aan mijn benen",
+      "bodyWeight": 70.3,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 42.5
+            },
+            {
+              "reps": 9,
+              "weight": 42.5
+            },
+            {
+              "reps": 8,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 7.5
+            },
+            {
+              "reps": 10,
+              "weight": 7.5
+            },
+            {
+              "reps": 9,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 27.5
+            },
+            {
+              "reps": 4,
+              "weight": 27.5
+            },
+            {
+              "reps": 4,
+              "weight": 27.5
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 28,
+              "weight": 0
+            },
+            {
+              "reps": 11,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 4
+            },
+            {
+              "reps": 7,
+              "weight": 4
+            },
+            {
+              "reps": 7,
+              "weight": 4
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2024-12-28",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 50
+            },
+            {
+              "reps": 9,
+              "weight": 50
+            },
+            {
+              "reps": 9,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Chest-Supported Row",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 50
+            },
+            {
+              "reps": 9,
+              "weight": 50
+            },
+            {
+              "reps": 10,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 24
+            },
+            {
+              "reps": 12,
+              "weight": 24
+            },
+            {
+              "reps": 10,
+              "weight": 24
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 15,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 40,
+              "weight": 0
+            },
+            {
+              "reps": 16,
+              "weight": 0
+            },
+            {
+              "reps": 17,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-01-05",
+      "name": "Pull 1",
+      "notes": "BW 71.5 kg · benen doen weer pijn",
+      "bodyWeight": 71.5,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 8
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 55
+            },
+            {
+              "reps": 9,
+              "weight": 50
+            },
+            {
+              "reps": 9,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 25,
+              "weight": 0
+            },
+            {
+              "reps": 15,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 9
+            },
+            {
+              "reps": 13,
+              "weight": 9
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 9
+            },
+            {
+              "reps": 9,
+              "weight": 8
+            },
+            {
+              "reps": 8,
+              "weight": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-01-07",
+      "name": "Push 2",
+      "notes": "BW 72 kg",
+      "bodyWeight": 72,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 45
+            },
+            {
+              "reps": 7,
+              "weight": 47.5
+            },
+            {
+              "reps": 7,
+              "weight": 47.5
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 0
+            },
+            {
+              "reps": 11,
+              "weight": 28
+            },
+            {
+              "reps": 10,
+              "weight": 28
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 7.5
+            },
+            {
+              "reps": 9,
+              "weight": 7.5
+            },
+            {
+              "reps": 7,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 22,
+              "weight": 15
+            },
+            {
+              "reps": 14,
+              "weight": 20
+            },
+            {
+              "reps": 9,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 5
+            },
+            {
+              "reps": 14,
+              "weight": 2.5
+            },
+            {
+              "reps": 18,
+              "weight": 2.5
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-01-09",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 55
+            },
+            {
+              "reps": 15,
+              "weight": 50
+            },
+            {
+              "reps": 11,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Chest-Supported Row",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 52.5
+            },
+            {
+              "reps": 10,
+              "weight": 55
+            },
+            {
+              "reps": 10,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 26
+            },
+            {
+              "reps": 12,
+              "weight": 26
+            },
+            {
+              "reps": 11,
+              "weight": 26
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 26,
+              "weight": 0
+            },
+            {
+              "reps": 10,
+              "weight": 0
+            },
+            {
+              "reps": 10,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-01-13",
+      "name": "Push 2",
+      "notes": "BW 72.3 kg · waarschijnlijk slechte vorm, heupen bewegen",
+      "bodyWeight": 72.3,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 50
+            },
+            {
+              "reps": 6,
+              "weight": 50
+            },
+            {
+              "reps": 8,
+              "weight": 47.5
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 30
+            },
+            {
+              "reps": 4,
+              "weight": 32.5
+            },
+            {
+              "reps": 3,
+              "weight": 32.5
+            }
+          ]
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 17.5
+            },
+            {
+              "reps": 9,
+              "weight": 15
+            },
+            {
+              "reps": 14,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 5
+            },
+            {
+              "reps": 7,
+              "weight": 5
+            },
+            {
+              "reps": 8,
+              "weight": 4
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 12.5
+            },
+            {
+              "reps": 13,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 10
+            },
+            {
+              "reps": 14,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 40,
+              "weight": 0
+            },
+            {
+              "reps": 16,
+              "weight": 0
+            },
+            {
+              "reps": 14,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-01-19",
+      "name": "Pull 1",
+      "notes": "was geen 10 voor eerste",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 5
+            },
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 7,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 55
+            },
+            {
+              "reps": 8,
+              "weight": 55
+            },
+            {
+              "reps": 7,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 9
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 9
+            },
+            {
+              "reps": 8,
+              "weight": 9
+            },
+            {
+              "reps": 7,
+              "weight": 9
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 50,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-01-25",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 60
+            },
+            {
+              "reps": 9,
+              "weight": 55
+            },
+            {
+              "reps": 7,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 60
+            },
+            {
+              "reps": 8,
+              "weight": 60
+            },
+            {
+              "reps": 10,
+              "weight": 60
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-01-29",
+      "name": "Push 2",
+      "notes": "BW 71.1 kg · verschil in machines",
+      "bodyWeight": 71.1,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 50
+            },
+            {
+              "reps": 7,
+              "weight": 47.5
+            },
+            {
+              "reps": 8,
+              "weight": 47.5
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 21
+            },
+            {
+              "reps": 12,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 17.5
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 5
+            },
+            {
+              "reps": 15,
+              "weight": 2.5
+            },
+            {
+              "reps": 13,
+              "weight": 2.5
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-02-09",
+      "name": "Pull 1",
+      "notes": "BW 70.9 kg · set 1: eerste set andere vorm",
+      "bodyWeight": 70.9,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 8
+            },
+            {
+              "reps": 5,
+              "weight": 8
+            },
+            {
+              "reps": 9,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 60
+            },
+            {
+              "reps": 8,
+              "weight": 55
+            },
+            {
+              "reps": 8,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 9
+            },
+            {
+              "reps": 9,
+              "weight": 9
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-02-14",
+      "name": "Push 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 52.5
+            },
+            {
+              "reps": 6,
+              "weight": 52.5
+            },
+            {
+              "reps": 7,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 20
+            },
+            {
+              "reps": 15,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 12,
+              "weight": 21
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Cable Crossover Decline",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 7.5
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Situps",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 15,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-02-16",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 55
+            },
+            {
+              "reps": 9,
+              "weight": 55
+            },
+            {
+              "reps": 9,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 60
+            },
+            {
+              "reps": 7,
+              "weight": 55
+            },
+            {
+              "reps": 8,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 12
+            },
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 12,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 9
+            },
+            {
+              "reps": 12,
+              "weight": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-02-21",
+      "name": "Push 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 55
+            },
+            {
+              "reps": 7,
+              "weight": 52.5
+            },
+            {
+              "reps": 7,
+              "weight": 52.5
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 32.5
+            },
+            {
+              "reps": 5,
+              "weight": 35
+            },
+            {
+              "reps": 3,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 17.5
+            },
+            {
+              "reps": 10,
+              "weight": 17.5
+            },
+            {
+              "reps": 8,
+              "weight": 17.5
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 4
+            },
+            {
+              "reps": 8,
+              "weight": 4
+            },
+            {
+              "reps": 7,
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-02-24",
+      "name": "Pull 1",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 12
+            },
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 10
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 9
+            },
+            {
+              "reps": 9,
+              "weight": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-02-26",
+      "name": "Legs 1",
+      "notes": "BW 71.7 kg",
+      "bodyWeight": 71.7,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 4,
+              "weight": 60
+            },
+            {
+              "reps": 4,
+              "weight": 60
+            },
+            {
+              "reps": 4,
+              "weight": 60
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 65
+            },
+            {
+              "reps": 8,
+              "weight": 65
+            },
+            {
+              "reps": 9,
+              "weight": 65
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 5
+            },
+            {
+              "reps": 10,
+              "weight": 5
+            },
+            {
+              "reps": 13,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 17.5
+            },
+            {
+              "reps": 11,
+              "weight": 17.5
+            },
+            {
+              "reps": 11,
+              "weight": 17.5
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 42.5
+            },
+            {
+              "reps": 12,
+              "weight": 42.5
+            },
+            {
+              "reps": 9,
+              "weight": 42.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-03-03",
+      "name": "Push 1",
+      "notes": "set 1: 20x2; set 2: 30x2; set 3: 30x2 · set 1: 22.5x2; set 2: 17.5x2; set 3: 17.5x2",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Chest Press",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 10,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 11,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 20
+            },
+            {
+              "reps": 9,
+              "weight": 20
+            },
+            {
+              "reps": 7,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 7,
+              "weight": 21
+            },
+            {
+              "reps": 10,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 17,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 15
+            },
+            {
+              "reps": 13,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 19,
+              "weight": 2.5
+            },
+            {
+              "reps": 8,
+              "weight": 5
+            },
+            {
+              "reps": 16,
+              "weight": 2.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-03-16",
+      "name": "Push 1",
+      "notes": "set 1: 2x25; set 2: 2x25; set 3: 2x25",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 50
+            },
+            {
+              "reps": 7,
+              "weight": 52.5
+            },
+            {
+              "reps": 8,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Chest Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-03-17",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 55
+            },
+            {
+              "reps": 11,
+              "weight": 55
+            },
+            {
+              "reps": 11,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 60
+            },
+            {
+              "reps": 8,
+              "weight": 55
+            },
+            {
+              "reps": 8,
+              "weight": 55
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 14
+            },
+            {
+              "reps": 6,
+              "weight": 14
+            },
+            {
+              "reps": 10,
+              "weight": 12
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Abdominal Crunch",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 35
+            },
+            {
+              "reps": 9,
+              "weight": 30
+            },
+            {
+              "reps": 8,
+              "weight": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-04-14",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 55
+            },
+            {
+              "reps": 10,
+              "weight": 50
+            },
+            {
+              "reps": 9,
+              "weight": 50
+            },
+            {
+              "reps": 10,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Upper Back Row",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 35
+            },
+            {
+              "reps": 12,
+              "weight": 40
+            },
+            {
+              "reps": 13,
+              "weight": 40
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 12
+            },
+            {
+              "reps": 9,
+              "weight": 12
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 6,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 45
+            },
+            {
+              "reps": 11,
+              "weight": 50
+            },
+            {
+              "reps": 11,
+              "weight": 50
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-04-27",
+      "name": "Pull 2",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 8
+            },
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 55
+            },
+            {
+              "reps": 12,
+              "weight": 55
+            },
+            {
+              "reps": 10,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 12
+            },
+            {
+              "reps": 11,
+              "weight": 9
+            },
+            {
+              "reps": 10,
+              "weight": 9
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-04",
+      "name": "Push 1",
+      "notes": "BW 69 kg",
+      "bodyWeight": 69,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 3,
+              "weight": 50
+            },
+            {
+              "reps": 6,
+              "weight": 45
+            },
+            {
+              "reps": 8,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 20
+            },
+            {
+              "reps": 9,
+              "weight": 17.5
+            },
+            {
+              "reps": 8,
+              "weight": 17.5
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 28
+            },
+            {
+              "reps": 6,
+              "weight": 28
+            }
+          ]
+        },
+        {
+          "name": "Eccentric Skull Crushers",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 9,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 2.5
+            },
+            {
+              "reps": 12,
+              "weight": 2.5
+            },
+            {
+              "reps": 12,
+              "weight": 2.5
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 12.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-08",
+      "name": "Push 2",
+      "notes": "BW 69.6 kg",
+      "bodyWeight": 69.6,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 45
+            },
+            {
+              "reps": 7,
+              "weight": 45
+            },
+            {
+              "reps": 6,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 30
+            },
+            {
+              "reps": 5,
+              "weight": 30
+            },
+            {
+              "reps": 4,
+              "weight": 30
+            },
+            {
+              "reps": 3,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 17.5
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            },
+            {
+              "reps": 7,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            },
+            {
+              "reps": 8,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 5
+            },
+            {
+              "reps": 6,
+              "weight": 5
+            },
+            {
+              "reps": 5,
+              "weight": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-09",
+      "name": "Legs 1",
+      "notes": "",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 45
+            },
+            {
+              "reps": 5,
+              "weight": 45
+            },
+            {
+              "reps": 4,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Romanian Deadlift",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 60
+            },
+            {
+              "reps": 8,
+              "weight": 60
+            },
+            {
+              "reps": 8,
+              "weight": 60
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 15
+            },
+            {
+              "reps": 8,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Single Leg Press",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 9,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 32.5
+            },
+            {
+              "reps": 11,
+              "weight": 35
+            },
+            {
+              "reps": 10,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 65
+            },
+            {
+              "reps": 10,
+              "weight": 65
+            },
+            {
+              "reps": 10,
+              "weight": 65
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-12",
+      "name": "Push 1",
+      "notes": "BW 60.8 kg",
+      "bodyWeight": 60.8,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 45
+            },
+            {
+              "reps": 8,
+              "weight": 45
+            },
+            {
+              "reps": 7,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 28
+            },
+            {
+              "reps": 5,
+              "weight": 28
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 12.5
+            },
+            {
+              "reps": 10,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Machine Shoulder Press",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 30
+            },
+            {
+              "reps": 8,
+              "weight": 30
+            },
+            {
+              "reps": 11,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Lateral Raise 21's",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 5
+            },
+            {
+              "reps": 5,
+              "weight": 5
+            },
+            {
+              "reps": 5,
+              "weight": 5
+            }
+          ]
+        },
+        {
+          "name": "Abdominal Crunch",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 35
+            },
+            {
+              "reps": 8,
+              "weight": 32.5
+            },
+            {
+              "reps": 10,
+              "weight": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-14",
+      "name": "Pull 1",
+      "notes": "BW 70.6 kg",
+      "bodyWeight": 70.6,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Weighted Pull-Up",
+          "sets": [
+            {
+              "reps": 5,
+              "weight": 8
+            },
+            {
+              "reps": 7,
+              "weight": 0
+            },
+            {
+              "reps": 6,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Body Row",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 55
+            },
+            {
+              "reps": 7,
+              "weight": 55
+            },
+            {
+              "reps": 8,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Hammer Curl",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 12
+            },
+            {
+              "reps": 11,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Bicep Curl",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 9
+            },
+            {
+              "reps": 7,
+              "weight": 9
+            }
+          ]
+        },
+        {
+          "name": "Abdominal Crunch",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 35
+            },
+            {
+              "reps": 8,
+              "weight": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-16",
+      "name": "Push 2",
+      "notes": "set 1: 20x2; set 2: 25x2; set 3: 25x2",
+      "bodyWeight": null,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Overhead Press",
+          "sets": [
+            {
+              "reps": 6,
+              "weight": 30
+            },
+            {
+              "reps": 6,
+              "weight": 30
+            },
+            {
+              "reps": 5,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Close-Grip Bench Press",
+          "sets": [
+            {
+              "reps": 7,
+              "weight": 47.5
+            },
+            {
+              "reps": 6,
+              "weight": 47.5
+            },
+            {
+              "reps": 6,
+              "weight": 45
+            }
+          ]
+        },
+        {
+          "name": "Chest Press",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 0
+            },
+            {
+              "reps": 8,
+              "weight": 0
+            },
+            {
+              "reps": 5,
+              "weight": 0
+            }
+          ]
+        },
+        {
+          "name": "Overhead Tricep Ext",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Tricep Pushdown",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            },
+            {
+              "reps": 10,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Egyptian Lateral Raise",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 2.5
+            },
+            {
+              "reps": 14,
+              "weight": 2.5
+            },
+            {
+              "reps": 14,
+              "weight": 2.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-17",
+      "name": "Legs 2",
+      "notes": "BW 70.4 kg",
+      "bodyWeight": 70.4,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 42.5
+            },
+            {
+              "reps": 8,
+              "weight": 42.5
+            },
+            {
+              "reps": 9,
+              "weight": 42.5
+            }
+          ]
+        },
+        {
+          "name": "Single-Leg Hip Thrust",
+          "sets": [
+            {
+              "reps": 14,
+              "weight": 20
+            },
+            {
+              "reps": 12,
+              "weight": 20
+            },
+            {
+              "reps": 12,
+              "weight": 20
+            }
+          ]
+        },
+        {
+          "name": "Single-Leg Calf Raise",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 9,
+              "weight": 10
+            }
+          ]
+        },
+        {
+          "name": "Deadlift",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 60
+            },
+            {
+              "reps": 5,
+              "weight": 80
+            },
+            {
+              "reps": 6,
+              "weight": 80
+            }
+          ]
+        },
+        {
+          "name": "Leg Extension",
+          "sets": [
+            {
+              "reps": 9,
+              "weight": 15
+            },
+            {
+              "reps": 12,
+              "weight": 12.5
+            },
+            {
+              "reps": 12,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Seated Leg Curls",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 35
+            },
+            {
+              "reps": 12,
+              "weight": 35
+            },
+            {
+              "reps": 8,
+              "weight": 35
+            }
+          ]
+        },
+        {
+          "name": "Hip Abductor",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 65
+            },
+            {
+              "reps": 12,
+              "weight": 65
+            },
+            {
+              "reps": 10,
+              "weight": 65
+            }
+          ]
+        },
+        {
+          "name": "Hip Adductor",
+          "sets": [
+            {
+              "reps": 12,
+              "weight": 40
+            },
+            {
+              "reps": 12,
+              "weight": 40
+            },
+            {
+              "reps": 13,
+              "weight": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-05-21",
+      "name": "Pull 2",
+      "notes": "BW 71 kg · echte",
+      "bodyWeight": 71,
+      "bodyFat": null,
+      "exercises": [
+        {
+          "name": "Omni-Grip Lat Pulldown",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 55
+            },
+            {
+              "reps": 11,
+              "weight": 50
+            },
+            {
+              "reps": 10,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "name": "Seated Cable Row",
+          "sets": [
+            {
+              "reps": 11,
+              "weight": 30
+            },
+            {
+              "reps": 10,
+              "weight": 30
+            },
+            {
+              "reps": 9,
+              "weight": 30
+            }
+          ]
+        },
+        {
+          "name": "Rope Facepull",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 12.5
+            },
+            {
+              "reps": 11,
+              "weight": 12.5
+            },
+            {
+              "reps": 9,
+              "weight": 12.5
+            }
+          ]
+        },
+        {
+          "name": "Pronated Curl",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Supinated Curl",
+          "sets": [
+            {
+              "reps": 13,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            },
+            {
+              "reps": 11,
+              "weight": 15
+            }
+          ]
+        },
+        {
+          "name": "Incline Dumbbell Shrug",
+          "sets": [
+            {
+              "reps": 15,
+              "weight": 18
+            },
+            {
+              "reps": 12,
+              "weight": 22
+            },
+            {
+              "reps": 12,
+              "weight": 22
+            }
+          ]
+        },
+        {
+          "name": "Reverse Pec Deck",
+          "sets": [
+            {
+              "reps": 10,
+              "weight": 10
+            },
+            {
+              "reps": 7,
+              "weight": 10
+            },
+            {
+              "reps": 8,
+              "weight": 7.5
+            }
+          ]
+        },
+        {
+          "name": "Abdominal Crunch",
+          "sets": [
+            {
+              "reps": 8,
+              "weight": 35
+            },
+            {
+              "reps": 8,
+              "weight": 30
+            },
+            {
+              "reps": 9,
+              "weight": 30
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

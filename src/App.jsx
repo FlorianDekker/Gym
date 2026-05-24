@@ -6,13 +6,13 @@ import LogWorkout from './pages/LogWorkout.jsx';
 import History from './pages/History.jsx';
 import Exercise from './pages/Exercise.jsx';
 import Settings from './pages/Settings.jsx';
-import { ensureSeeded } from './db/seed.js';
+import { ensureSeeded, ensureHistorySeeded } from './db/seed.js';
 
 export default function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    ensureSeeded();
+    ensureSeeded().then(ensureHistorySeeded);
     const stored = localStorage.getItem('gym-theme');
     if (stored === 'dark') {
       document.documentElement.classList.add('dark');
