@@ -19,10 +19,10 @@ import PRBadge from '../components/PRBadge.jsx';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
 const METRICS = [
-  { id: 'sessionVolume', label: 'Session volume', unit: 'kg·rep', bw: false },
-  { id: 'heaviest', label: 'Heaviest weight', unit: 'kg', bw: false },
   { id: '1rm', label: '1 rep max', unit: 'kg', bw: false },
+  { id: 'heaviest', label: 'Heaviest weight', unit: 'kg', bw: false },
   { id: 'bestSetVolume', label: 'Best set volume', unit: 'kg·rep', bw: false },
+  { id: 'sessionVolume', label: 'Session volume', unit: 'kg·rep', bw: false },
   { id: 'totalReps', label: 'Total reps', unit: 'reps', bw: true }
 ];
 
@@ -88,7 +88,7 @@ export default function Exercise() {
     () => (bodyweight ? METRICS.filter((m) => m.bw) : METRICS),
     [bodyweight]
   );
-  const [metric, setMetric] = useState('sessionVolume');
+  const [metric, setMetric] = useState('1rm');
   const activeMetric = availableMetrics.find((m) => m.id === metric) ?? availableMetrics[0];
   const activeId = activeMetric?.id;
 
