@@ -3,7 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import WorkoutTemplateEditor from '../components/WorkoutTemplateEditor.jsx';
 import { getDefaultRest } from '../components/RestTimer.jsx';
-import { loadProfile, saveProfile } from '../lib/profile.js';
+import { loadProfile, saveProfile, computeAge } from '../lib/profile.js';
 
 export default function Settings() {
   const templates = useLiveQuery(() => db.workoutTemplates.orderBy('order').toArray(), [], []);
@@ -19,7 +19,14 @@ export default function Settings() {
   const [editing, setEditing] = useState(null);
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
   const [rest, setRest] = useState(getDefaultRest());
-  const [profile, setProfile] = useState(() => loadProfile() || { sex: '', bodyweight: '', age: '' });
+  const [profile, setProfile] = useState(() => {
+    const p = loadProfile();
+    return {
+      sex: p?.sex ?? '',
+      bodyweight: p?.bodyweight ?? '',
+      dob: p?.dob ?? ''
+    };
+  });
 
   function updateProfile(patch) {
     const next = { ...profile, ...patch };
@@ -27,7 +34,7 @@ export default function Settings() {
     saveProfile({
       sex: next.sex || null,
       bodyweight: next.bodyweight === '' ? null : Number(next.bodyweight),
-      age: next.age === '' ? null : Number(next.age)
+      dob: next.dob || null
     });
   }
 
@@ -167,17 +174,18 @@ export default function Settings() {
             <span className="text-[11px] text-muted">kg</span>
           </div>
         </Row>
-        <Row label="Age">
-          <div className="flex items-center gap-1">
+        <Row label="Date of birth">
+          <div className="flex items-center gap-2">
+            {profile.dob && (
+              <span className="text-[11px] text-muted tabular-nums">{computeAge(profile.dob)} yr</span>
+            )}
             <input
-              type="number"
-              inputMode="numeric"
-              value={profile.age}
-              onChange={(e) => updateProfile({ age: e.target.value })}
-              placeholder="years"
-              className="w-20 text-right text-base font-semibold tabular-nums bg-surface dark:bg-[#16181c] rounded-lg px-2 py-1.5 outline-none placeholder:text-muted-light"
+              type="date"
+              value={profile.dob}
+              max={new Date().toISOString().slice(0, 10)}
+              onChange={(e) => updateProfile({ dob: e.target.value })}
+              className="text-sm bg-surface dark:bg-[#16181c] rounded-lg px-2 py-1.5 outline-none"
             />
-            <span className="text-[11px] text-muted">yr</span>
           </div>
         </Row>
       </Card>

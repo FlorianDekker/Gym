@@ -1,3 +1,5 @@
+import { profileAge } from './profile.js';
+
 export const LEVELS = ['Beginner', 'Novice', 'Intermediate', 'Advanced', 'Elite'];
 
 // Standards = bodyweight-ratio targets for an estimated 1RM, indexed by level.
@@ -125,7 +127,8 @@ export function evaluate(exerciseName, sets, profile) {
   }
   if (oneRm <= 0) return null;
 
-  const ageScale = ageMultiplier(profile.age);
+  const age = profileAge(profile);
+  const ageScale = ageMultiplier(age);
   const targets = ratios.map((r) => r * bw * ageScale);
 
   let levelIndex = 0;
