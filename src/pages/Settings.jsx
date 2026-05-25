@@ -3,6 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import WorkoutTemplateEditor from '../components/WorkoutTemplateEditor.jsx';
 import { getDefaultRest } from '../components/RestTimer.jsx';
+import { loadProfile, saveProfile } from '../lib/profile.js';
 
 export default function Settings() {
   const templates = useLiveQuery(() => db.workoutTemplates.orderBy('order').toArray(), [], []);
@@ -18,6 +19,17 @@ export default function Settings() {
   const [editing, setEditing] = useState(null);
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
   const [rest, setRest] = useState(getDefaultRest());
+  const [profile, setProfile] = useState(() => loadProfile() || { sex: '', bodyweight: '', age: '' });
+
+  function updateProfile(patch) {
+    const next = { ...profile, ...patch };
+    setProfile(next);
+    saveProfile({
+      sex: next.sex || null,
+      bodyweight: next.bodyweight === '' ? null : Number(next.bodyweight),
+      age: next.age === '' ? null : Number(next.age)
+    });
+  }
 
   function toggleDark() {
     const next = !dark;
@@ -118,6 +130,55 @@ export default function Settings() {
       <Card title="Appearance">
         <Row label="Dark mode">
           <Toggle checked={dark} onChange={toggleDark} />
+        </Row>
+      </Card>
+
+      <Card title="Profile">
+        <p className="text-xs text-muted mb-3">
+          Used to compare your 1RM to strength standards.
+        </p>
+        <Row label="Sex">
+          <div className="flex rounded-xl bg-surface dark:bg-[#16181c] p-1 text-sm font-semibold">
+            {['male', 'female'].map((s) => (
+              <button
+                key={s}
+                onClick={() => updateProfile({ sex: s })}
+                className={`px-3 py-1.5 rounded-lg transition ${
+                  profile.sex === s
+                    ? 'bg-white dark:bg-[#101115] text-ink dark:text-white shadow-sm'
+                    : 'text-muted'
+                }`}
+              >
+                {s === 'male' ? 'Male' : 'Female'}
+              </button>
+            ))}
+          </div>
+        </Row>
+        <Row label="Bodyweight">
+          <div className="flex items-center gap-1">
+            <input
+              type="number"
+              inputMode="decimal"
+              value={profile.bodyweight}
+              onChange={(e) => updateProfile({ bodyweight: e.target.value })}
+              placeholder="kg"
+              className="w-20 text-right text-base font-semibold tabular-nums bg-surface dark:bg-[#16181c] rounded-lg px-2 py-1.5 outline-none placeholder:text-muted-light"
+            />
+            <span className="text-[11px] text-muted">kg</span>
+          </div>
+        </Row>
+        <Row label="Age">
+          <div className="flex items-center gap-1">
+            <input
+              type="number"
+              inputMode="numeric"
+              value={profile.age}
+              onChange={(e) => updateProfile({ age: e.target.value })}
+              placeholder="years"
+              className="w-20 text-right text-base font-semibold tabular-nums bg-surface dark:bg-[#16181c] rounded-lg px-2 py-1.5 outline-none placeholder:text-muted-light"
+            />
+            <span className="text-[11px] text-muted">yr</span>
+          </div>
         </Row>
       </Card>
 

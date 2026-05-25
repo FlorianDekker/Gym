@@ -14,7 +14,9 @@ import {
 import { db } from '../db/db.js';
 import { volume, formatDate } from '../lib/volume.js';
 import { exerciseStats } from '../lib/prs.js';
+import { loadProfile } from '../lib/profile.js';
 import PRBadge from '../components/PRBadge.jsx';
+import StrengthLevelCard from '../components/StrengthLevelCard.jsx';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
@@ -89,6 +91,8 @@ export default function Exercise() {
     [bodyweight]
   );
   const [metric, setMetric] = useState('1rm');
+  const profile = useMemo(() => loadProfile(), []);
+  const bestOneRm = stats.bestSet ? epley(stats.bestSet.weight, stats.bestSet.reps) : 0;
   const activeMetric = availableMetrics.find((m) => m.id === metric) ?? availableMetrics[0];
   const activeId = activeMetric?.id;
 
@@ -177,6 +181,14 @@ export default function Exercise() {
             </p>
           )}
         </section>
+      )}
+
+      {ex?.name && (
+        <StrengthLevelCard
+          exerciseName={ex.name}
+          oneRm={bestOneRm}
+          profile={profile}
+        />
       )}
 
       <section className="bg-white dark:bg-[#101115] rounded-2xl border border-line dark:border-[#1f2227] p-4 mb-4">
