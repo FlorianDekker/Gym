@@ -4,11 +4,11 @@ import BottomSheet from './BottomSheet.jsx';
 import { evaluate, hasStandards, LEVELS } from '../lib/strengthLevels.js';
 import { isProfileComplete } from '../lib/profile.js';
 
-export default function StrengthLevelCard({ exerciseName, oneRm, profile }) {
+export default function StrengthLevelCard({ exerciseName, sets, profile }) {
   const [showInfo, setShowInfo] = useState(false);
 
   if (!hasStandards(exerciseName)) return null;
-  if (!oneRm || oneRm <= 0) return null;
+  if (!Array.isArray(sets) || sets.length === 0) return null;
 
   if (!isProfileComplete(profile)) {
     return (
@@ -25,13 +25,13 @@ export default function StrengthLevelCard({ exerciseName, oneRm, profile }) {
     );
   }
 
-  const result = evaluate(exerciseName, oneRm, profile);
+  const result = evaluate(exerciseName, sets, profile);
   if (!result) return null;
 
   const segCount = LEVELS.length - 1;
   const fillPct = result.overallProgress * 100;
   const sexLabel = profile.sex === 'female' ? 'female' : 'male';
-  const oneRmStr = oneRm >= 100 ? Math.round(oneRm) : oneRm.toFixed(1);
+  const oneRmStr = result.oneRm >= 100 ? Math.round(result.oneRm) : result.oneRm.toFixed(1);
 
   return (
     <section className="rounded-2xl bg-white dark:bg-[#101115] border border-line dark:border-[#1f2227] p-4 mb-4">
@@ -52,11 +52,22 @@ export default function StrengthLevelCard({ exerciseName, oneRm, profile }) {
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <p className="text-[10px] uppercase tracking-wider text-muted font-bold">Best 1RM</p>
+          <p className="text-[10px] uppercase tracking-wider text-muted font-bold">
+            {result.mode === 'bw' ? 'Best 1RM (effective)' : 'Best 1RM'}
+          </p>
           <p className="text-2xl font-bold tabular-nums leading-tight">
             {oneRmStr}
             <span className="text-[11px] text-muted font-medium ml-1">kg</span>
           </p>
+          {result.mode === 'bw' && result.bestRecorded && (
+            <p className="text-[10px] text-muted mt-0.5">
+              {result.bestRecorded.weight === 0
+                ? 'bodyweight'
+                : result.bestRecorded.weight > 0
+                  ? `bodyweight + ${result.bestRecorded.weight} kg`
+                  : `bodyweight − ${Math.abs(result.bestRecorded.weight)} kg`}
+            </p>
+          )}
         </div>
         <div>
           <p className="text-[10px] uppercase tracking-wider text-muted font-bold">Level</p>
@@ -97,13 +108,14 @@ export default function StrengthLevelCard({ exerciseName, oneRm, profile }) {
         <div className="space-y-3 text-sm leading-relaxed">
           <p>
             Your <b>estimated 1RM</b> uses the Epley formula{' '}
-            <code className="text-xs">weight × (1 + reps/30)</code> on your best set.
+            <code className="text-xs">weight × (1 + reps/30)</code>, taken as the highest
+            value across every set you've logged.
           </p>
           <p>
-            That number is compared to <b>bodyweight-ratio standards</b> for{' '}
-            {exerciseName} compiled from widely cited public references (Greg Nuckols'
-            Strength Standards, ExRx, Symmetric Strength), then scaled by an age
-            modifier so older and very young lifters aren't unfairly penalised.
+            {result.mode === 'bw'
+              ? <>For <b>{exerciseName}</b>, the effective load is <b>your bodyweight + the kg you record</b> — so a negative number means assistance and zero is pure bodyweight.</>
+              : <>The recorded kg is the absolute load on the bar / cable / dumbbell.</>}
+            {' '}That number is compared to bodyweight-ratio standards for {exerciseName} compiled from widely cited public references (Greg Nuckols' Strength Standards, ExRx, Symmetric Strength), then scaled by an age modifier so older and very young lifters aren't unfairly penalised.
           </p>
           <p>
             Levels: <b>Beginner</b> → <b>Novice</b> → <b>Intermediate</b> →{' '}
@@ -111,12 +123,9 @@ export default function StrengthLevelCard({ exerciseName, oneRm, profile }) {
             on the cumulative share of lifters at each level — not a precise figure.
           </p>
           <p className="text-muted text-xs">
-            Standards are provided for the lifts with widely cited published data:
-            Bench Press, Squat, Deadlift, Overhead Press, Romanian Deadlift,
-            Hack Squat, Close-Grip Bench Press, Bent-Over Row, Chest-Supported
-            Row, Seated Cable Row, Omni-Grip Lat Pulldown, and Bicep Curl. Other
-            exercises (isolation moves, bodyweight rows, assisted variants)
-            don't have reliable standards in this format.
+            Numbers for isolation moves and machines are calibrated estimates rather
+            than rigorously published ratios; treat them as a useful directional
+            comparison.
           </p>
         </div>
       </BottomSheet>

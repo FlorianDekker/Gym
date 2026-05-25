@@ -192,3 +192,44 @@ export async function ensureHistorySeeded() {
     }
   );
 }
+
+// One-time data cleanup: merge "Incline Dumbbell Shrug (Optional)" into the
+// canonical "Incline Dumbbell Shrug". Re-points all sets and templateExercises
+// at the canonical exercise, then deletes the duplicate row.
+export async function ensureDedupedExercises() {
+  const flag = await db.meta.get('dedupe-shrug-v1');
+  if (flag?.value) return;
+
+  await db.transaction(
+    'rw',
+    db.exercises,
+    db.sets,
+    db.templateExercises,
+    db.meta,
+    async () => {
+      const optional = await db.exercises.where('name').equals('Incline Dumbbell Shrug (Optional)').first();
+      if (optional) {
+        let canonical = await db.exercises.where('name').equals('Incline Dumbbell Shrug').first();
+        if (!canonical) {
+          const id = await db.exercises.add({ name: 'Incline Dumbbell Shrug', muscleGroup: optional.muscleGroup || 'pull' });
+          canonical = { id, name: 'Incline Dumbbell Shrug' };
+        }
+        await db.sets.where('exerciseId').equals(optional.id).modify({ exerciseId: canonical.id });
+        const ortes = await db.templateExercises.where('exerciseId').equals(optional.id).toArray();
+        for (const te of ortes) {
+          const dup = await db.templateExercises
+            .where('templateId').equals(te.templateId)
+            .and((r) => r.exerciseId === canonical.id)
+            .first();
+          if (dup) {
+            await db.templateExercises.delete(te.id);
+          } else {
+            await db.templateExercises.update(te.id, { exerciseId: canonical.id });
+          }
+        }
+        await db.exercises.delete(optional.id);
+      }
+      await db.meta.put({ key: 'dedupe-shrug-v1', value: true });
+    }
+  );
+}

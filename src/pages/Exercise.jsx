@@ -92,7 +92,7 @@ export default function Exercise() {
   );
   const [metric, setMetric] = useState('1rm');
   const profile = useMemo(() => loadProfile(), []);
-  const bestOneRm = stats.bestSet ? epley(stats.bestSet.weight, stats.bestSet.reps) : 0;
+  const allSets = useMemo(() => sessions.flatMap((s) => s.sets), [sessions]);
   const activeMetric = availableMetrics.find((m) => m.id === metric) ?? availableMetrics[0];
   const activeId = activeMetric?.id;
 
@@ -186,7 +186,7 @@ export default function Exercise() {
       {ex?.name && (
         <StrengthLevelCard
           exerciseName={ex.name}
-          oneRm={bestOneRm}
+          sets={allSets}
           profile={profile}
         />
       )}
