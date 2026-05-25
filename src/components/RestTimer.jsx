@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const STORAGE_KEY = 'gym-rest-default';
 
@@ -62,7 +63,7 @@ const RestTimer = forwardRef(function RestTimer(_, ref) {
   const progress = duration > 0 ? remaining / duration : 0;
 
   if (running) {
-    return (
+    return createPortal(
       <div className="fixed bottom-24 left-0 right-0 z-40 px-5 pointer-events-none animate-slide-up">
         <div className="max-w-sm mx-auto bg-ink dark:bg-white text-white dark:text-ink rounded-2xl px-4 py-3 shadow-2xl flex items-center gap-3 pointer-events-auto animate-pulse-glow">
           <div className="relative w-12 h-12 flex items-center justify-center">
@@ -87,7 +88,8 @@ const RestTimer = forwardRef(function RestTimer(_, ref) {
           <button onClick={() => adjust(15)} className="px-2 py-1 text-sm font-semibold opacity-80">+15</button>
           <button onClick={reset} className="px-2 py-1 text-sm font-semibold opacity-80" aria-label="Stop">✕</button>
         </div>
-      </div>
+      </div>,
+      document.body
     );
   }
 
