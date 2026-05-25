@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { db } from '../db/db.js';
 import { evaluate, hasStandards, LEVELS } from '../lib/strengthLevels.js';
 import { loadProfile, isProfileComplete } from '../lib/profile.js';
+import { EXERCISE_MUSCLES } from '../lib/muscles.js';
+import MuscleDiagram from '../components/MuscleDiagram.jsx';
 
 const SORTS = [
   { id: 'progress', label: 'By level' },
   { id: 'name', label: 'A-Z' }
 ];
+
+// Level → colour: red (Beginner) → orange → yellow → lime → emerald (Elite).
+const LEVEL_COLORS = ['#ef4444', '#f97316', '#eab308', '#84cc16', '#22c55e'];
 
 export default function Levels() {
   const [sortBy, setSortBy] = useState('progress');
@@ -69,6 +74,27 @@ export default function Levels() {
       ? rows.slice().sort((a, b) => a.name.localeCompare(b.name))
       : rows.slice().sort((a, b) => b.overallProgress - a.overallProgress);
 
+  // For each muscle group, keep the highest levelIndex achieved across any
+  // exercise that targets it as a PRIMARY muscle, then translate that level
+  // into a heatmap colour for the body diagram.
+  const colorByMuscle = useMemo(() => {
+    const best = {};
+    for (const row of rows) {
+      const m = EXERCISE_MUSCLES[row.name];
+      if (!m) continue;
+      for (const muscleId of m.primary || []) {
+        if (best[muscleId] == null || row.levelIndex > best[muscleId]) {
+          best[muscleId] = row.levelIndex;
+        }
+      }
+    }
+    const out = {};
+    for (const [muscleId, idx] of Object.entries(best)) {
+      out[muscleId] = LEVEL_COLORS[idx] || LEVEL_COLORS[0];
+    }
+    return out;
+  }, [rows]);
+
   return (
     <div className="px-5 pt-12 pb-24 flex-1 animate-slide-up">
       <header className="mb-5">
@@ -82,6 +108,24 @@ export default function Levels() {
         </p>
       ) : (
         <>
+          <section className="rounded-2xl bg-white dark:bg-[#101115] border border-line dark:border-[#1f2227] p-4 mb-4">
+            <p className="text-[10px] uppercase tracking-wider text-muted font-bold mb-3 text-center">
+              Strength heatmap
+            </p>
+            <MuscleDiagram colorByMuscle={colorByMuscle} />
+            <div className="flex items-center justify-between mt-4 text-[10px] uppercase tracking-wider font-bold">
+              {LEVELS.map((lvl, i) => (
+                <div key={lvl} className="flex flex-col items-center gap-1">
+                  <span
+                    className="w-4 h-4 rounded"
+                    style={{ backgroundColor: LEVEL_COLORS[i] }}
+                  />
+                  <span className="text-muted">{lvl}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <div className="-mx-5 px-5 mb-4 overflow-x-auto no-scrollbar">
             <div className="flex gap-2 w-max">
               {SORTS.map((s) => (
