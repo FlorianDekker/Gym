@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Line } from 'react-chartjs-2';
@@ -16,6 +17,38 @@ import { exerciseStats } from '../lib/prs.js';
 import PRBadge from '../components/PRBadge.jsx';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
+
+const METRICS = [
+  { id: 'sessionVolume', label: 'Session volume', unit: 'kg·rep', bw: false },
+  { id: 'heaviest', label: 'Heaviest weight', unit: 'kg', bw: false },
+  { id: '1rm', label: '1 rep max', unit: 'kg', bw: false },
+  { id: 'bestSetVolume', label: 'Best set volume', unit: 'kg·rep', bw: false },
+  { id: 'totalReps', label: 'Total reps', unit: 'reps', bw: true }
+];
+
+// Epley: 1RM = weight × (1 + reps / 30). reps=1 returns weight itself.
+function epley(weight, reps) {
+  if (!weight || !reps) return 0;
+  return weight * (1 + reps / 30);
+}
+
+function computeMetric(metric, sets) {
+  if (!sets || sets.length === 0) return 0;
+  switch (metric) {
+    case 'heaviest':
+      return sets.reduce((m, s) => Math.max(m, s.weight || 0), 0);
+    case '1rm':
+      return sets.reduce((m, s) => Math.max(m, epley(s.weight || 0, s.reps || 0)), 0);
+    case 'bestSetVolume':
+      return sets.reduce((m, s) => Math.max(m, (s.reps || 0) * (s.weight || 0)), 0);
+    case 'sessionVolume':
+      return sets.reduce((sum, s) => sum + (s.reps || 0) * (s.weight || 0), 0);
+    case 'totalReps':
+      return sets.reduce((sum, s) => sum + (s.reps || 0), 0);
+    default:
+      return 0;
+  }
+}
 
 export default function Exercise() {
   const { exerciseId } = useParams();
@@ -48,22 +81,29 @@ export default function Exercise() {
     { ex: null, sessions: [], stats: { maxWeight: 0, maxReps: 0, bestSet: null, totalVolume: 0, sessionCount: 0 } }
   );
 
+  const { ex, sessions, stats } = data;
+  const bodyweight = !!ex?.bodyweight;
+
+  const availableMetrics = useMemo(
+    () => (bodyweight ? METRICS.filter((m) => m.bw) : METRICS),
+    [bodyweight]
+  );
+  const [metric, setMetric] = useState('sessionVolume');
+  const activeMetric = availableMetrics.find((m) => m.id === metric) ?? availableMetrics[0];
+  const activeId = activeMetric?.id;
+
   async function toggleBodyweight() {
     if (!data.ex) return;
     await db.exercises.update(id, { bodyweight: !data.ex.bodyweight });
   }
 
-  const { ex, sessions, stats } = data;
-  const bodyweight = !!ex?.bodyweight;
-
+  const chartValues = sessions.map((s) => Math.round(computeMetric(activeId, s.sets)));
   const chartData = {
     labels: sessions.map((s) => formatDate(s.date)),
     datasets: [
       {
-        label: bodyweight ? 'Total reps' : 'Volume',
-        data: sessions.map((s) =>
-          bodyweight ? s.sets.reduce((a, b) => a + (b.reps || 0), 0) : Math.round(volume(s.sets))
-        ),
+        label: activeMetric?.label ?? '',
+        data: chartValues,
         borderColor: 'rgb(255 106 19)',
         backgroundColor: 'rgba(255, 106, 19, 0.12)',
         fill: true,
@@ -76,7 +116,16 @@ export default function Exercise() {
   const chartOpts = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { intersect: false, mode: 'index' } },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        intersect: false,
+        mode: 'index',
+        callbacks: {
+          label: (ctx) => `${ctx.formattedValue} ${activeMetric?.unit ?? ''}`
+        }
+      }
+    },
     scales: {
       x: { ticks: { display: false }, grid: { display: false } },
       y: { ticks: { color: 'rgb(138 141 148)' }, grid: { color: 'rgba(138,141,148,0.12)' } }
@@ -119,16 +168,47 @@ export default function Exercise() {
           {stats.bestSet && !bodyweight && (
             <p className="text-xs text-muted mt-3">
               Best set: {stats.bestSet.reps} × {stats.bestSet.weight} kg
+              {stats.maxWeight > 0 && (
+                <>
+                  {' · '}
+                  Est. 1RM: {Math.round(epley(stats.bestSet.weight, stats.bestSet.reps))} kg
+                </>
+              )}
             </p>
           )}
         </section>
       )}
 
       <section className="bg-white dark:bg-[#101115] rounded-2xl border border-line dark:border-[#1f2227] p-4 mb-4">
-        <p className="text-xs uppercase tracking-wide text-muted font-bold mb-2">
-          {bodyweight ? 'Reps' : 'Volume'} over time
+        {availableMetrics.length > 1 && (
+          <div className="-mx-4 px-4 mb-3 overflow-x-auto no-scrollbar">
+            <div className="flex gap-2 w-max">
+              {availableMetrics.map((m) => (
+                <button
+                  key={m.id}
+                  onClick={() => setMetric(m.id)}
+                  className={`text-[11px] font-semibold rounded-full px-3 py-1.5 whitespace-nowrap border ${
+                    activeId === m.id
+                      ? 'bg-ink text-white border-ink dark:bg-white dark:text-ink dark:border-white'
+                      : 'bg-surface text-muted border-line dark:bg-[#16181c] dark:border-[#1f2227]'
+                  }`}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        <p className="text-xs uppercase tracking-wide text-muted font-bold mb-1">
+          {activeMetric?.label}
         </p>
-        <div className="h-56">
+        {chartValues.length > 0 && (
+          <p className="text-2xl font-bold tabular-nums leading-tight">
+            {chartValues[chartValues.length - 1].toLocaleString()}{' '}
+            <span className="text-[11px] text-muted font-medium">{activeMetric?.unit}</span>
+          </p>
+        )}
+        <div className="h-56 mt-2">
           {sessions.length > 0 ? (
             <Line data={chartData} options={chartOpts} />
           ) : (
