@@ -64,7 +64,7 @@ const RestTimer = forwardRef(function RestTimer(_, ref) {
 
   if (running) {
     return createPortal(
-      <div className="fixed bottom-24 left-0 right-0 z-40 px-5 pointer-events-none animate-slide-up">
+      <div className="fixed bottom-20 left-0 right-0 z-40 px-5 pointer-events-none animate-slide-up">
         <div className="max-w-sm mx-auto bg-ink dark:bg-white text-white dark:text-ink rounded-2xl px-4 py-3 shadow-2xl flex items-center gap-3 pointer-events-auto animate-pulse-glow">
           <div className="relative w-12 h-12 flex items-center justify-center">
             <svg viewBox="0 0 36 36" className="absolute inset-0 -rotate-90">
