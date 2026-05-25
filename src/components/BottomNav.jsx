@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 const TABS = [
   { to: '/', label: 'Home', icon: HomeIcon },
   { to: '/history', label: 'History', icon: HistoryIcon },
+  { to: '/levels', label: 'Levels', icon: TrophyIcon },
   { to: '/settings', label: 'Settings', icon: GearIcon }
 ];
 
@@ -52,6 +53,20 @@ function HistoryIcon({ className }) {
       <path d="M3 12a9 9 0 1 0 3-6.7" />
       <path d="M3 4v5h5" />
       <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+function TrophyIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 4h12" />
+      <path d="M7 4v4a5 5 0 0 0 10 0V4" />
+      <path d="M5 5H3a2 2 0 0 0-1 4l3 1" />
+      <path d="M19 5h2a2 2 0 0 1 1 4l-3 1" />
+      <path d="M12 13v4" />
+      <path d="M8 20h8" />
+      <path d="M9 17h6v3H9z" />
     </svg>
   );
 }

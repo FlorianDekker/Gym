@@ -5,6 +5,7 @@ import Home from './pages/Home.jsx';
 import LogWorkout from './pages/LogWorkout.jsx';
 import History from './pages/History.jsx';
 import Exercise from './pages/Exercise.jsx';
+import Levels from './pages/Levels.jsx';
 import Settings from './pages/Settings.jsx';
 import { ensureSeeded, ensureHistorySeeded, ensureDedupedExercises } from './db/seed.js';
 
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/log/:templateId" element={<LogWorkout />} />
         <Route path="/history" element={<History />} />
         <Route path="/exercise/:exerciseId" element={<Exercise />} />
+        <Route path="/levels" element={<Levels />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
