@@ -20,6 +20,8 @@ import { CSS } from '@dnd-kit/utilities';
 import { db } from '../db/db.js';
 import { todayISO } from '../lib/volume.js';
 import { detectPRs } from '../lib/prs.js';
+import { effectiveWeight } from '../lib/strengthLevels.js';
+import { loadProfile } from '../lib/profile.js';
 import BottomSheet from '../components/BottomSheet.jsx';
 import PlateSheet from '../components/PlateSheet.jsx';
 import RestTimer, { getDefaultRest } from '../components/RestTimer.jsx';
@@ -123,18 +125,23 @@ export default function LogWorkout() {
     () => items.reduce((s, it) => s + it.sets.filter((x) => typedReps(x) > 0).length, 0),
     [items]
   );
+  const profileBw = useMemo(() => Number(loadProfile()?.bodyweight) || null, []);
   const totalVolume = useMemo(
     () =>
-      items.reduce(
-        (sum, it) =>
+      items.reduce((sum, it) => {
+        if (it.bodyweight) return sum;
+        return (
           sum +
-          it.sets.reduce(
-            (acc, s) => acc + typedReps(s) * (it.bodyweight ? 0 : typedWeight(s)),
-            0
-          ),
-        0
-      ),
-    [items]
+          it.sets.reduce((acc, s) => {
+            const reps = typedReps(s);
+            if (!reps) return acc;
+            const eff = effectiveWeight(it.name, typedWeight(s), profileBw);
+            if (eff == null) return acc;
+            return acc + reps * eff;
+          }, 0)
+        );
+      }, 0),
+    [items, profileBw]
   );
 
   const supersetColorByGroup = useMemo(() => {

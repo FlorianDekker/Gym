@@ -88,6 +88,30 @@ export function hasStandards(exerciseName) {
   return !!STANDARDS[exerciseName];
 }
 
+export function modeOf(exerciseName) {
+  return STANDARDS[exerciseName]?.mode || 'weight';
+}
+
+/**
+ * Converts a raw recorded weight into the effective load actually moved.
+ * - For 'weight' mode (default), this is the recorded number as-is.
+ * - For 'bw' mode, it's bodyweight + recorded — so a -28 kg assisted dip on a
+ *   72 kg lifter becomes an effective 44 kg, and a +8 kg weighted pull-up
+ *   becomes 80 kg.
+ * Returns null if a BW-mode exercise has no usable bodyweight reference
+ * (caller can decide to skip that set rather than pretending it's zero).
+ */
+export function effectiveWeight(exerciseName, recordedWeight, bodyweight) {
+  const w = Number(recordedWeight);
+  if (!Number.isFinite(w)) return null;
+  if (modeOf(exerciseName) === 'bw') {
+    const bw = Number(bodyweight);
+    if (!Number.isFinite(bw) || bw <= 0) return null;
+    return bw + w;
+  }
+  return w;
+}
+
 function epley(weight, reps) {
   if (!Number.isFinite(weight) || !Number.isFinite(reps) || weight <= 0 || reps <= 0) return 0;
   return weight * (1 + reps / 30);

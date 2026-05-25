@@ -2,16 +2,34 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../db/db.js';
-import { volume, formatDate, formatMonth } from '../lib/volume.js';
+import { formatDate, formatMonth } from '../lib/volume.js';
+import { effectiveWeight } from '../lib/strengthLevels.js';
+import { loadProfile } from '../lib/profile.js';
+
+function workoutVolume(sets, exMap, bodyweight) {
+  let total = 0;
+  for (const s of sets) {
+    const name = exMap.get(s.exerciseId)?.name;
+    const eff = effectiveWeight(name, s.weight, bodyweight);
+    if (eff == null) continue;
+    total += (s.reps || 0) * eff;
+  }
+  return total;
+}
 
 export default function History() {
   const data = useLiveQuery(
     async () => {
+      const profile = loadProfile();
+      const profileBw = Number(profile?.bodyweight) || null;
+      const exercises = await db.exercises.toArray();
+      const exMap = new Map(exercises.map((e) => [e.id, e]));
       const rows = await db.workouts.orderBy('date').reverse().toArray();
       const enriched = await Promise.all(
         rows.map(async (w) => {
           const sets = await db.sets.where('workoutId').equals(w.id).toArray();
-          return { ...w, setCount: sets.length, volume: volume(sets), sets };
+          const bw = Number(w.bodyWeight) || profileBw;
+          return { ...w, setCount: sets.length, volume: workoutVolume(sets, exMap, bw), sets };
         })
       );
       return enriched;

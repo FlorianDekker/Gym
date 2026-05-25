@@ -12,9 +12,10 @@ import {
   Filler
 } from 'chart.js';
 import { db } from '../db/db.js';
-import { volume, formatDate } from '../lib/volume.js';
+import { formatDate } from '../lib/volume.js';
 import { exerciseStats } from '../lib/prs.js';
 import { loadProfile } from '../lib/profile.js';
+import { effectiveWeight } from '../lib/strengthLevels.js';
 import PRBadge from '../components/PRBadge.jsx';
 import StrengthLevelCard from '../components/StrengthLevelCard.jsx';
 
@@ -34,19 +35,37 @@ function epley(weight, reps) {
   return weight * (1 + reps / 30);
 }
 
-function computeMetric(metric, sets) {
-  if (!sets || sets.length === 0) return 0;
+// Resolve each set into { reps, eff } where eff is the effective load (recorded
+// kg for absolute exercises, or bodyweight + recorded for BW-additive ones).
+// Sets with no usable bodyweight reference for a BW-mode exercise are dropped.
+function effectiveSets(exerciseName, sets, profile, workoutBwByWorkoutId) {
+  const profileBw = Number(profile?.bodyweight) || null;
+  const out = [];
+  for (const s of sets) {
+    const reps = Number(s.reps) || 0;
+    if (!reps) continue;
+    const workoutBw = workoutBwByWorkoutId?.get(s.workoutId);
+    const bw = Number(workoutBw) || profileBw;
+    const eff = effectiveWeight(exerciseName, s.weight, bw);
+    if (eff == null) continue;
+    out.push({ reps, eff });
+  }
+  return out;
+}
+
+function computeMetric(metric, effSets) {
+  if (!effSets || effSets.length === 0) return 0;
   switch (metric) {
     case 'heaviest':
-      return sets.reduce((m, s) => Math.max(m, s.weight || 0), 0);
+      return effSets.reduce((m, s) => Math.max(m, s.eff), 0);
     case '1rm':
-      return sets.reduce((m, s) => Math.max(m, epley(s.weight || 0, s.reps || 0)), 0);
+      return effSets.reduce((m, s) => Math.max(m, epley(s.eff, s.reps)), 0);
     case 'bestSetVolume':
-      return sets.reduce((m, s) => Math.max(m, (s.reps || 0) * (s.weight || 0)), 0);
+      return effSets.reduce((m, s) => Math.max(m, s.reps * s.eff), 0);
     case 'sessionVolume':
-      return sets.reduce((sum, s) => sum + (s.reps || 0) * (s.weight || 0), 0);
+      return effSets.reduce((sum, s) => sum + s.reps * s.eff, 0);
     case 'totalReps':
-      return sets.reduce((sum, s) => sum + (s.reps || 0), 0);
+      return effSets.reduce((sum, s) => sum + s.reps, 0);
     default:
       return 0;
   }
@@ -101,7 +120,19 @@ export default function Exercise() {
     await db.exercises.update(id, { bodyweight: !data.ex.bodyweight });
   }
 
-  const chartValues = sessions.map((s) => Math.round(computeMetric(activeId, s.sets)));
+  // Convert each session's raw sets into effective-load sets, respecting the
+  // BW-additive mode (Dips, Weighted Pull-Up, etc.) and the per-workout
+  // bodyweight where recorded.
+  const sessionsEff = useMemo(() => {
+    const profileBw = Number(profile?.bodyweight) || null;
+    return sessions.map((s) => {
+      const workoutBw = Number(s.bodyWeight) || profileBw;
+      const bwByWorkout = new Map([[s.workoutId, workoutBw]]);
+      return { ...s, effSets: effectiveSets(ex?.name, s.sets, profile, bwByWorkout) };
+    });
+  }, [sessions, profile, ex?.name]);
+
+  const chartValues = sessionsEff.map((s) => Math.round(computeMetric(activeId, s.effSets)));
   const chartData = {
     labels: sessions.map((s) => formatDate(s.date)),
     datasets: [
@@ -232,15 +263,16 @@ export default function Exercise() {
       </section>
 
       <ul className="space-y-3">
-        {sessions
+        {sessionsEff
           .slice()
           .reverse()
           .map((s) => {
-            const sessionMaxW = s.sets.reduce((m, x) => Math.max(m, x.weight), 0);
             const sessionMaxR = s.sets.reduce((m, x) => Math.max(m, x.reps), 0);
+            const sessionMaxEff = s.effSets.reduce((m, x) => Math.max(m, x.eff), 0);
+            const sessionVolume = s.effSets.reduce((sum, x) => sum + x.reps * x.eff, 0);
             const isPRSession =
               (bodyweight && sessionMaxR === stats.maxReps && stats.maxReps > 0) ||
-              (!bodyweight && sessionMaxW === stats.maxWeight && stats.maxWeight > 0);
+              (!bodyweight && sessionMaxEff > 0 && sessionMaxEff === stats.maxWeight && stats.maxWeight > 0);
             return (
               <li
                 key={s.workoutId}
@@ -256,7 +288,7 @@ export default function Exercise() {
                     <p className="text-xs text-muted tabular-nums">
                       {bodyweight
                         ? `${s.sets.reduce((a, b) => a + b.reps, 0)} reps`
-                        : `${Math.round(volume(s.sets))} kg·rep`}
+                        : `${Math.round(sessionVolume)} kg·rep`}
                     </p>
                   </div>
                 </div>

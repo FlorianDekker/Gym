@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
-import { volume, relativeDate, startOfWeekISO } from '../lib/volume.js';
+import { relativeDate, startOfWeekISO } from '../lib/volume.js';
+import { effectiveWeight } from '../lib/strengthLevels.js';
+import { loadProfile } from '../lib/profile.js';
 
 const ACCENT = {
   push: 'from-rose-500/15 to-rose-500/5 text-rose-700 dark:text-rose-300',
@@ -28,6 +30,8 @@ function detectGroup(name) {
 export default function Home() {
   const data = useLiveQuery(
     async () => {
+      const profile = loadProfile();
+      const profileBw = Number(profile?.bodyweight) || null;
       const templates = await db.workoutTemplates.orderBy('order').toArray();
       const allWorkouts = await db.workouts.toArray();
       const lastByTemplate = new Map();
@@ -43,12 +47,26 @@ export default function Home() {
         ? await db.sets.where('workoutId').anyOf(weekIds).toArray()
         : [];
 
+      let weekVolume = 0;
+      if (weekSets.length) {
+        const exercises = await db.exercises.toArray();
+        const exMap = new Map(exercises.map((e) => [e.id, e]));
+        const bwByWorkout = new Map(thisWeek.map((w) => [w.id, Number(w.bodyWeight) || profileBw]));
+        for (const s of weekSets) {
+          const name = exMap.get(s.exerciseId)?.name;
+          const bw = bwByWorkout.get(s.workoutId);
+          const eff = effectiveWeight(name, s.weight, bw);
+          if (eff == null) continue;
+          weekVolume += (s.reps || 0) * eff;
+        }
+      }
+
       return {
         templates: templates.map((t) => ({ ...t, last: lastByTemplate.get(t.id) })),
         week: {
           workouts: thisWeek.length,
           sets: weekSets.length,
-          volume: volume(weekSets)
+          volume: weekVolume
         },
         totalWorkouts: allWorkouts.length
       };
