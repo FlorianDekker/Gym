@@ -18,7 +18,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { db } from '../db/db.js';
-import { todayISO, volume } from '../lib/volume.js';
+import { todayISO } from '../lib/volume.js';
 import { detectPRs } from '../lib/prs.js';
 import BottomSheet from '../components/BottomSheet.jsx';
 import PlateSheet from '../components/PlateSheet.jsx';
@@ -26,6 +26,20 @@ import RestTimer, { getDefaultRest } from '../components/RestTimer.jsx';
 import PRBadge from '../components/PRBadge.jsx';
 
 const newSet = () => ({ reps: '', weight: '', previousReps: null, previousWeight: null, done: false });
+
+function effectiveReps(s) {
+  const typed = Number(s.reps);
+  if (typed > 0) return typed;
+  return s.previousReps ?? 0;
+}
+
+function effectiveWeight(s) {
+  if (s.weight !== '' && s.weight !== null && s.weight !== undefined) {
+    const n = Number(s.weight);
+    if (!Number.isNaN(n)) return n;
+  }
+  return s.previousWeight ?? 0;
+}
 
 const SUPERSET_COLORS = [
   { ring: 'border-l-amber-500', tag: 'bg-amber-500/15 text-amber-700 dark:text-amber-300' },
@@ -107,11 +121,22 @@ export default function LogWorkout() {
     [items, tick]
   );
   const filledSets = useMemo(
-    () => items.reduce((s, it) => s + it.sets.filter((x) => Number(x.reps) > 0).length, 0),
+    () => items.reduce((s, it) => s + it.sets.filter((x) => effectiveReps(x) > 0).length, 0),
     [items]
   );
   const totalVolume = useMemo(
-    () => items.reduce((sum, it) => sum + volume(it.sets.filter((s) => s.done || Number(s.reps) > 0)), 0),
+    () =>
+      items.reduce(
+        (sum, it) =>
+          sum +
+          it.sets
+            .filter((s) => s.done || effectiveReps(s) > 0)
+            .reduce(
+              (acc, s) => acc + effectiveReps(s) * (it.bodyweight ? 0 : effectiveWeight(s)),
+              0
+            ),
+        0
+      ),
     [items]
   );
 
@@ -144,8 +169,19 @@ export default function LogWorkout() {
       prev.map((it, i) => {
         if (i !== idx) return it;
         const last = it.sets[it.sets.length - 1];
+        const lastTypedReps = last && Number(last.reps) > 0 ? Number(last.reps) : null;
+        const lastTypedWeight =
+          last && !it.bodyweight && last.weight !== '' && !Number.isNaN(Number(last.weight))
+            ? Number(last.weight)
+            : null;
         const base = last
-          ? { reps: last.reps, weight: last.weight, previousReps: null, previousWeight: null, done: false }
+          ? {
+              reps: '',
+              weight: '',
+              previousReps: lastTypedReps ?? last.previousReps,
+              previousWeight: lastTypedWeight ?? last.previousWeight,
+              done: false
+            }
           : newSet();
         return { ...it, sets: [...it.sets, base] };
       })
@@ -166,8 +202,8 @@ export default function LogWorkout() {
           ...it,
           sets: it.sets.map((s, j) => {
             if (j !== sIdx) return s;
-            const current = Number(s.weight) || 0;
-            const next = Math.max(0, Math.round((current + delta) * 4) / 4);
+            const base = s.weight !== '' ? Number(s.weight) : Number(s.previousWeight ?? 0);
+            const next = Math.max(0, Math.round((base + delta) * 4) / 4);
             return { ...s, weight: String(next) };
           })
         };
@@ -268,9 +304,9 @@ export default function LogWorkout() {
         for (let i = 0; i < items.length; i++) {
           const it = items[i];
           for (const s of it.sets) {
-            const reps = Number(s.reps);
-            const weight = it.bodyweight ? 0 : Number(s.weight);
-            if (!reps) continue;
+            const reps = effectiveReps(s);
+            const weight = it.bodyweight ? 0 : effectiveWeight(s);
+            if (!reps && !s.done) continue;
             await db.sets.add({
               workoutId,
               exerciseId: it.exerciseId,
@@ -539,9 +575,8 @@ export default function LogWorkout() {
 }
 
 function ExerciseMenuSheet({ open, onClose, item, inSuperset, onReorder, onReplace, onSuperset, onRemove }) {
-  if (!item && open) onClose();
   return (
-    <BottomSheet open={open} onClose={onClose} title={item?.name ?? ''}>
+    <BottomSheet open={open && !!item} onClose={onClose} title={item?.name ?? ''}>
       <ul className="divide-y divide-line dark:divide-[#1f2227]">
         <MenuAction icon={<ReorderIcon />} label="Reorder exercises" onClick={onReorder} />
         <MenuAction icon={<SwapIcon />} label="Replace exercise" onClick={onReplace} />
@@ -737,7 +772,7 @@ function SetRow({ setIndex, data, bodyweight, focused, onFocus, onBlur, onPatch,
             onFocus={onFocus}
             onBlur={onBlur}
             inputMode="decimal"
-            placeholder="kg"
+            placeholder={data.previousWeight != null ? String(data.previousWeight) : 'kg'}
             done={data.done}
           />
         )}
@@ -747,7 +782,7 @@ function SetRow({ setIndex, data, bodyweight, focused, onFocus, onBlur, onPatch,
           onFocus={onFocus}
           onBlur={onBlur}
           inputMode="numeric"
-          placeholder="reps"
+          placeholder={data.previousReps != null ? String(data.previousReps) : 'reps'}
           done={data.done}
         />
         <CheckButton checked={data.done} onClick={onToggleDone} />
@@ -791,7 +826,7 @@ function NumberInput({ value, onChange, onFocus, onBlur, inputMode, placeholder,
       onBlur={onBlur}
       inputMode={inputMode}
       placeholder={placeholder}
-      className={`text-center text-base font-semibold tabular-nums rounded-lg py-2 px-1 border outline-none transition w-full ${
+      className={`text-center text-base font-semibold tabular-nums rounded-lg py-2 px-1 border outline-none transition w-full placeholder:font-medium placeholder:text-muted-light dark:placeholder:text-[#3a3d44] ${
         done
           ? 'bg-transparent border-transparent text-success'
           : 'bg-surface dark:bg-[#16181c] border-transparent focus:border-primary'
@@ -978,10 +1013,10 @@ async function prefillSets(exerciseId, bodyweight) {
   return last
     .sort((a, b) => a.id - b.id)
     .map((s) => ({
-      reps: String(s.reps),
-      weight: bodyweight ? '' : String(s.weight),
+      reps: '',
+      weight: '',
       previousReps: s.reps,
-      previousWeight: s.weight,
+      previousWeight: bodyweight ? null : s.weight,
       done: false
     }));
 }
