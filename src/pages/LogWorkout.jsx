@@ -369,8 +369,14 @@ function SortableExercise({ id, item, index, focused, onFocusRow, onBlurRow, onP
             BW
           </span>
         )}
-        <button onClick={onSwap} aria-label="Swap exercise" className="p-2 text-muted">
+        <button
+          onClick={onSwap}
+          type="button"
+          aria-label="Replace exercise"
+          className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-semibold text-muted bg-surface dark:bg-[#16181c] border border-line dark:border-[#1f2227]"
+        >
           <SwapIcon />
+          Replace
         </button>
       </header>
       <ul className="divide-y divide-line dark:divide-[#1f2227]">
@@ -561,10 +567,11 @@ function GripIcon() {
 
 function SwapIcon() {
   return (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M7 16l-4-4 4-4" />
-      <path d="M3 12h12a4 4 0 0 1 4 4" />
-      <path d="M17 8l4 4-4 4" />
+    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 4 3 8l4 4" />
+      <path d="M3 8h13a5 5 0 0 1 5 5" />
+      <path d="m17 20 4-4-4-4" />
+      <path d="M21 16H8a5 5 0 0 1-5-5" />
     </svg>
   );
 }
