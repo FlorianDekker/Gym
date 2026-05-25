@@ -111,8 +111,12 @@ export default function StrengthLevelCard({ exerciseName, oneRm, profile }) {
             on the cumulative share of lifters at each level — not a precise figure.
           </p>
           <p className="text-muted text-xs">
-            Standards exist for Bench Press, Squat, Deadlift, and Overhead Press.
-            Other exercises don't have widely accepted standards yet.
+            Standards are provided for the lifts with widely cited published data:
+            Bench Press, Squat, Deadlift, Overhead Press, Romanian Deadlift,
+            Hack Squat, Close-Grip Bench Press, Bent-Over Row, Chest-Supported
+            Row, Seated Cable Row, Omni-Grip Lat Pulldown, and Bicep Curl. Other
+            exercises (isolation moves, bodyweight rows, assisted variants)
+            don't have reliable standards in this format.
           </p>
         </div>
       </BottomSheet>

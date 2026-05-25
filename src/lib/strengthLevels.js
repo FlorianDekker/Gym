@@ -4,10 +4,23 @@ export const LEVELS = ['Beginner', 'Novice', 'Intermediate', 'Advanced', 'Elite'
 // public strength-standards references (Greg Nuckols' Strength Standards,
 // ExRx, Symmetric Strength). Index = level (Beginner..Elite).
 export const STANDARDS = {
-  'Bench Press':    { male: [0.50, 0.75, 1.00, 1.50, 2.00], female: [0.25, 0.50, 0.75, 1.00, 1.50] },
-  'Squat':          { male: [0.75, 1.25, 1.75, 2.25, 2.75], female: [0.50, 0.75, 1.25, 1.75, 2.25] },
-  'Deadlift':       { male: [1.00, 1.50, 2.00, 2.50, 3.00], female: [0.50, 1.00, 1.50, 2.00, 2.50] },
-  'Overhead Press': { male: [0.35, 0.55, 0.80, 1.10, 1.40], female: [0.20, 0.35, 0.55, 0.75, 1.00] }
+  // Big four
+  'Bench Press':            { male: [0.50, 0.75, 1.00, 1.50, 2.00], female: [0.25, 0.50, 0.75, 1.00, 1.50] },
+  'Squat':                  { male: [0.75, 1.25, 1.75, 2.25, 2.75], female: [0.50, 0.75, 1.25, 1.75, 2.25] },
+  'Deadlift':               { male: [1.00, 1.50, 2.00, 2.50, 3.00], female: [0.50, 1.00, 1.50, 2.00, 2.50] },
+  'Overhead Press':         { male: [0.35, 0.55, 0.80, 1.10, 1.40], female: [0.20, 0.35, 0.55, 0.75, 1.00] },
+  // Posterior chain / squat variants
+  'Romanian Deadlift':      { male: [0.75, 1.20, 1.60, 2.10, 2.50], female: [0.40, 0.75, 1.20, 1.60, 2.05] },
+  'Hack Squat':             { male: [0.85, 1.40, 1.95, 2.50, 3.05], female: [0.50, 0.85, 1.40, 1.95, 2.55] },
+  // Pressing variants
+  'Close-Grip Bench Press': { male: [0.40, 0.65, 0.90, 1.30, 1.75], female: [0.20, 0.40, 0.65, 0.90, 1.30] },
+  // Rows + lat pulldown
+  'Bent-Over Row':          { male: [0.50, 0.75, 1.00, 1.40, 1.80], female: [0.25, 0.50, 0.75, 1.00, 1.40] },
+  'Chest-Supported Row':    { male: [0.50, 0.75, 1.00, 1.40, 1.80], female: [0.25, 0.50, 0.75, 1.00, 1.40] },
+  'Seated Cable Row':       { male: [0.50, 0.75, 1.00, 1.30, 1.65], female: [0.25, 0.45, 0.65, 0.85, 1.10] },
+  'Omni-Grip Lat Pulldown': { male: [0.50, 0.75, 1.00, 1.30, 1.65], female: [0.25, 0.45, 0.65, 0.85, 1.10] },
+  // Curls
+  'Bicep Curl':             { male: [0.20, 0.35, 0.55, 0.80, 1.10], female: [0.10, 0.20, 0.30, 0.45, 0.65] }
 };
 
 // Approximate cumulative percentile of the general lifting population at each level.
