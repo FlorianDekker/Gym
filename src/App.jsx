@@ -7,13 +7,16 @@ import History from './pages/History.jsx';
 import Exercise from './pages/Exercise.jsx';
 import Levels from './pages/Levels.jsx';
 import Settings from './pages/Settings.jsx';
-import { ensureSeeded, ensureHistorySeeded, ensureDedupedExercises } from './db/seed.js';
+import { ensureSeeded, ensureHistorySeeded, ensureHistoryReseededV2, ensureDedupedExercises } from './db/seed.js';
 
 export default function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    ensureSeeded().then(ensureHistorySeeded).then(ensureDedupedExercises);
+    ensureSeeded()
+      .then(ensureHistorySeeded)
+      .then(ensureHistoryReseededV2)
+      .then(ensureDedupedExercises);
     const stored = localStorage.getItem('gym-theme');
     if (stored === 'dark') {
       document.documentElement.classList.add('dark');

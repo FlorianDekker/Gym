@@ -193,6 +193,71 @@ export async function ensureHistorySeeded() {
   );
 }
 
+// v2 of the historical seed. The original parser mis-read negative weights
+// (e.g. assisted Dips at -28 kg), so any seed imported under history-seed-v1
+// is bad. This wipes those rows and re-imports from the corrected JSON.
+//
+// We identify the historical rows by templateId === null — that's the marker
+// ensureHistorySeeded uses; live workouts saved via LogWorkout always carry a
+// real templateId.
+export async function ensureHistoryReseededV2() {
+  const v2 = await db.meta.get('history-seed-v2');
+  if (v2?.value) return;
+
+  const exerciseIdByName = new Map();
+  for (const ex of await db.exercises.toArray()) {
+    exerciseIdByName.set(ex.name, ex.id);
+  }
+
+  await db.transaction(
+    'rw',
+    db.exercises,
+    db.workouts,
+    db.sets,
+    db.meta,
+    async () => {
+      const oldHistorical = await db.workouts.filter((w) => w.templateId == null).toArray();
+      const oldIds = oldHistorical.map((w) => w.id);
+      if (oldIds.length > 0) {
+        await db.sets.where('workoutId').anyOf(oldIds).delete();
+        await db.workouts.bulkDelete(oldIds);
+      }
+
+      for (const w of historicalSeed.workouts) {
+        const workoutId = await db.workouts.add({
+          date: w.date,
+          templateId: null,
+          name: w.name,
+          notes: w.notes || '',
+          bodyWeight: w.bodyWeight ?? null,
+          bodyFat: w.bodyFat ?? null
+        });
+        for (let i = 0; i < w.exercises.length; i++) {
+          const ex = w.exercises[i];
+          let exerciseId = exerciseIdByName.get(ex.name);
+          if (!exerciseId) {
+            exerciseId = await db.exercises.add({
+              name: ex.name,
+              muscleGroup: MUSCLE_GROUP_FOR_NEW[ex.name] || 'other'
+            });
+            exerciseIdByName.set(ex.name, exerciseId);
+          }
+          for (const s of ex.sets) {
+            await db.sets.add({
+              workoutId,
+              exerciseId,
+              orderInWorkout: i + 1,
+              reps: s.reps,
+              weight: s.weight
+            });
+          }
+        }
+      }
+      await db.meta.put({ key: 'history-seed-v2', value: true });
+    }
+  );
+}
+
 // One-time data cleanup: merge "Incline Dumbbell Shrug (Optional)" into the
 // canonical "Incline Dumbbell Shrug". Re-points all sets and templateExercises
 // at the canonical exercise, then deletes the duplicate row.

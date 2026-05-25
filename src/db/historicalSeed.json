@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-05-24T18:16:12.819Z",
+  "generatedAt": "2026-05-25T07:31:00.857Z",
   "workouts": [
     {
       "date": "2024-07-14",
@@ -1759,15 +1759,15 @@
           "sets": [
             {
               "reps": 7,
-              "weight": 0
+              "weight": -35
             },
             {
               "reps": 6,
-              "weight": 35
+              "weight": -35
             },
             {
               "reps": 6,
-              "weight": 35
+              "weight": -35
             }
           ]
         }
@@ -2045,15 +2045,15 @@
           "sets": [
             {
               "reps": 9,
-              "weight": 0
+              "weight": -35
             },
             {
               "reps": 7,
-              "weight": 35
+              "weight": -35
             },
             {
               "reps": 7,
-              "weight": 35
+              "weight": -35
             }
           ]
         },
@@ -2438,15 +2438,15 @@
           "sets": [
             {
               "reps": 12,
-              "weight": 0
+              "weight": -35
             },
             {
               "reps": 10,
-              "weight": 35
+              "weight": -35
             },
             {
               "reps": 11,
-              "weight": 0
+              "weight": -42
             }
           ]
         },
@@ -3771,15 +3771,15 @@
           "sets": [
             {
               "reps": 12,
-              "weight": 0
+              "weight": -35
             },
             {
               "reps": 12,
-              "weight": 35
+              "weight": -35
             },
             {
               "reps": 10,
-              "weight": 35
+              "weight": -35
             }
           ]
         },
@@ -4319,15 +4319,15 @@
           "sets": [
             {
               "reps": 11,
-              "weight": 0
+              "weight": -28
             },
             {
               "reps": 11,
-              "weight": 28
+              "weight": -28
             },
             {
               "reps": 10,
-              "weight": 28
+              "weight": -28
             }
           ]
         },
@@ -4845,15 +4845,15 @@
           "sets": [
             {
               "reps": 9,
-              "weight": 0
+              "weight": -21
             },
             {
               "reps": 6,
-              "weight": 21
+              "weight": -21
             },
             {
               "reps": 12,
-              "weight": 0
+              "weight": -28
             }
           ]
         },
@@ -5093,15 +5093,15 @@
           "sets": [
             {
               "reps": 8,
-              "weight": 0
+              "weight": -21
             },
             {
               "reps": 12,
-              "weight": 21
+              "weight": -28
             },
             {
               "reps": 8,
-              "weight": 0
+              "weight": -28
             }
           ]
         },
@@ -5534,15 +5534,15 @@
           "sets": [
             {
               "reps": 9,
-              "weight": 0
+              "weight": -21
             },
             {
               "reps": 7,
-              "weight": 21
+              "weight": -21
             },
             {
               "reps": 10,
-              "weight": 0
+              "weight": -28
             }
           ]
         },
@@ -5932,15 +5932,15 @@
           "sets": [
             {
               "reps": 10,
-              "weight": 0
+              "weight": -28
             },
             {
               "reps": 8,
-              "weight": 28
+              "weight": -28
             },
             {
               "reps": 6,
-              "weight": 28
+              "weight": -28
             }
           ]
         },
@@ -6235,15 +6235,15 @@
           "sets": [
             {
               "reps": 11,
-              "weight": 0
+              "weight": -28
             },
             {
               "reps": 8,
-              "weight": 28
+              "weight": -28
             },
             {
               "reps": 5,
-              "weight": 28
+              "weight": -28
             }
           ]
         },

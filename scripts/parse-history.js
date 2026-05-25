@@ -167,10 +167,24 @@ function shouldSkip(line) {
   return false;
 }
 
-// Returns { parsed: [{val, raw}], any: bool }
+// Splits a `40 - 35 - 30` style list. Only treats a dash as a separator when
+// it has whitespace on both sides (or is at the very end of the string) — that
+// way negative weights like `-28` aren't shredded into ['', '28'].
 function splitValues(s) {
   if (s === undefined || s === null) return [];
-  return s.split(/\s*-\s*/).map((part) => part.trim());
+  return String(s).split(/\s+-(?:\s+|$)/).map((part) => part.trim());
+}
+
+// Picks the value for set index `i` from a list, applying the user's rules:
+//   - If fewer values than sets, repeat the last non-empty value.
+//   - If a value is empty (e.g. trailing dash), walk backwards to the last
+//     non-empty entry.
+function pickWithCarry(arr, i) {
+  const start = Math.min(i, arr.length - 1);
+  for (let j = start; j >= 0; j--) {
+    if (arr[j] != null && arr[j] !== '') return arr[j];
+  }
+  return '';
 }
 
 function parseRep(raw) {
@@ -303,7 +317,7 @@ function parseExerciseLine(line, warnings, dateForWarn) {
   for (let i = 0; i < repsRaw.length; i++) {
     const reps = parseRep(repsRaw[i]);
     if (reps == null || reps === 0) continue;
-    const wRaw = weightsRaw[i] ?? weightsRaw[weightsRaw.length - 1] ?? '0';
+    const wRaw = pickWithCarry(weightsRaw, i);
     const w = parseWeight(wRaw);
     if (w.note) setNotes.push(`set ${sets.length + 1}: ${w.note}`);
     sets.push({ reps, weight: w.kg });
@@ -328,7 +342,7 @@ function processCombined(leftName, rightName, groups, trailingNotes, warnings, d
   const rightSets = [];
   for (let i = 0; i < repsRaw.length; i++) {
     const [lr, rr] = repsRaw[i].split('/').map((s) => s.trim());
-    const wRaw = weightsRaw[i] ?? weightsRaw[weightsRaw.length - 1] ?? '0';
+    const wRaw = pickWithCarry(weightsRaw, i) || '0';
     const [lw, rw] = wRaw.split('/').map((s) => s.trim());
     const lReps = parseRep(lr);
     const rReps = parseRep(rr);
