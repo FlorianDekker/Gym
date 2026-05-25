@@ -26,6 +26,8 @@ import BottomSheet from '../components/BottomSheet.jsx';
 import PlateSheet from '../components/PlateSheet.jsx';
 import RestTimer, { getDefaultRest } from '../components/RestTimer.jsx';
 import PRBadge from '../components/PRBadge.jsx';
+import MuscleDistributionSheet from '../components/MuscleDistributionSheet.jsx';
+import { MiniBodyIcon } from '../components/MuscleDiagram.jsx';
 
 const newSet = () => ({ reps: '', weight: '', previousReps: null, previousWeight: null, done: false });
 
@@ -68,6 +70,7 @@ export default function LogWorkout() {
   const [showAdd, setShowAdd] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
+  const [showMuscles, setShowMuscles] = useState(false);
   const [prs, setPrs] = useState([]);
   const [focused, setFocused] = useState(null);
   const [allExercises, setAllExercises] = useState([]);
@@ -126,6 +129,20 @@ export default function LogWorkout() {
     [items]
   );
   const profileBw = useMemo(() => Number(loadProfile()?.bodyweight) || null, []);
+
+  // Completed-set count per exercise name → feeds the Muscle Distribution sheet.
+  // Recomputed each render so it tracks the live ✓ state.
+  const doneSetsByExercise = useMemo(() => {
+    const out = {};
+    for (const it of items) {
+      const done = it.sets.filter((s) => s.done).length;
+      if (done > 0) out[it.name] = (out[it.name] || 0) + done;
+    }
+    return out;
+    // tick is included so the memo re-runs after the rest timer's ✓ toggle
+    // triggers a parent re-render via the 1Hz tick.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, tick]);
   const totalVolume = useMemo(
     () =>
       items.reduce((sum, it) => {
@@ -377,10 +394,18 @@ export default function LogWorkout() {
             {saving ? '…' : 'Finish'}
           </button>
         </div>
-        <div className="grid grid-cols-3 gap-1 px-4 pb-3">
-          <Stat label="Duration" value={fmtDuration(elapsedSec)} accent />
-          <Stat label="Volume" value={`${Math.round(totalVolume)} kg`} />
-          <Stat label="Sets" value={`${doneSets}`} />
+        <div className="flex items-center gap-1 px-4 pb-3">
+          <div className="flex-1"><Stat label="Duration" value={fmtDuration(elapsedSec)} accent /></div>
+          <div className="flex-1"><Stat label="Volume" value={`${Math.round(totalVolume)} kg`} /></div>
+          <div className="flex-1"><Stat label="Sets" value={`${doneSets}`} /></div>
+          <button
+            onClick={() => setShowMuscles(true)}
+            type="button"
+            aria-label="Muscle distribution"
+            className="shrink-0 w-10 h-10 rounded-xl bg-surface dark:bg-[#16181c] border border-line dark:border-[#1f2227] text-muted flex items-center justify-center active:opacity-70"
+          >
+            <MiniBodyIcon className="w-5 h-5" />
+          </button>
         </div>
       </header>
 
@@ -541,6 +566,12 @@ export default function LogWorkout() {
       </BottomSheet>
 
       <PlateSheet open={plateFor !== null} onClose={() => setPlateFor(null)} weight={plateFor} />
+
+      <MuscleDistributionSheet
+        open={showMuscles}
+        onClose={() => setShowMuscles(false)}
+        exerciseSetCounts={doneSetsByExercise}
+      />
 
       <BottomSheet open={showSummary} onClose={() => navigate('/history', { replace: true })} title="Workout saved">
         <div className="space-y-4 py-2">
