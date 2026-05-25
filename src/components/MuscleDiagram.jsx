@@ -1,10 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { BodyChart, ViewSide } from 'body-muscles';
 
-// Map our 15 internal muscle IDs to the body-muscles library's fine-grained
-// muscle paths. The library splits most muscles into left/right and some
-// into upper/lower or lateral/medial heads — we light them all up together
-// so the user just sees "chest" or "biceps" highlighted.
 const ID_TO_LIB = {
   chest: ['chest-upper-left', 'chest-upper-right', 'chest-lower-left', 'chest-lower-right'],
   shoulders: [
@@ -43,19 +39,62 @@ const ID_TO_LIB = {
   hipAbductors: ['gluteus-medius-left', 'gluteus-medius-right']
 };
 
-function buildBodyState(activeIds) {
-  const state = {};
+function expandToLibraryIds(activeIds) {
+  const set = new Set();
   for (const id of activeIds) {
-    const libIds = ID_TO_LIB[id];
-    if (!libIds) continue;
-    for (const lid of libIds) {
-      state[lid] = { intensity: 6, selected: true };
-    }
+    for (const libId of ID_TO_LIB[id] || []) set.add(libId);
   }
-  return state;
+  return set;
 }
 
-function BodyView({ view, activeIds }) {
+// Replace the library's noisy default styling (slate-grey muscle paths at 60%
+// opacity over a barely-visible body silhouette + a heavy 20px drop shadow)
+// with a clean look: inactive muscles blend into a solid body, active ones
+// light up in the orange primary, with a soft shadow under the figure.
+function paintChart(chart, container, activeLibIds, isDark) {
+  if (!chart) return;
+  const bodyColor = isDark ? '#22252a' : '#dde0e5';
+  const bodyHighlight = isDark ? '#2b2f35' : '#eef0f3';
+  const subtleStroke = isDark ? '#15171b' : '#c4c8cf';
+  const accent = '#ff6a13';
+  const accentStroke = '#b94605';
+
+  const wrapper = container.querySelector('.body-chart-container');
+  if (wrapper) {
+    wrapper.style.padding = '0';
+  }
+  const svg = container.querySelector('.body-chart-svg');
+  if (svg) {
+    svg.style.filter = `drop-shadow(0 6px 14px rgba(0, 0, 0, ${isDark ? 0.55 : 0.18}))`;
+    svg.style.maxHeight = 'none';
+    svg.style.maxWidth = 'none';
+  }
+
+  // Background silhouette layer — make it fully visible and solid.
+  const bg = container.querySelector('.body-chart-background');
+  if (bg) {
+    bg.style.opacity = '1';
+    bg.querySelectorAll('path').forEach((p) => {
+      p.setAttribute('fill', bodyColor);
+      p.setAttribute('stroke', subtleStroke);
+      p.setAttribute('stroke-width', '0.06');
+    });
+  }
+
+  // Foreground muscle paths — only the active ones light up, the rest pick up
+  // a tiny stroke for subtle anatomical definition.
+  for (const [muscleId, path] of chart.musclePaths.entries()) {
+    const isActive = activeLibIds.has(muscleId);
+    path.setAttribute('fill', isActive ? accent : bodyHighlight);
+    path.setAttribute('stroke', isActive ? accentStroke : subtleStroke);
+    path.setAttribute('stroke-width', isActive ? '0.18' : '0.08');
+    path.style.fillOpacity = isActive ? '1' : '0.0';
+    path.style.filter = 'none';
+    path.style.cursor = 'default';
+  }
+}
+
+function BodyView({ view, activeLibIds, isDark }) {
   const ref = useRef(null);
   const chartRef = useRef(null);
 
@@ -63,36 +102,38 @@ function BodyView({ view, activeIds }) {
     if (!ref.current) return;
     chartRef.current = new BodyChart(ref.current, {
       view,
-      bodyState: buildBodyState(activeIds),
+      bodyState: {},
       enableTransitions: true
     });
+    paintChart(chartRef.current, ref.current, activeLibIds, isDark);
     return () => {
       chartRef.current?.destroy();
       chartRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [view]);
 
   useEffect(() => {
-    if (!chartRef.current) return;
-    chartRef.current.update({
-      view,
-      bodyState: buildBodyState(activeIds)
-    });
-  }, [view, activeIds]);
+    if (!chartRef.current || !ref.current) return;
+    paintChart(chartRef.current, ref.current, activeLibIds, isDark);
+  }, [activeLibIds, isDark]);
 
   return <div ref={ref} className="w-full h-full" />;
 }
 
 export default function MuscleDiagram({ activeIds }) {
   const active = activeIds instanceof Set ? activeIds : new Set(activeIds || []);
+  const libIds = expandToLibraryIds(active);
+  const isDark =
+    typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+
   return (
-    <div className="flex justify-center items-stretch gap-3">
-      <div className="flex-1 max-w-[160px] aspect-[1/2]">
-        <BodyView view={ViewSide.FRONT} activeIds={active} />
+    <div className="flex justify-center items-stretch gap-2">
+      <div className="flex-1 max-w-[150px]">
+        <BodyView view={ViewSide.FRONT} activeLibIds={libIds} isDark={isDark} />
       </div>
-      <div className="flex-1 max-w-[160px] aspect-[1/2]">
-        <BodyView view={ViewSide.BACK} activeIds={active} />
+      <div className="flex-1 max-w-[150px]">
+        <BodyView view={ViewSide.BACK} activeLibIds={libIds} isDark={isDark} />
       </div>
     </div>
   );
