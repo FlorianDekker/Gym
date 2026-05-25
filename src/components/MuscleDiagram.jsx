@@ -1,69 +1,98 @@
-import Model from 'react-body-highlighter';
+import { useEffect, useRef } from 'react';
+import { BodyChart, ViewSide } from 'body-muscles';
 
-// Map our internal muscle IDs to react-body-highlighter's muscle names.
-// The library doesn't ship a separate "lats" or "traps" split, so both fall
-// under upper-back / trapezius; shoulders span front + back deltoids so they
-// light up on both anterior and posterior views.
+// Map our 15 internal muscle IDs to the body-muscles library's fine-grained
+// muscle paths. The library splits most muscles into left/right and some
+// into upper/lower or lateral/medial heads — we light them all up together
+// so the user just sees "chest" or "biceps" highlighted.
 const ID_TO_LIB = {
-  chest:        ['chest'],
-  shoulders:    ['front-deltoids', 'back-deltoids'],
-  biceps:       ['biceps'],
-  triceps:      ['triceps'],
-  forearms:     ['forearm'],
-  upperBack:    ['upper-back', 'trapezius'],
-  lats:         ['upper-back'],
-  lowerBack:    ['lower-back'],
-  abs:          ['abs', 'obliques'],
-  quads:        ['quadriceps'],
-  hamstrings:   ['hamstring'],
-  glutes:       ['gluteal'],
-  calves:       ['calves'],
-  adductors:    ['adductor'],
-  hipAbductors: ['abductors']
+  chest: ['chest-upper-left', 'chest-upper-right', 'chest-lower-left', 'chest-lower-right'],
+  shoulders: [
+    'shoulder-front-left', 'shoulder-front-right',
+    'shoulder-side-left', 'shoulder-side-right',
+    'deltoid-rear-left', 'deltoid-rear-right'
+  ],
+  biceps: ['biceps-left', 'biceps-right'],
+  triceps: ['triceps-long-left', 'triceps-lateral-left', 'triceps-long-right', 'triceps-lateral-right'],
+  forearms: [
+    'forearm-left', 'forearm-right',
+    'forearm-flexors-left', 'forearm-extensors-left',
+    'forearm-flexors-right', 'forearm-extensors-right'
+  ],
+  upperBack: [
+    'traps-upper-left', 'traps-mid-left', 'traps-lower-left',
+    'traps-upper-right', 'traps-mid-right', 'traps-lower-right'
+  ],
+  lats: [
+    'lats-upper-left', 'lats-mid-left', 'lats-lower-left',
+    'lats-upper-right', 'lats-mid-right', 'lats-lower-right'
+  ],
+  lowerBack: [
+    'lower-back-erectors-left', 'lower-back-ql-left',
+    'lower-back-erectors-right', 'lower-back-ql-right'
+  ],
+  abs: ['abs-upper-left', 'abs-upper-right', 'abs-lower-left', 'abs-lower-right', 'obliques-left', 'obliques-right'],
+  quads: ['quads-left', 'quads-right'],
+  hamstrings: ['hamstrings-medial-left', 'hamstrings-lateral-left', 'hamstrings-medial-right', 'hamstrings-lateral-right'],
+  glutes: ['gluteus-maximus-left', 'gluteus-maximus-right'],
+  calves: [
+    'calves-gastroc-medial-left', 'calves-gastroc-lateral-left', 'calves-soleus-left',
+    'calves-gastroc-medial-right', 'calves-gastroc-lateral-right', 'calves-soleus-right'
+  ],
+  adductors: ['adductors-left', 'adductors-right'],
+  hipAbductors: ['gluteus-medius-left', 'gluteus-medius-right']
 };
 
-const BODY_COLOR_LIGHT = '#d6d8dd';
-const BODY_COLOR_DARK = '#2a2d33';
-const ACCENT = '#ff6a13';
-
-function toLibraryData(activeIds) {
-  const muscles = [];
+function buildBodyState(activeIds) {
+  const state = {};
   for (const id of activeIds) {
-    const libMuscles = ID_TO_LIB[id];
-    if (libMuscles) muscles.push(...libMuscles);
+    const libIds = ID_TO_LIB[id];
+    if (!libIds) continue;
+    for (const lid of libIds) {
+      state[lid] = { intensity: 6, selected: true };
+    }
   }
-  if (muscles.length === 0) return [];
-  return [{ name: 'session', muscles, frequency: 1 }];
+  return state;
+}
+
+function BodyView({ view, activeIds }) {
+  const ref = useRef(null);
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    chartRef.current = new BodyChart(ref.current, {
+      view,
+      bodyState: buildBodyState(activeIds),
+      enableTransitions: true
+    });
+    return () => {
+      chartRef.current?.destroy();
+      chartRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!chartRef.current) return;
+    chartRef.current.update({
+      view,
+      bodyState: buildBodyState(activeIds)
+    });
+  }, [view, activeIds]);
+
+  return <div ref={ref} className="w-full h-full" />;
 }
 
 export default function MuscleDiagram({ activeIds }) {
   const active = activeIds instanceof Set ? activeIds : new Set(activeIds || []);
-  const data = toLibraryData(active);
-  const bodyColor =
-    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
-      ? BODY_COLOR_DARK
-      : BODY_COLOR_LIGHT;
-  const svgStyle = { width: '100%', height: '100%' };
-
   return (
-    <div className="flex justify-center items-center gap-4">
-      <div className="w-[42%] max-w-[140px]">
-        <Model
-          type="anterior"
-          data={data}
-          bodyColor={bodyColor}
-          highlightedColors={[ACCENT]}
-          svgStyle={svgStyle}
-        />
+    <div className="flex justify-center items-stretch gap-3">
+      <div className="flex-1 max-w-[160px] aspect-[1/2]">
+        <BodyView view={ViewSide.FRONT} activeIds={active} />
       </div>
-      <div className="w-[42%] max-w-[140px]">
-        <Model
-          type="posterior"
-          data={data}
-          bodyColor={bodyColor}
-          highlightedColors={[ACCENT]}
-          svgStyle={svgStyle}
-        />
+      <div className="flex-1 max-w-[160px] aspect-[1/2]">
+        <BodyView view={ViewSide.BACK} activeIds={active} />
       </div>
     </div>
   );
