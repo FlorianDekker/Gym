@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function BottomSheet({ open, onClose, title, children, maxHeight = '85vh' }) {
   useEffect(() => {
@@ -11,9 +12,6 @@ export default function BottomSheet({ open, onClose, title, children, maxHeight 
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = prevOverflow;
     };
-    // Intentionally depend only on `open`. `onClose` often changes reference
-    // every parent render (e.g. a ticking timer) which would otherwise
-    // re-run this effect every second.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
@@ -24,7 +22,7 @@ export default function BottomSheet({ open, onClose, title, children, maxHeight 
     onClose?.();
   }
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-end bg-black/40 animate-fade-in"
       onPointerDown={handleBackdrop}
@@ -43,6 +41,7 @@ export default function BottomSheet({ open, onClose, title, children, maxHeight 
         )}
         <div className="flex-1 overflow-y-auto -mx-1 px-1">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
