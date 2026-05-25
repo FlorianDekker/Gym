@@ -46,33 +46,10 @@ export default function Levels() {
     { state: 'loading' }
   );
 
-  if (data.state === 'loading') {
-    return <div className="px-5 pt-12 pb-24 text-muted">Loading…</div>;
-  }
-
-  if (data.state === 'no-profile') {
-    return (
-      <div className="px-5 pt-12 pb-24 flex-1 animate-slide-up">
-        <header className="mb-5">
-          <h1 className="text-[28px] font-bold tracking-tight">Strength Levels</h1>
-        </header>
-        <section className="rounded-2xl bg-white dark:bg-[#101115] border border-line dark:border-[#1f2227] p-5 text-sm">
-          <p className="mb-2 font-semibold">Almost ready.</p>
-          <p className="text-muted mb-3">
-            Enter your sex, bodyweight, and date of birth in Settings so we can compare
-            your lifts to standards for someone like you.
-          </p>
-          <Link to="/settings" className="text-primary font-semibold">Go to Settings →</Link>
-        </section>
-      </div>
-    );
-  }
-
-  const rows = data.rows;
-  const sorted =
-    sortBy === 'name'
-      ? rows.slice().sort((a, b) => a.name.localeCompare(b.name))
-      : rows.slice().sort((a, b) => b.overallProgress - a.overallProgress);
+  // IMPORTANT: All hooks must run before any conditional return below — React's
+  // Rules of Hooks. Use safe fallbacks so the calls are valid even when data
+  // isn't ready yet.
+  const rows = data.state === 'ok' ? data.rows : [];
 
   // For each muscle group, keep the highest levelIndex achieved across any
   // exercise that targets it as a PRIMARY muscle, then translate that level
@@ -94,6 +71,36 @@ export default function Levels() {
     }
     return out;
   }, [rows]);
+
+  const sorted = useMemo(
+    () =>
+      sortBy === 'name'
+        ? rows.slice().sort((a, b) => a.name.localeCompare(b.name))
+        : rows.slice().sort((a, b) => b.overallProgress - a.overallProgress),
+    [rows, sortBy]
+  );
+
+  if (data.state === 'loading') {
+    return <div className="px-5 pt-12 pb-24 text-muted">Loading…</div>;
+  }
+
+  if (data.state === 'no-profile') {
+    return (
+      <div className="px-5 pt-12 pb-24 flex-1 animate-slide-up">
+        <header className="mb-5">
+          <h1 className="text-[28px] font-bold tracking-tight">Strength Levels</h1>
+        </header>
+        <section className="rounded-2xl bg-white dark:bg-[#101115] border border-line dark:border-[#1f2227] p-5 text-sm">
+          <p className="mb-2 font-semibold">Almost ready.</p>
+          <p className="text-muted mb-3">
+            Enter your sex, bodyweight, and date of birth in Settings so we can compare
+            your lifts to standards for someone like you.
+          </p>
+          <Link to="/settings" className="text-primary font-semibold">Go to Settings →</Link>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="px-5 pt-12 pb-24 flex-1 animate-slide-up">
