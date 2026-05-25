@@ -7,7 +7,13 @@ import History from './pages/History.jsx';
 import Exercise from './pages/Exercise.jsx';
 import Levels from './pages/Levels.jsx';
 import Settings from './pages/Settings.jsx';
-import { ensureSeeded, ensureHistorySeeded, ensureHistoryReseededV2, ensureDedupedExercises } from './db/seed.js';
+import {
+  ensureSeeded,
+  ensureHistorySeeded,
+  ensureHistoryReseededV2,
+  ensureRemovedAssistedPullup,
+  ensureDedupedExercises
+} from './db/seed.js';
 
 export default function App() {
   const { pathname } = useLocation();
@@ -16,6 +22,7 @@ export default function App() {
     ensureSeeded()
       .then(ensureHistorySeeded)
       .then(ensureHistoryReseededV2)
+      .then(ensureRemovedAssistedPullup)
       .then(ensureDedupedExercises);
     const stored = localStorage.getItem('gym-theme');
     if (stored === 'dark') {

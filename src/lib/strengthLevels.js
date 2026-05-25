@@ -25,8 +25,10 @@ export const STANDARDS = {
   // === Bodyweight-additive lifts ===
   'Weighted Pull-Up':         { mode: 'bw', male: [0.55, 0.80, 1.05, 1.35, 1.75], female: [0.50, 0.75, 1.00, 1.30, 1.70] },
   'Dips':                     { mode: 'bw', male: [0.70, 1.00, 1.25, 1.60, 2.00], female: [0.60, 0.85, 1.05, 1.35, 1.70] },
-  'Assisted Pull-Up Machine': { mode: 'bw', male: [0.55, 0.80, 1.05, 1.35, 1.75], female: [0.50, 0.75, 1.00, 1.30, 1.70] },
-  'Single-Leg Calf Raise':    { mode: 'bw', male: [0.85, 1.00, 1.20, 1.45, 1.80], female: [0.80, 0.95, 1.15, 1.40, 1.75] },
+  // Calf raises are endurance-tolerant — Epley over-estimates 1RM at high
+  // reps, so the level thresholds are pitched higher than a "1RM done cold"
+  // would otherwise warrant.
+  'Single-Leg Calf Raise':    { mode: 'bw', male: [0.85, 1.10, 1.50, 2.00, 2.60], female: [0.80, 1.05, 1.45, 1.90, 2.50] },
 
   // === Machine / cable upper body ===
   'Machine Shoulder Press':   { mode: 'weight', male: [0.30, 0.45, 0.65, 0.95, 1.30], female: [0.15, 0.25, 0.40, 0.60, 0.85] },

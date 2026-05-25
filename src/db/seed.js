@@ -258,6 +258,31 @@ export async function ensureHistoryReseededV2() {
   );
 }
 
+// One-time data cleanup: remove "Assisted Pull-Up Machine" entirely. The
+// exercise lacked a reliable kg-ratio standard and was producing misleading
+// strength levels (one stray set could land the user at Elite). Drop the
+// exercise row, any sets pointing at it, and any template references.
+export async function ensureRemovedAssistedPullup() {
+  const flag = await db.meta.get('remove-apum-v1');
+  if (flag?.value) return;
+  await db.transaction(
+    'rw',
+    db.exercises,
+    db.sets,
+    db.templateExercises,
+    db.meta,
+    async () => {
+      const ex = await db.exercises.where('name').equals('Assisted Pull-Up Machine').first();
+      if (ex) {
+        await db.sets.where('exerciseId').equals(ex.id).delete();
+        await db.templateExercises.where('exerciseId').equals(ex.id).delete();
+        await db.exercises.delete(ex.id);
+      }
+      await db.meta.put({ key: 'remove-apum-v1', value: true });
+    }
+  );
+}
+
 // One-time data cleanup: merge "Incline Dumbbell Shrug (Optional)" into the
 // canonical "Incline Dumbbell Shrug". Re-points all sets and templateExercises
 // at the canonical exercise, then deletes the duplicate row.
