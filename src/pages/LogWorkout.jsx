@@ -27,18 +27,17 @@ import PRBadge from '../components/PRBadge.jsx';
 
 const newSet = () => ({ reps: '', weight: '', previousReps: null, previousWeight: null, done: false });
 
-function effectiveReps(s) {
-  const typed = Number(s.reps);
-  if (typed > 0) return typed;
-  return s.previousReps ?? 0;
+// Only count what the user actually typed (the "black" values). Grey placeholders
+// (previousReps / previousWeight) never feed into volume totals or saved sets.
+function typedReps(s) {
+  const n = Number(s.reps);
+  return Number.isFinite(n) && n > 0 ? n : 0;
 }
 
-function effectiveWeight(s) {
-  if (s.weight !== '' && s.weight !== null && s.weight !== undefined) {
-    const n = Number(s.weight);
-    if (!Number.isNaN(n)) return n;
-  }
-  return s.previousWeight ?? 0;
+function typedWeight(s) {
+  if (s.weight === '' || s.weight == null) return 0;
+  const n = Number(s.weight);
+  return Number.isFinite(n) ? n : 0;
 }
 
 const SUPERSET_COLORS = [
@@ -121,7 +120,7 @@ export default function LogWorkout() {
     [items, tick]
   );
   const filledSets = useMemo(
-    () => items.reduce((s, it) => s + it.sets.filter((x) => effectiveReps(x) > 0).length, 0),
+    () => items.reduce((s, it) => s + it.sets.filter((x) => typedReps(x) > 0).length, 0),
     [items]
   );
   const totalVolume = useMemo(
@@ -129,12 +128,10 @@ export default function LogWorkout() {
       items.reduce(
         (sum, it) =>
           sum +
-          it.sets
-            .filter((s) => s.done || effectiveReps(s) > 0)
-            .reduce(
-              (acc, s) => acc + effectiveReps(s) * (it.bodyweight ? 0 : effectiveWeight(s)),
-              0
-            ),
+          it.sets.reduce(
+            (acc, s) => acc + typedReps(s) * (it.bodyweight ? 0 : typedWeight(s)),
+            0
+          ),
         0
       ),
     [items]
@@ -304,9 +301,9 @@ export default function LogWorkout() {
         for (let i = 0; i < items.length; i++) {
           const it = items[i];
           for (const s of it.sets) {
-            const reps = effectiveReps(s);
-            const weight = it.bodyweight ? 0 : effectiveWeight(s);
-            if (!reps && !s.done) continue;
+            const reps = typedReps(s);
+            if (!reps) continue; // skip empty sets — only real typed values are saved
+            const weight = it.bodyweight ? 0 : typedWeight(s);
             await db.sets.add({
               workoutId,
               exerciseId: it.exerciseId,
