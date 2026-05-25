@@ -748,7 +748,6 @@ function SetRow({ setIndex, data, bodyweight, focused, onFocus, onBlur, onPatch,
   return (
     <li
       className={`transition-colors ${data.done ? 'bg-success-light/60 dark:bg-success/10' : ''}`}
-      onPointerDown={onFocus}
     >
       <div
         className={`grid items-center px-4 py-2 gap-2 ${
@@ -797,6 +796,7 @@ function SetRow({ setIndex, data, bodyweight, focused, onFocus, onBlur, onPatch,
               <QuickPill onClick={() => onAdjustWeight(2.5)}>+2.5</QuickPill>
               {data.weight && (
                 <button
+                  onPointerDown={(e) => e.preventDefault()}
                   onClick={onShowPlates}
                   className="ml-auto text-[11px] font-semibold text-primary px-1.5"
                 >
@@ -806,6 +806,7 @@ function SetRow({ setIndex, data, bodyweight, focused, onFocus, onBlur, onPatch,
             </>
           )}
           <button
+            onPointerDown={(e) => e.preventDefault()}
             onClick={onRemove}
             className={`text-[11px] font-semibold text-muted-light ${bodyweight ? 'ml-auto' : ''}`}
           >
@@ -857,6 +858,7 @@ function CheckButton({ checked, onClick }) {
 function QuickPill({ children, onClick }) {
   return (
     <button
+      onPointerDown={(e) => e.preventDefault()}
       onClick={onClick}
       type="button"
       className="text-[11px] font-semibold text-muted bg-surface dark:bg-[#16181c] border border-line dark:border-[#1f2227] rounded-full px-2 py-1"
