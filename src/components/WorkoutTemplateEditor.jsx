@@ -5,6 +5,7 @@ import BottomSheet from './BottomSheet.jsx';
 
 export default function WorkoutTemplateEditor({ templateId, onDone }) {
   const [name, setName] = useState('');
+  const [restSeconds, setRestSeconds] = useState(90);
   const rows = useLiveQuery(
     async () => {
       const tes = await db.templateExercises.where('templateId').equals(templateId).sortBy('order');
@@ -17,12 +18,22 @@ export default function WorkoutTemplateEditor({ templateId, onDone }) {
   const allExercises = useLiveQuery(() => db.exercises.orderBy('name').toArray(), [], []);
 
   useEffect(() => {
-    db.workoutTemplates.get(templateId).then((t) => t && setName(t.name));
+    db.workoutTemplates.get(templateId).then((t) => {
+      if (!t) return;
+      setName(t.name);
+      setRestSeconds(t.restSeconds ?? 90);
+    });
   }, [templateId]);
 
   async function saveName() {
     if (!name.trim()) return;
     await db.workoutTemplates.update(templateId, { name: name.trim() });
+  }
+
+  async function changeRest(delta) {
+    const next = Math.max(15, restSeconds + delta);
+    setRestSeconds(next);
+    await db.workoutTemplates.update(templateId, { restSeconds: next });
   }
 
   async function addExercise(exerciseId) {
@@ -86,6 +97,28 @@ export default function WorkoutTemplateEditor({ templateId, onDone }) {
           onBlur={saveName}
           className="w-full bg-surface dark:bg-[#16181c] rounded-xl px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary/40"
         />
+      </div>
+
+      <div className="bg-white dark:bg-[#101115] rounded-2xl border border-line dark:border-[#1f2227] p-4 flex items-center justify-between">
+        <div>
+          <p className="text-[10px] uppercase tracking-wider text-muted font-bold">Rest timer</p>
+          <p className="text-xs text-muted mt-0.5">Default between sets in this workout</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => changeRest(-15)}
+            className="w-8 h-8 rounded-full bg-surface dark:bg-[#16181c] border border-line dark:border-[#1f2227] font-bold"
+          >
+            −
+          </button>
+          <span className="tabular-nums font-semibold w-14 text-center">{restSeconds}s</span>
+          <button
+            onClick={() => changeRest(15)}
+            className="w-8 h-8 rounded-full bg-surface dark:bg-[#16181c] border border-line dark:border-[#1f2227] font-bold"
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-[#101115] rounded-2xl border border-line dark:border-[#1f2227]">
