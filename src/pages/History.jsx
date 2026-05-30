@@ -218,6 +218,7 @@ function WorkoutDetail({ workoutId, sets }) {
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
         title="Add exercise to workout"
+        position="top"
       >
         <ExercisePicker
           exercises={allExercises}

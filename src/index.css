@@ -77,6 +77,10 @@ input[type="number"], input[inputmode] {
   from { opacity: 0; transform: translateY(100%); }
   to { opacity: 1; transform: none; }
 }
+@keyframes sheetInTop {
+  from { opacity: 0; transform: translateY(-100%); }
+  to { opacity: 1; transform: none; }
+}
 @keyframes pulseGlow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255, 106, 19, 0.35); }
   50% { box-shadow: 0 0 0 8px rgba(255, 106, 19, 0); }
@@ -86,6 +90,7 @@ input[type="number"], input[inputmode] {
 .animate-fade-in { animation: fadeIn 0.2s ease-out both; }
 .animate-scale-in { animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 .animate-sheet-in { animation: sheetIn 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+.animate-sheet-in-top { animation: sheetInTop 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
 .animate-pulse-glow { animation: pulseGlow 1.6s ease-in-out infinite; }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }

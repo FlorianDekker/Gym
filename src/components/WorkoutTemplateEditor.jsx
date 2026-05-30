@@ -143,7 +143,7 @@ export default function WorkoutTemplateEditor({ templateId, onDone }) {
         </ul>
       </div>
 
-      <BottomSheet open={picker} onClose={() => { setPicker(false); setQ(''); }} title="Add exercise">
+      <BottomSheet open={picker} onClose={() => { setPicker(false); setQ(''); }} title="Add exercise" position="top">
         <PickerContents
           q={q}
           setQ={setQ}

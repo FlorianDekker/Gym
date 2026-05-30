@@ -575,6 +575,7 @@ export default function LogWorkout() {
         open={replaceFor !== null}
         onClose={() => setReplaceFor(null)}
         title="Replace exercise"
+        position="top"
       >
         <ExercisePicker
           exercises={allExercises}
@@ -587,6 +588,7 @@ export default function LogWorkout() {
         open={showAdd}
         onClose={() => setShowAdd(false)}
         title="Add exercise"
+        position="top"
       >
         <ExercisePicker
           exercises={allExercises}
