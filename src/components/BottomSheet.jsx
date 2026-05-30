@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-export default function BottomSheet({ open, onClose, title, children, maxHeight = '85vh' }) {
+// `dvh` (dynamic viewport height) shrinks when the on-screen keyboard appears,
+// so the sheet always fits the visible viewport — fixed-bottom + `vh` would
+// leave the lower portion of the sheet hidden behind the keyboard.
+export default function BottomSheet({ open, onClose, title, children, maxHeight = '85dvh' }) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === 'Escape' && onClose?.();

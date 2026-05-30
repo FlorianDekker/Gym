@@ -1019,21 +1019,23 @@ function ExercisePicker({ exercises, onPick, onCreate }) {
 
   return (
     <div className="flex flex-col h-full">
-      <input
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        placeholder="Search exercises"
-        className="w-full bg-surface dark:bg-[#16181c] rounded-xl px-3 py-2.5 mb-3 outline-none"
-      />
-      {canCreate && (
-        <button
-          onClick={handleCreate}
-          type="button"
-          className="w-full text-left py-3 border-b border-line dark:border-[#1f2227] font-semibold text-primary"
-        >
-          + Create "{trimmed}"
-        </button>
-      )}
+      <div className="flex gap-2 mb-3">
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search or new exercise name"
+          className="flex-1 bg-surface dark:bg-[#16181c] rounded-xl px-3 py-2.5 outline-none"
+        />
+        {canCreate && (
+          <button
+            onClick={handleCreate}
+            type="button"
+            className="shrink-0 bg-primary text-white rounded-xl px-3 font-semibold text-sm"
+          >
+            + Create
+          </button>
+        )}
+      </div>
       <ul className="overflow-y-auto divide-y divide-line dark:divide-[#1f2227]">
         {filtered.map((e) => (
           <li key={e.id}>
