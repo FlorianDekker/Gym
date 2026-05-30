@@ -72,16 +72,43 @@ export const EXERCISE_MUSCLES = {
   'Weighted L-Sit Hold':      { primary: ['abs'],        secondary: ['shoulders'] }
 };
 
+// Returns the muscle mapping for an exercise. Prefers per-record overrides
+// (primaryMuscles / secondaryMuscles stored on the exercise row) so custom
+// exercises configured in Settings can contribute to the muscle distribution;
+// falls back to the built-in EXERCISE_MUSCLES table by name.
+export function getMusclesFor(input) {
+  if (!input) return { primary: [], secondary: [] };
+  if (typeof input === 'string') {
+    return EXERCISE_MUSCLES[input] || { primary: [], secondary: [] };
+  }
+  const overridePrimary = Array.isArray(input.primaryMuscles) ? input.primaryMuscles : null;
+  const overrideSecondary = Array.isArray(input.secondaryMuscles) ? input.secondaryMuscles : null;
+  if ((overridePrimary && overridePrimary.length) || (overrideSecondary && overrideSecondary.length)) {
+    return { primary: overridePrimary || [], secondary: overrideSecondary || [] };
+  }
+  return EXERCISE_MUSCLES[input.name] || { primary: [], secondary: [] };
+}
+
 /**
- * Given an object keyed by exercise name with the number of completed sets,
+ * Given either a Record<name, count> (legacy) or an Array<{ name|exercise, count }>
+ * where the exercise object can carry primary/secondaryMuscles overrides,
  * return a map of muscleId → total credit (primary=1.0, secondary=0.5 per set).
  */
-export function muscleCredits(exerciseSetCounts) {
+export function muscleCredits(input) {
+  const entries = [];
+  if (Array.isArray(input)) {
+    for (const item of input) {
+      entries.push([item, item.count]);
+    }
+  } else if (input && typeof input === 'object') {
+    for (const [name, count] of Object.entries(input)) {
+      entries.push([{ name }, count]);
+    }
+  }
   const out = {};
-  for (const [exName, count] of Object.entries(exerciseSetCounts)) {
+  for (const [ex, count] of entries) {
     if (!count) continue;
-    const m = EXERCISE_MUSCLES[exName];
-    if (!m) continue;
+    const m = getMusclesFor(ex);
     for (const id of m.primary || []) out[id] = (out[id] || 0) + count;
     for (const id of m.secondary || []) out[id] = (out[id] || 0) + count * 0.5;
   }

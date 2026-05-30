@@ -225,6 +225,10 @@ function WorkoutDetail({ workoutId, sets }) {
             setPickerOpen(false);
             setAddingFor(ex);
           }}
+          onCreate={async (name) => {
+            const id = await db.exercises.add({ name, muscleGroup: 'other' });
+            return { id, name, bodyweight: false };
+          }}
         />
       </BottomSheet>
 
@@ -247,18 +251,35 @@ function WorkoutDetail({ workoutId, sets }) {
   );
 }
 
-function ExercisePicker({ exercises, onPick }) {
+function ExercisePicker({ exercises, onPick, onCreate }) {
   const [q, setQ] = useState('');
-  const filtered = (exercises || []).filter((e) => e.name.toLowerCase().includes(q.toLowerCase()));
+  const trimmed = q.trim();
+  const filtered = (exercises || []).filter((e) => e.name.toLowerCase().includes(trimmed.toLowerCase()));
+  const exactMatch = filtered.some((e) => e.name.toLowerCase() === trimmed.toLowerCase());
+  const canCreate = trimmed.length > 0 && !exactMatch && typeof onCreate === 'function';
+
+  async function handleCreate() {
+    const ex = await onCreate(trimmed);
+    if (ex) onPick({ id: ex.id, name: ex.name, bodyweight: !!ex.bodyweight });
+  }
+
   return (
     <div className="flex flex-col h-full">
       <input
-        autoFocus
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search exercises"
         className="w-full bg-surface dark:bg-[#16181c] rounded-xl px-3 py-2.5 mb-3 outline-none"
       />
+      {canCreate && (
+        <button
+          onClick={handleCreate}
+          type="button"
+          className="w-full text-left py-3 border-b border-line dark:border-[#1f2227] font-semibold text-primary"
+        >
+          + Create "{trimmed}"
+        </button>
+      )}
       <ul className="overflow-y-auto divide-y divide-line dark:divide-[#1f2227]">
         {filtered.map((e) => (
           <li key={e.id}>
@@ -271,7 +292,9 @@ function ExercisePicker({ exercises, onPick }) {
             </button>
           </li>
         ))}
-        {filtered.length === 0 && <li className="py-6 text-center text-muted">No matches</li>}
+        {filtered.length === 0 && !canCreate && (
+          <li className="py-6 text-center text-muted">No matches</li>
+        )}
       </ul>
     </div>
   );

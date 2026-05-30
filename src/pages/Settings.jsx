@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import WorkoutTemplateEditor from '../components/WorkoutTemplateEditor.jsx';
+import ExerciseManager from '../components/ExerciseManager.jsx';
 import { getDefaultRest } from '../components/RestTimer.jsx';
 import { loadProfile, saveProfile, computeAge } from '../lib/profile.js';
 
@@ -17,6 +18,7 @@ export default function Settings() {
     { workouts: 0, sets: 0, exercises: 0 }
   );
   const [editing, setEditing] = useState(null);
+  const [managingExercises, setManagingExercises] = useState(false);
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
   const [rest, setRest] = useState(getDefaultRest());
   const [profile, setProfile] = useState(() => {
@@ -128,6 +130,10 @@ export default function Settings() {
     return <WorkoutTemplateEditor templateId={editing} onDone={() => setEditing(null)} />;
   }
 
+  if (managingExercises) {
+    return <ExerciseManager onDone={() => setManagingExercises(false)} />;
+  }
+
   return (
     <div className="px-5 pt-12 pb-24 flex-1 space-y-5">
       <header>
@@ -231,6 +237,19 @@ export default function Settings() {
           ))}
           {templates.length === 0 && <li className="py-3 text-muted">No workouts.</li>}
         </ul>
+      </Card>
+
+      <Card title="Exercises">
+        <button
+          onClick={() => setManagingExercises(true)}
+          className="w-full text-left py-2 flex items-center justify-between"
+        >
+          <div>
+            <p className="text-sm font-medium">Manage all exercises</p>
+            <p className="text-xs text-muted">Rename, set muscle groups, mark as bodyweight, delete.</p>
+          </div>
+          <span className="text-muted">›</span>
+        </button>
       </Card>
 
       <Card title="Data">

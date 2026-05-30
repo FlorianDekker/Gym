@@ -41,15 +41,6 @@ export default function WorkoutTemplateEditor({ templateId, onDone }) {
     await db.templateExercises.add({ templateId, exerciseId, order });
   }
 
-  async function newExercise() {
-    const exName = prompt('New exercise name?');
-    if (!exName?.trim()) return;
-    const existing = await db.exercises.where('name').equals(exName.trim()).first();
-    const id =
-      existing?.id ?? (await db.exercises.add({ name: exName.trim(), muscleGroup: 'Other' }));
-    await addExercise(id);
-  }
-
   async function removeRow(row) {
     await db.templateExercises.delete(row.id);
     const remaining = await db.templateExercises
@@ -153,41 +144,63 @@ export default function WorkoutTemplateEditor({ templateId, onDone }) {
       </div>
 
       <BottomSheet open={picker} onClose={() => { setPicker(false); setQ(''); }} title="Add exercise">
-        <div className="flex flex-col h-full">
-          <div className="flex gap-2 mb-3">
-            <input
-              autoFocus
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Search exercises"
-              className="flex-1 bg-surface dark:bg-[#16181c] rounded-xl px-3 py-2.5 outline-none"
-            />
-            <button
-              onClick={() => { newExercise(); setPicker(false); }}
-              className="text-sm font-semibold text-primary px-2"
-            >
-              + New
-            </button>
-          </div>
-          <ul className="overflow-y-auto divide-y divide-line dark:divide-[#1f2227]">
-            {filtered.map((e) => (
-              <li key={e.id}>
-                <button
-                  onClick={() => {
-                    addExercise(e.id);
-                    setPicker(false);
-                    setQ('');
-                  }}
-                  className="w-full text-left py-3"
-                >
-                  {e.name}
-                </button>
-              </li>
-            ))}
-            {filtered.length === 0 && <li className="py-6 text-center text-muted">No matches</li>}
-          </ul>
-        </div>
+        <PickerContents
+          q={q}
+          setQ={setQ}
+          filtered={filtered}
+          onPick={async (e) => {
+            await addExercise(e.id);
+            setPicker(false);
+            setQ('');
+          }}
+          onCreate={async (name) => {
+            const clean = name.trim();
+            const existing = await db.exercises.where('name').equals(clean).first();
+            const id = existing?.id ?? (await db.exercises.add({ name: clean, muscleGroup: 'Other' }));
+            await addExercise(id);
+            setPicker(false);
+            setQ('');
+          }}
+        />
       </BottomSheet>
+    </div>
+  );
+}
+
+function PickerContents({ q, setQ, filtered, onPick, onCreate }) {
+  const trimmed = q.trim();
+  const exactMatch = filtered.some((e) => e.name.toLowerCase() === trimmed.toLowerCase());
+  const canCreate = trimmed.length > 0 && !exactMatch;
+
+  return (
+    <div className="flex flex-col h-full">
+      <input
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        placeholder="Search exercises"
+        className="w-full bg-surface dark:bg-[#16181c] rounded-xl px-3 py-2.5 mb-3 outline-none"
+      />
+      {canCreate && (
+        <button
+          onClick={() => onCreate(trimmed)}
+          type="button"
+          className="w-full text-left py-3 border-b border-line dark:border-[#1f2227] font-semibold text-primary"
+        >
+          + Create "{trimmed}"
+        </button>
+      )}
+      <ul className="overflow-y-auto divide-y divide-line dark:divide-[#1f2227]">
+        {filtered.map((e) => (
+          <li key={e.id}>
+            <button onClick={() => onPick(e)} type="button" className="w-full text-left py-3">
+              {e.name}
+            </button>
+          </li>
+        ))}
+        {filtered.length === 0 && !canCreate && (
+          <li className="py-6 text-center text-muted">No matches</li>
+        )}
+      </ul>
     </div>
   );
 }

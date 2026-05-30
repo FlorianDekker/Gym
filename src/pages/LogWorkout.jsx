@@ -133,6 +133,8 @@ export default function LogWorkout() {
           name: ex.name,
           muscleGroup: ex.muscleGroup,
           bodyweight: !!ex.bodyweight,
+          primaryMuscles: ex.primaryMuscles,
+          secondaryMuscles: ex.secondaryMuscles,
           supersetId: null,
           sets: await prefillSets(ex.id, !!ex.bodyweight)
         }))
@@ -175,17 +177,27 @@ export default function LogWorkout() {
   );
   const profileBw = useMemo(() => Number(loadProfile()?.bodyweight) || null, []);
 
-  // Completed-set count per exercise name → feeds the Muscle Distribution sheet.
-  // Recomputed each render so it tracks the live ✓ state.
+  // Completed-set count per exercise → feeds the Muscle Distribution sheet.
+  // Carries the exercise's custom muscle overrides (if the user assigned any
+  // in Settings) so even a brand-new exercise lights up the right muscles.
   const doneSetsByExercise = useMemo(() => {
-    const out = {};
+    const byName = new Map();
     for (const it of items) {
       const done = it.sets.filter((s) => s.done).length;
-      if (done > 0) out[it.name] = (out[it.name] || 0) + done;
+      if (done <= 0) continue;
+      const existing = byName.get(it.name);
+      if (existing) {
+        existing.count += done;
+      } else {
+        byName.set(it.name, {
+          name: it.name,
+          count: done,
+          primaryMuscles: it.primaryMuscles,
+          secondaryMuscles: it.secondaryMuscles
+        });
+      }
     }
-    return out;
-    // tick is included so the memo re-runs after the rest timer's ✓ toggle
-    // triggers a parent re-render via the 1Hz tick.
+    return Array.from(byName.values());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, tick]);
   const totalVolume = useMemo(
@@ -291,6 +303,8 @@ export default function LogWorkout() {
               name: ex.name,
               muscleGroup: ex.muscleGroup,
               bodyweight: !!ex.bodyweight,
+              primaryMuscles: ex.primaryMuscles,
+              secondaryMuscles: ex.secondaryMuscles,
               sets
             }
           : it
@@ -311,11 +325,29 @@ export default function LogWorkout() {
         name: ex.name,
         muscleGroup: ex.muscleGroup,
         bodyweight: !!ex.bodyweight,
+        primaryMuscles: ex.primaryMuscles,
+        secondaryMuscles: ex.secondaryMuscles,
         supersetId: null,
         sets
       }
     ]);
     setShowAdd(false);
+  }
+
+  // Used by the exercise pickers' inline "+ Create" affordance. Persists a new
+  // exercise row with an empty muscle assignment so the user can fill it in
+  // later from Settings → Exercises.
+  async function createExercise(name) {
+    const clean = String(name || '').trim();
+    if (!clean) return null;
+    const existing = await db.exercises.where('name').equals(clean).first();
+    if (existing) {
+      return existing;
+    }
+    const id = await db.exercises.add({ name: clean, muscleGroup: 'other' });
+    const fresh = await db.exercises.get(id);
+    setAllExercises(await db.exercises.orderBy('name').toArray());
+    return fresh;
   }
 
   function removeExercise(idx) {
@@ -547,6 +579,7 @@ export default function LogWorkout() {
         <ExercisePicker
           exercises={allExercises}
           onPick={(id) => replaceExercise(replaceFor, id)}
+          onCreate={createExercise}
         />
       </BottomSheet>
 
@@ -555,7 +588,11 @@ export default function LogWorkout() {
         onClose={() => setShowAdd(false)}
         title="Add exercise"
       >
-        <ExercisePicker exercises={allExercises} onPick={(id) => addExercise(id)} />
+        <ExercisePicker
+          exercises={allExercises}
+          onPick={(id) => addExercise(id)}
+          onCreate={createExercise}
+        />
       </BottomSheet>
 
       <BottomSheet
@@ -968,18 +1005,35 @@ function SettingRow({ label, children }) {
   );
 }
 
-function ExercisePicker({ exercises, onPick }) {
+function ExercisePicker({ exercises, onPick, onCreate }) {
   const [q, setQ] = useState('');
-  const filtered = exercises.filter((e) => e.name.toLowerCase().includes(q.toLowerCase()));
+  const trimmed = q.trim();
+  const filtered = exercises.filter((e) => e.name.toLowerCase().includes(trimmed.toLowerCase()));
+  const exactMatch = filtered.some((e) => e.name.toLowerCase() === trimmed.toLowerCase());
+  const canCreate = trimmed.length > 0 && !exactMatch && typeof onCreate === 'function';
+
+  async function handleCreate() {
+    const ex = await onCreate(trimmed);
+    if (ex?.id) onPick(ex.id);
+  }
+
   return (
     <div className="flex flex-col h-full">
       <input
-        autoFocus
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search exercises"
         className="w-full bg-surface dark:bg-[#16181c] rounded-xl px-3 py-2.5 mb-3 outline-none"
       />
+      {canCreate && (
+        <button
+          onClick={handleCreate}
+          type="button"
+          className="w-full text-left py-3 border-b border-line dark:border-[#1f2227] font-semibold text-primary"
+        >
+          + Create "{trimmed}"
+        </button>
+      )}
       <ul className="overflow-y-auto divide-y divide-line dark:divide-[#1f2227]">
         {filtered.map((e) => (
           <li key={e.id}>
@@ -988,7 +1042,9 @@ function ExercisePicker({ exercises, onPick }) {
             </button>
           </li>
         ))}
-        {filtered.length === 0 && <li className="py-6 text-center text-muted">No matches</li>}
+        {filtered.length === 0 && !canCreate && (
+          <li className="py-6 text-center text-muted">No matches</li>
+        )}
       </ul>
     </div>
   );
