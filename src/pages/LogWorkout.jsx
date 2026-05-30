@@ -22,6 +22,7 @@ import { todayISO } from '../lib/volume.js';
 import { detectPRs } from '../lib/prs.js';
 import { effectiveWeight } from '../lib/strengthLevels.js';
 import { loadProfile } from '../lib/profile.js';
+import { loadActiveWorkout, saveActiveWorkout, clearActiveWorkout } from '../lib/activeWorkout.js';
 import BottomSheet from '../components/BottomSheet.jsx';
 import PlateSheet from '../components/PlateSheet.jsx';
 import RestTimer, { getDefaultRest } from '../components/RestTimer.jsx';
@@ -89,12 +90,40 @@ export default function LogWorkout() {
     return () => clearInterval(id);
   }, []);
 
+  // Hydration guard: avoid the auto-save effect overwriting the saved blob with
+  // an empty initial state on the first render. Flipped to true after either a
+  // successful restore or a fresh build completes.
+  const hydratedRef = useRef(false);
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
       const tId = Number(templateId);
       const tpl = await db.workoutTemplates.get(tId);
       if (!tpl || cancelled) return;
+
+      // Try to restore an in-progress workout for this template.
+      const saved = loadActiveWorkout(tId);
+      if (saved && Array.isArray(saved.items) && saved.items.length > 0) {
+        // Reset the module-level UID counter past any restored UIDs so newly
+        // added exercises don't collide with stale ones.
+        const maxUid = saved.items.reduce((m, it) => {
+          const n = Number(String(it.uid || '').replace('e', '')) || 0;
+          return Math.max(m, n);
+        }, 0);
+        nextUid = maxUid + 1;
+        setTemplate(tpl);
+        setItems(saved.items);
+        setNotes(saved.notes || '');
+        setDate(saved.date || todayISO());
+        setRestSeconds(saved.restSeconds || tpl.restSeconds || getDefaultRest());
+        if (saved.startedAt) startedAtRef.current = saved.startedAt;
+        setAllExercises(await db.exercises.orderBy('name').toArray());
+        hydratedRef.current = true;
+        return;
+      }
+
+      // Fresh start: build items from the template's exercise list.
       const teRows = await db.templateExercises.where('templateId').equals(tId).sortBy('order');
       const exs = await Promise.all(teRows.map((te) => db.exercises.get(te.exerciseId)));
       const built = await Promise.all(
@@ -113,11 +142,27 @@ export default function LogWorkout() {
       setItems(built);
       setRestSeconds(tpl.restSeconds || getDefaultRest());
       setAllExercises(await db.exercises.orderBy('name').toArray());
+      hydratedRef.current = true;
     })();
     return () => {
       cancelled = true;
     };
   }, [templateId]);
+
+  // Persist the in-progress workout on every change so the data survives
+  // navigating away to other tabs and back.
+  useEffect(() => {
+    if (!hydratedRef.current || !template) return;
+    saveActiveWorkout({
+      templateId: template.id,
+      name: template.name,
+      items,
+      notes,
+      date,
+      restSeconds,
+      startedAt: startedAtRef.current
+    });
+  }, [template, items, notes, date, restSeconds]);
 
   const elapsedSec = Math.floor((Date.now() - startedAtRef.current) / 1000);
   const doneSets = useMemo(
@@ -338,6 +383,7 @@ export default function LogWorkout() {
           }
         }
       });
+      clearActiveWorkout();
       const newPrs = await detectPRs(workoutId);
       if (newPrs.length > 0) {
         setPrs(newPrs);
@@ -352,6 +398,7 @@ export default function LogWorkout() {
 
   function discard() {
     if (!confirm('Discard this workout? Logged data will be lost.')) return;
+    clearActiveWorkout();
     navigate('/', { replace: true });
   }
 

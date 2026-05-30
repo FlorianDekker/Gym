@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import { relativeDate, startOfWeekISO } from '../lib/volume.js';
 import { effectiveWeight } from '../lib/strengthLevels.js';
 import { loadProfile } from '../lib/profile.js';
+import { loadActiveWorkout } from '../lib/activeWorkout.js';
 
 const ACCENT = {
   push: 'from-rose-500/15 to-rose-500/5 text-rose-700 dark:text-rose-300',
@@ -27,7 +29,36 @@ function detectGroup(name) {
   return 'default';
 }
 
+function countSets(items) {
+  if (!Array.isArray(items)) return 0;
+  let n = 0;
+  for (const it of items) {
+    for (const s of it.sets || []) {
+      if (Number(s.reps) > 0) n++;
+    }
+  }
+  return n;
+}
+
+function timeAgo(startedAt) {
+  if (!startedAt) return 'just now';
+  const sec = Math.floor((Date.now() - startedAt) / 1000);
+  if (sec < 60) return 'just now';
+  const min = Math.floor(sec / 60);
+  if (min < 60) return `${min} min ago`;
+  const h = Math.floor(min / 60);
+  return `${h}h ${min % 60}m ago`;
+}
+
 export default function Home() {
+  const [active, setActive] = useState(() => loadActiveWorkout());
+  // Refresh the in-progress workout each time Home re-mounts (route change) so
+  // the banner appears immediately after the user navigates here from a
+  // LogWorkout session.
+  useEffect(() => {
+    setActive(loadActiveWorkout());
+  }, []);
+
   const data = useLiveQuery(
     async () => {
       const profile = loadProfile();
@@ -83,6 +114,26 @@ export default function Home() {
         <p className="text-sm text-muted">{today}</p>
         <h1 className="text-[28px] font-bold leading-tight tracking-tight">Pick a workout</h1>
       </header>
+
+      {active && (
+        <Link
+          to={`/log/${active.templateId}`}
+          className="block rounded-2xl bg-primary text-white px-5 py-4 mb-4 shadow-lg shadow-primary/30 animate-slide-up"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-[10px] uppercase tracking-wider font-bold opacity-80">In progress</p>
+              <p className="text-lg font-bold leading-tight truncate">
+                Continue {active.name || 'workout'}
+              </p>
+              <p className="text-xs opacity-90 mt-0.5">
+                {countSets(active.items)} sets so far · started {timeAgo(active.startedAt)}
+              </p>
+            </div>
+            <span aria-hidden className="text-2xl">→</span>
+          </div>
+        </Link>
+      )}
 
       <WeekCard week={data.week} totalWorkouts={data.totalWorkouts} />
 
